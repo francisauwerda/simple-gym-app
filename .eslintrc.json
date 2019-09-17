@@ -24,6 +24,7 @@
     ],
     "rules": {
         "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx", ".tsx"] }],
-        "no-use-before-define": [0, { "variables": true }]
+        "no-use-before-define": [0, { "variables": true }],
+        "import/no-unresolved": [0]
     }
 }
