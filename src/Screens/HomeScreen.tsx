@@ -1,10 +1,23 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import {
+  StyleSheet, Text, View, Button,
+} from 'react-native';
+import {
+  NavigationScreenProp, NavigationParams, NavigationState,
+} from 'react-navigation';
 
-export default function HomeScreen() {
+interface Props {
+  navigation: NavigationScreenProp<NavigationState, NavigationParams>
+}
+
+export default function HomeScreen(props: Props) {
   return (
     <View style={styles.container}>
       <Text>Home Screen</Text>
+      <Button
+        title="Go to Details"
+        onPress={() => props.navigation.navigate('Details')}
+      />
     </View>
   );
 }

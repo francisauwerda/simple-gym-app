@@ -25,6 +25,12 @@
     "rules": {
         "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx", ".tsx"] }],
         "no-use-before-define": [0, { "variables": true }],
-        "import/no-unresolved": [0]
+        "import/no-unresolved": [0],
+        "no-unused-vars": "off",
+        "@typescript-eslint/no-unused-vars": ["error", {
+          "vars": "all",
+          "args": "after-used",
+          "ignoreRestSiblings": false
+        }]
     }
 }
