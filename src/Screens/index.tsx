@@ -1,13 +1,16 @@
 // App navigator
 import { createStackNavigator } from 'react-navigation-stack';
-import HomeScreen from './HomeScreen';
-import DetailsScreen from './DetailsScreen';
+import ExercisesScreen from './ExercisesScreen';
+import WorkoutsScreen from './WorkoutsScreen';
+import SessionScreen from './SessionScreen';
+import { ScreenNames } from './enums';
 
 const AppNavigator = createStackNavigator({
-  Home: HomeScreen,
-  Details: DetailsScreen,
+  [ScreenNames.Exercises]: ExercisesScreen,
+  [ScreenNames.Workouts]: WorkoutsScreen,
+  [ScreenNames.Session]: SessionScreen,
 }, {
-  initialRouteName: 'Home',
+  initialRouteName: ScreenNames.Exercises,
 });
 
 export default AppNavigator;

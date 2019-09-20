@@ -2,21 +2,20 @@ import React from 'react';
 import {
   StyleSheet, Text, View, Button,
 } from 'react-native';
-import {
-  NavigationScreenProp, NavigationParams, NavigationState,
-} from 'react-navigation';
+import { NavigationScreenProp, NavigationState, NavigationParams } from 'react-navigation';
+import { ScreenNames } from './enums';
 
 interface Props {
   navigation: NavigationScreenProp<NavigationState, NavigationParams>
 }
 
-export default function HomeScreen(props: Props) {
+export default function WorkoutsScreen(props: Props) {
   return (
     <View style={styles.container}>
-      <Text>Home Screen</Text>
+      <Text>Workouts Screen</Text>
       <Button
-        title="Go to Details"
-        onPress={() => props.navigation.navigate('Details')}
+        title="Go to session"
+        onPress={() => props.navigation.navigate(ScreenNames.Session)}
       />
     </View>
   );
