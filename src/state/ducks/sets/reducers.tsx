@@ -1,3 +1,5 @@
+import { Set } from './types';
+
 /* State shape
 
 [{
@@ -14,7 +16,7 @@
 3. An action is called to update the state based on the storage
 
 */
-const initialState = [];
+const initialState: Set[] = [];
 
 const setsReducer = (state = initialState, action) => {
   switch (action.type) {
