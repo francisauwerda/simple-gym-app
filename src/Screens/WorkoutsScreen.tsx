@@ -14,8 +14,8 @@ export default function WorkoutsScreen(props: Props) {
     <View style={styles.container}>
       <Text>Workouts Screen</Text>
       <Button
-        title="Go to session"
-        onPress={() => props.navigation.navigate(ScreenNames.Session)}
+        title="Go to sets"
+        onPress={() => props.navigation.navigate(ScreenNames.Sets)}
       />
     </View>
   );
