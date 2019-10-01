@@ -5,7 +5,7 @@ import {
 import {
   NavigationScreenProp, NavigationParams, NavigationState,
 } from 'react-navigation';
-import { ScreenNames } from './enums';
+import { ScreenNames } from '../enums';
 
 interface Props {
   navigation: NavigationScreenProp<NavigationState, NavigationParams>
@@ -16,8 +16,8 @@ export default function ExercisesScreen(props: Props) {
     <View style={styles.container}>
       <Text>Exercises Screen</Text>
       <Button
-        title="Go to workouts"
-        onPress={() => props.navigation.navigate(ScreenNames.Workouts)}
+        title="Go to sets"
+        onPress={() => props.navigation.navigate(ScreenNames.Sets)}
       />
     </View>
   );

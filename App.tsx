@@ -4,11 +4,15 @@ import { Provider } from 'react-redux';
 import { createAppContainer } from 'react-navigation';
 import AppNavigator from './src/Screens';
 import configureStore from './src/state/store';
+import { State } from './src/state/types';
 
-const initialState = {
+const initialState: State = {
   exercises: [],
   sets: [],
-  workouts: [],
+  workouts: [{
+    id: 1,
+    name: 'legs',
+  }],
 };
 
 const AppContainer = createAppContainer(AppNavigator);
