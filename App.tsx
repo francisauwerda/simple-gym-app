@@ -9,10 +9,13 @@ import { State } from './src/state/types';
 const initialState: State = {
   exercises: [],
   sets: [],
-  workouts: [{
-    id: 1,
-    name: 'legs',
-  }],
+  workouts: {
+    colourReducer: { colour: 'white' },
+    workoutsReducer: [{
+      id: 1,
+      name: 'legs',
+    }],
+  },
 };
 
 const AppContainer = createAppContainer(AppNavigator);

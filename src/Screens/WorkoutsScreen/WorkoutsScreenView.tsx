@@ -14,14 +14,17 @@ const texts = {
 
 interface WorkoutsScreenProps {
   navigation: NavigationScreenProp<NavigationState, NavigationParams>,
-  workouts: Workout[]
+  workouts: Workout[],
+  colour: string,
+  changeColour: (colour: string) => any
 }
 
 const WorkoutsScreenView = (props: WorkoutsScreenProps) => {
-  const { workouts } = props;
+  const { workouts, colour, changeColour } = props;
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, { backgroundColor: colour }]}>
       <Text>{texts.title}</Text>
+      <Text>{colour}</Text>
       <Text>List of workouts</Text>
       {workouts.map((workout) => (
         <Button
@@ -30,6 +33,14 @@ const WorkoutsScreenView = (props: WorkoutsScreenProps) => {
           onPress={() => props.navigation.navigate(ScreenNames.Exercises)}
         />
       ))}
+      <Button
+        title="Change background colour"
+        onPress={() => changeColour('white')}
+      />
+      <Button
+        title="Change background colour"
+        onPress={() => changeColour('#D3D3D3')}
+      />
     </View>
   );
 };
@@ -39,7 +50,7 @@ export default WorkoutsScreenView;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: 'white',
     alignItems: 'center',
     justifyContent: 'center',
   },
