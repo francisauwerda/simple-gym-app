@@ -7,14 +7,10 @@ import configureStore from './src/state/store';
 import { State } from './src/state/types';
 
 const initialState: State = {
-  exercises: [],
-  sets: [],
-  workouts: {
-    colourReducer: { colour: 'white' },
-    workoutsReducer: [{
-      id: 1,
-      name: 'legs',
-    }],
+  exercisesReducer: [],
+  setsReducer: [],
+  workoutsReducer: {
+    workouts: [],
   },
 };
 

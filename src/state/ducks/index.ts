@@ -1,3 +1,3 @@
-export { default as workouts } from './workouts';
-export { default as exercises } from './exercises';
-export { default as sets } from './sets';
+export { default as workoutsReducer } from './workouts';
+export { default as exercisesReducer } from './exercises';
+export { default as setsReducer } from './sets';

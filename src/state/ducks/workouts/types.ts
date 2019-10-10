@@ -4,9 +4,9 @@ export interface Workout {
 }
 
 const FETCH = 'workouts/FETCH';
-const CHANGE_COLOUR = 'workouts/CHANGE_COLOUR';
+const FETCH_SUCCESS = 'workouts/FETCH_SUCCESS';
 
 export default {
   FETCH,
-  CHANGE_COLOUR,
+  FETCH_SUCCESS,
 };

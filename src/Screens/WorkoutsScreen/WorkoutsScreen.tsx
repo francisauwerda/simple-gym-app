@@ -9,42 +9,40 @@ import actions from '../../state/ducks/workouts/actions';
 interface WorkoutsScreenProps {
   navigation: NavigationScreenProp<NavigationState, NavigationParams>,
   workouts: Workout[],
-  colour: string,
-  changeColour: (colour: string) => any
+  fetchWorkouts: () => any
 }
 
 class WorkoutsScreenContainer extends React.Component<WorkoutsScreenProps> {
   componentDidMount() {
-    console.log('Load exercises from async storage');
+    const { fetchWorkouts } = this.props;
+
+    fetchWorkouts();
   }
 
   render() {
     const {
-      workouts, navigation, changeColour, colour,
+      workouts, navigation,
     } = this.props;
     return (
       <WorkoutsScreenView
         workouts={workouts}
-        colour={colour}
         navigation={navigation}
-        changeColour={changeColour}
       />
     );
   }
 }
 
 const mapStateToProps = (state: State) => {
-  const { workouts } = state;
+  const { workoutsReducer: { workouts } } = state;
 
   return {
-    colour: workouts.colourReducer.colour,
-    workouts: workouts.workoutsReducer,
+    workouts,
   };
 };
 
 const mapDispatchToProps = (dispatch) => ({
-  changeColour: (colour) => {
-    dispatch(actions.changeColour(colour));
+  fetchWorkouts: () => {
+    dispatch(actions.fetchWorkouts());
   },
 });
 
