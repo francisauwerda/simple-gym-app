@@ -5,6 +5,11 @@ import WorkoutsScreenView from './WorkoutsScreenView';
 import { State } from '../../state/types';
 import { Workout } from '../../state/ducks/workouts/types';
 import actions from '../../state/ducks/workouts/actions';
+import api from '../../api';
+
+const resetWorkouts = async () => {
+  await api.workouts.debugResetWorkouts();
+};
 
 interface WorkoutsScreenProps {
   navigation: NavigationScreenProp<NavigationState, NavigationParams>,
@@ -27,6 +32,7 @@ class WorkoutsScreenContainer extends React.Component<WorkoutsScreenProps> {
       <WorkoutsScreenView
         workouts={workouts}
         navigation={navigation}
+        resetWorkouts={resetWorkouts}
       />
     );
   }

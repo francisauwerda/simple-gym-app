@@ -1,18 +1,13 @@
 import {
-  all, call, delay, put, takeEvery,
+  all, call, put, takeEvery,
 } from 'redux-saga/effects';
-import types, { Workout } from './workouts/types';
+
+import types from './workouts/types';
+import api from '../../api';
 
 export function* fetchWorkouts() {
-  const workouts: Workout[] = [{
-    id: 1,
-    name: 'legs',
-  }, {
-    id: 2,
-    name: 'shoulders',
-  }];
+  const workouts = yield api.workouts.getWorkouts();
 
-  yield delay(1000);
   yield put({ type: types.FETCH_SUCCESS, payload: { workouts } });
 }
 

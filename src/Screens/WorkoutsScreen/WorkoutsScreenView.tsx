@@ -15,12 +15,15 @@ const texts = {
 interface WorkoutsScreenProps {
   navigation: NavigationScreenProp<NavigationState, NavigationParams>,
   workouts: Workout[],
+  resetWorkouts: () => void
 }
 
 const WorkoutsScreenView = (props: WorkoutsScreenProps) => {
   const {
     workouts,
+    resetWorkouts,
   } = props;
+
   return (
     <View style={styles.container}>
       <Text>{texts.title}</Text>
@@ -32,6 +35,10 @@ const WorkoutsScreenView = (props: WorkoutsScreenProps) => {
           onPress={() => props.navigation.navigate(ScreenNames.Exercises)}
         />
       ))}
+      <Button
+        title="Debug Reset Workouts"
+        onPress={resetWorkouts}
+      />
     </View>
   );
 };
