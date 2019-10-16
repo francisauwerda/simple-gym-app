@@ -1,22 +1,10 @@
-import {
-  all, call, put, takeEvery,
-} from 'redux-saga/effects';
+import { all, call } from 'redux-saga/effects';
+import { watchFetchWorkouts, watchAddWorkout } from './workouts/sagas';
 
-import types from './workouts/types';
-import api from '../../api';
-
-export function* fetchWorkouts() {
-  const workouts = yield api.workouts.getWorkouts();
-
-  yield put({ type: types.FETCH_SUCCESS, payload: { workouts } });
-}
-
-export function* watchFetchWorkouts() {
-  yield takeEvery(types.FETCH, fetchWorkouts);
-}
-
+// TODO: spread all here
 export default function* rootSaga() {
   yield all([
     call(watchFetchWorkouts),
+    call(watchAddWorkout),
   ]);
 }

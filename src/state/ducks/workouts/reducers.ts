@@ -11,6 +11,13 @@ const workoutsReducer = (state = initialState, action) => {
       };
     }
 
+    case types.ADD_SUCCESS: {
+      return {
+        ...state,
+        ...action.payload,
+      };
+    }
+
     default:
       return state;
   }
