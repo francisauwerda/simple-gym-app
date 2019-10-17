@@ -1,11 +1,12 @@
-import React, { useState } from 'react';
+import React from 'react';
 import {
-  View, Text, Button, StyleSheet, TextInput,
+  View, Text, Button, StyleSheet,
 } from 'react-native';
 import { NavigationScreenProp, NavigationState, NavigationParams } from 'react-navigation';
 
 import { ScreenNames } from '../enums';
 import { Workout, WorkoutDetails } from '../../state/ducks/workouts/types';
+import AddWorkoutForm from './AddWorkoutForm';
 
 const texts = {
   title: 'Workouts Screen',
@@ -26,10 +27,10 @@ const WorkoutsScreenView = (props: WorkoutsScreenProps) => {
     addWorkout,
   } = props;
 
-  const [workoutValue, onChangeText] = useState('');
 
   return (
     <View style={styles.container}>
+
       <Text>{texts.title}</Text>
       <Text>List of workouts</Text>
       {workouts.map((workout) => (
@@ -44,12 +45,8 @@ const WorkoutsScreenView = (props: WorkoutsScreenProps) => {
         onPress={resetWorkouts}
       />
 
-      {/* TODO: Turn this into a form */}
-      <TextInput onChangeText={onChangeText} value={workoutValue} placeholder="Enter workout name" />
-      <Button
-        title="Add workout"
-        onPress={() => addWorkout({ name: workoutValue })}
-      />
+      <AddWorkoutForm addWorkout={addWorkout} />
+
     </View>
   );
 };
