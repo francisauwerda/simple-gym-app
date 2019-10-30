@@ -7,7 +7,7 @@ import configureStore from './src/state/store';
 import { State } from './src/state/types';
 
 const initialState: State = {
-  exercisesReducer: [],
+  exercisesReducer: { exercises: [] },
   setsReducer: [],
   workoutsReducer: {
     workouts: [],

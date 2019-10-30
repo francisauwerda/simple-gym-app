@@ -6,6 +6,8 @@ import { State } from '../../state/types';
 import { Workout, WorkoutDetails } from '../../state/ducks/workouts/types';
 import actions from '../../state/ducks/workouts/actions';
 import api from '../../api';
+import { ScreenNames } from '../enums';
+import { Exercise } from '../../state/ducks/exercises/types';
 
 const resetWorkouts = async () => {
   await api.workouts.debugResetWorkouts();
@@ -24,6 +26,12 @@ class WorkoutsScreenContainer extends React.Component<WorkoutsScreenContainerPro
     fetchWorkouts();
   }
 
+  navigateToExercises = ({ workoutId }: {workoutId: Exercise['workoutId']}) => {
+    const { navigation } = this.props;
+
+    navigation.navigate(ScreenNames.Exercises, { workoutId });
+  }
+
   render() {
     const {
       workouts, navigation, addWorkout,
@@ -35,6 +43,7 @@ class WorkoutsScreenContainer extends React.Component<WorkoutsScreenContainerPro
         navigation={navigation}
         resetWorkouts={resetWorkouts}
         addWorkout={addWorkout}
+        navigateToExercises={this.navigateToExercises}
       />
     );
   }

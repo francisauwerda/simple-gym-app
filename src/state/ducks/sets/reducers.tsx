@@ -21,7 +21,6 @@ const initialState: Set[] = [];
 const setsReducer = (state = initialState, action) => {
   switch (action.type) {
     case 'ADD_SET':
-      console.log('Adding a set');
       return 1;
     default:
       return state;

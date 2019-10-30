@@ -4,9 +4,9 @@ import {
 } from 'react-native';
 import { NavigationScreenProp, NavigationState, NavigationParams } from 'react-navigation';
 
-import { ScreenNames } from '../enums';
 import { Workout, WorkoutDetails } from '../../state/ducks/workouts/types';
 import AddWorkoutForm from './AddWorkoutForm';
+import { Exercise } from '../../state/ducks/exercises/types';
 
 const texts = {
   title: 'Workouts Screen',
@@ -18,6 +18,7 @@ interface WorkoutsScreenProps {
   workouts: Workout[],
   resetWorkouts: () => void,
   addWorkout: (workoutDetails: WorkoutDetails) => void;
+  navigateToExercises: ({ workoutId }: {workoutId: Exercise['workoutId']}) => void;
 }
 
 const WorkoutsScreenView = (props: WorkoutsScreenProps) => {
@@ -25,6 +26,7 @@ const WorkoutsScreenView = (props: WorkoutsScreenProps) => {
     workouts,
     resetWorkouts,
     addWorkout,
+    navigateToExercises,
   } = props;
 
 
@@ -37,7 +39,7 @@ const WorkoutsScreenView = (props: WorkoutsScreenProps) => {
         <Button
           key={`${workout.id}.${workout.name}`}
           title={`Go to ${workout.name} with ID: ${workout.id}`}
-          onPress={() => props.navigation.navigate(ScreenNames.Exercises)}
+          onPress={() => navigateToExercises({ workoutId: workout.id })}
         />
       ))}
       <Button

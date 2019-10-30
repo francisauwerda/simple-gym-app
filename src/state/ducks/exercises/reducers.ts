@@ -1,18 +1,16 @@
-import { Exercise } from './types';
+import types, { Exercise } from './types';
 
-/* State shape
-
-{
-  id: 1,
-  name: 'squats',
-  workoutId: 1,
-}
-
-*/
-const initialState: Exercise[] = [];
+const initialState: { exercises: Exercise[] } = { exercises: [] };
 
 const exercisesReducer = (state = initialState, action) => {
   switch (action.type) {
+    case types.FETCH_SUCCESS: {
+      return {
+        ...state,
+        ...action.payload,
+      };
+    }
+
     default:
       return state;
   }

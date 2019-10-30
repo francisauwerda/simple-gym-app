@@ -12,7 +12,6 @@ export const debugResetWorkouts = async (): Promise<void> => {
 };
 
 export const addWorkout = async (workoutDetails: WorkoutDetails): Promise<Workout[]> => {
-  console.log('Adding workout...', workoutDetails);
   const workouts: Workout[] = await asyncStorage.addWorkout(workoutDetails);
 
   return workouts;
