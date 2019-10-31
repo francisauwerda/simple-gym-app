@@ -6,17 +6,18 @@ import {
   NavigationScreenProp, NavigationParams, NavigationState,
 } from 'react-navigation';
 import { ScreenNames } from '../enums';
-import { Exercise } from '../../state/ducks/exercises/types';
+import { Exercise, ExerciseDetails } from '../../state/ducks/exercises/types';
 import { Workout } from '../../state/ducks/workouts/types';
 
 interface Props {
   navigation: NavigationScreenProp<NavigationState, NavigationParams>;
   exercises: Exercise[];
   workout: Workout;
+  addExercise: (exerciseDetails: ExerciseDetails) => void;
 }
 
 export default function ExercisesScreenView(props: Props) {
-  const { exercises, workout } = props;
+  const { exercises, workout, addExercise } = props;
   return (
     <View style={styles.container}>
       <Text>{`List of Exercises for ${workout.name}`}</Text>
@@ -28,6 +29,11 @@ export default function ExercisesScreenView(props: Props) {
           onPress={() => props.navigation.navigate(ScreenNames.Sets)}
         />
       ))}
+
+      <Button
+        title="Add a dummy exercise"
+        onPress={() => addExercise({ name: 'Fake exercise', workoutId: workout.id })}
+      />
 
     </View>
   );

@@ -6,7 +6,7 @@ import {
 
 import { State } from '../../state/types';
 import ExercisesScreenView from './ExercisesScreenView';
-import { Exercise } from '../../state/ducks/exercises/types';
+import { Exercise, ExerciseDetails } from '../../state/ducks/exercises/types';
 import { exercisesSelectors } from '../../state/ducks/exercises';
 import actions from '../../state/ducks/exercises/actions';
 import { Workout } from '../../state/ducks/workouts/types';
@@ -31,13 +31,16 @@ class ExercisesScreenContainer extends React.Component<ExercisesScreenContainerP
   }
 
   render() {
-    const { navigation, exercises, workout } = this.props;
+    const {
+      navigation, exercises, workout, addExercise,
+    } = this.props;
 
     return (
       <ExercisesScreenView
         navigation={navigation}
         exercises={exercises}
         workout={workout}
+        addExercise={addExercise}
       />
     );
   }
@@ -60,11 +63,15 @@ const mapStateToProps = (state: State, ownProps: ExercisesScreenProps) => {
 
 interface DispatchProps {
   fetchExercises: (workoutId: Exercise['workoutId']) => void;
+  addExercise: (exercise: ExerciseDetails) => void;
 }
 
 const mapDispatchToProps = (dispatch): DispatchProps => ({
   fetchExercises: (workoutId: Exercise['workoutId']) => {
     dispatch(actions.fetchExercises(workoutId));
+  },
+  addExercise: (exercise: ExerciseDetails) => {
+    dispatch(actions.addExercise(exercise));
   },
 });
 

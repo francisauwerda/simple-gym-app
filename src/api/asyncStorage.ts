@@ -1,7 +1,7 @@
 import { AsyncStorage } from 'react-native';
 import { Workout, WorkoutDetails } from '../state/ducks/workouts/types';
 import utils from './utils';
-import { Exercise } from '../state/ducks/exercises/types';
+import { Exercise, ExerciseDetails } from '../state/ducks/exercises/types';
 
 const defaultWorkouts = [{
   id: 1,
@@ -86,9 +86,26 @@ const getExercises = async (workoutId: Exercise['workoutId']): Promise<Exercise[
   }
 };
 
+const addExercise = async (exercise: ExerciseDetails): Promise<Exercise[]> => {
+  try {
+    const exercises: Exercise[] = await getExercises(exercise.workoutId);
+    const id = utils.getNextHighestId(exercises); // TODO: add UUID
+
+    const newExercise = { ...exercise, id };
+    const newExercises = [...exercises, newExercise];
+
+    await AsyncStorage.setItem(STORAGE_KEYS.Exercises, JSON.stringify(newExercises));
+    return newExercises;
+  } catch (error) {
+    console.log('Error adding exercise', error);
+    return [];
+  }
+};
+
 export default {
   getWorkouts,
   resetWorkouts,
   addWorkout,
   getExercises,
+  addExercise,
 };
