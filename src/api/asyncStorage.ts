@@ -3,27 +3,6 @@ import { Workout, WorkoutDetails } from '../state/ducks/workouts/types';
 import utils from './utils';
 import { Exercise, ExerciseDetails } from '../state/ducks/exercises/types';
 
-const defaultWorkouts = [{
-  id: 1,
-  name: 'legs',
-}, {
-  id: 2,
-  name: 'shoulders',
-}];
-
-const defaultExercises: Exercise[] = [{
-  id: 1,
-  name: 'squats',
-  workoutId: 1,
-}, {
-  id: 2,
-  name: 'rdl',
-  workoutId: 1,
-}, {
-  id: 3,
-  name: 'shoulder press',
-  workoutId: 2,
-}];
 
 enum STORAGE_KEYS {
   Workouts = '@SimpleAppStorage_workouts',
@@ -35,6 +14,8 @@ const getWorkouts = async (): Promise<Workout[]> => {
     const workouts: string = await AsyncStorage.getItem(STORAGE_KEYS.Workouts);
 
     if (!workouts) {
+      const defaultWorkouts = utils.getDefaultWorkouts();
+
       await AsyncStorage.setItem(STORAGE_KEYS.Workouts, JSON.stringify(defaultWorkouts));
       return defaultWorkouts;
     }
@@ -50,7 +31,7 @@ const addWorkout = async (workout: WorkoutDetails): Promise<Workout[]> => {
   try {
     const workouts: Workout[] = await getWorkouts();
 
-    const id = utils.getNextHighestId(workouts);
+    const id = utils.getId();
 
     const newWorkout = { ...workout, id };
     const newWorkouts = [...workouts, newWorkout];
@@ -72,6 +53,9 @@ const getExercises = async (workoutId: Exercise['workoutId']): Promise<Exercise[
     const allExercises: string = await AsyncStorage.getItem(STORAGE_KEYS.Exercises);
 
     if (!allExercises) {
+      const defaultExercises = utils.getDefaultExercises();
+      console.log('defff', defaultExercises);
+      // TODO: Figure out why the default exercises aren't being rendered.
       await AsyncStorage.setItem(STORAGE_KEYS.Exercises, JSON.stringify(defaultExercises));
       return defaultExercises;
     }
@@ -89,7 +73,7 @@ const getExercises = async (workoutId: Exercise['workoutId']): Promise<Exercise[
 const addExercise = async (exercise: ExerciseDetails): Promise<Exercise[]> => {
   try {
     const exercises: Exercise[] = await getExercises(exercise.workoutId);
-    const id = utils.getNextHighestId(exercises); // TODO: add UUID
+    const id = utils.getId(); // TODO: add UUID
 
     const newExercise = { ...exercise, id };
     const newExercises = [...exercises, newExercise];

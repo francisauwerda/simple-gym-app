@@ -2,7 +2,7 @@ export const ADD = 'sets/ADD';
 export const REMOVE = 'sets/REMOVE';
 
 export interface Set {
-  id: number,
+  id: string,
   reps: number,
   weight: number,
   difficulty: number,

@@ -1,5 +1,5 @@
 export type Workout = {
-  id: number
+  id: string
 } & WorkoutDetails
 
 export interface WorkoutDetails {

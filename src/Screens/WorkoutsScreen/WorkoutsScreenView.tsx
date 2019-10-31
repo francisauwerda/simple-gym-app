@@ -37,7 +37,7 @@ const WorkoutsScreenView = (props: WorkoutsScreenProps) => {
       {workouts.map((workout) => (
         <Button
           key={`${workout.id}.${workout.name}`}
-          title={`Go to ${workout.name} with ID: ${workout.id}`}
+          title={`Go to ${workout.name} with ID: ${workout.id.substr(0, 2)}`}
           onPress={() => navigateToExercises({ workout })}
         />
       ))}

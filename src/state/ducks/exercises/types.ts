@@ -1,7 +1,7 @@
 import { Workout } from '../workouts/types';
 
 export type Exercise = {
-  id: number,
+  id: string,
 } & ExerciseDetails
 
 export interface ExerciseDetails {

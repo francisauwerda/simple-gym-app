@@ -20,12 +20,12 @@ export default function ExercisesScreenView(props: Props) {
   const { exercises, workout, addExercise } = props;
   return (
     <View style={styles.container}>
-      <Text>{`List of Exercises for ${workout.name}`}</Text>
+      <Text>{`List of Exercises for ${workout.name} ${workout.id.substr(0, 2)}`}</Text>
 
       {exercises.map((exercise) => (
         <Button
           key={`${exercise.id}.${exercise.name}`}
-          title={`Go to ${exercise.name} with ID: ${exercise.id}`}
+          title={`Go to ${exercise.name} with ID: ${exercise.id.substr(0, 2)}`}
           onPress={() => props.navigation.navigate(ScreenNames.Sets)}
         />
       ))}
