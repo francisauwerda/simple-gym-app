@@ -6,7 +6,6 @@ import { NavigationScreenProp, NavigationState, NavigationParams } from 'react-n
 
 import { Workout, WorkoutDetails } from '../../state/ducks/workouts/types';
 import AddWorkoutForm from './AddWorkoutForm';
-import { Exercise } from '../../state/ducks/exercises/types';
 
 const texts = {
   title: 'Workouts Screen',
@@ -18,7 +17,7 @@ interface WorkoutsScreenProps {
   workouts: Workout[],
   resetWorkouts: () => void,
   addWorkout: (workoutDetails: WorkoutDetails) => void;
-  navigateToExercises: ({ workoutId }: {workoutId: Exercise['workoutId']}) => void;
+  navigateToExercises: ({ workout }: { workout: Workout }) => void;
 }
 
 const WorkoutsScreenView = (props: WorkoutsScreenProps) => {
@@ -39,7 +38,7 @@ const WorkoutsScreenView = (props: WorkoutsScreenProps) => {
         <Button
           key={`${workout.id}.${workout.name}`}
           title={`Go to ${workout.name} with ID: ${workout.id}`}
-          onPress={() => navigateToExercises({ workoutId: workout.id })}
+          onPress={() => navigateToExercises({ workout })}
         />
       ))}
       <Button

@@ -7,17 +7,20 @@ import {
 } from 'react-navigation';
 import { ScreenNames } from '../enums';
 import { Exercise } from '../../state/ducks/exercises/types';
+import { Workout } from '../../state/ducks/workouts/types';
 
 interface Props {
-  navigation: NavigationScreenProp<NavigationState, NavigationParams>
-  exercises: Exercise[]
+  navigation: NavigationScreenProp<NavigationState, NavigationParams>;
+  exercises: Exercise[];
+  workout: Workout;
 }
 
 export default function ExercisesScreenView(props: Props) {
-  const { exercises } = props;
+  const { exercises, workout } = props;
   return (
     <View style={styles.container}>
-      <Text>List of Exercises for ...</Text>
+      <Text>{`List of Exercises for ${workout.name}`}</Text>
+
       {exercises.map((exercise) => (
         <Button
           key={`${exercise.id}.${exercise.name}`}
@@ -25,6 +28,7 @@ export default function ExercisesScreenView(props: Props) {
           onPress={() => props.navigation.navigate(ScreenNames.Sets)}
         />
       ))}
+
     </View>
   );
 }

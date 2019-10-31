@@ -9,10 +9,11 @@ import ExercisesScreenView from './ExercisesScreenView';
 import { Exercise } from '../../state/ducks/exercises/types';
 import { exercisesSelectors } from '../../state/ducks/exercises';
 import actions from '../../state/ducks/exercises/actions';
+import { Workout } from '../../state/ducks/workouts/types';
 
 interface ExercisesNavigationState extends NavigationState {
   params: {
-    workoutId: Exercise['workoutId'];
+    workout: Workout;
   }
 }
 
@@ -24,27 +25,36 @@ type ExercisesScreenContainerProps = ExercisesScreenProps & StateProps & Dispatc
 
 class ExercisesScreenContainer extends React.Component<ExercisesScreenContainerProps> {
   componentDidMount() {
-    const { fetchExercises, navigation } = this.props;
-    const workoutId = navigation.getParam('workoutId');
-    fetchExercises(workoutId);
+    const { fetchExercises, workout } = this.props;
+
+    fetchExercises(workout.id);
   }
 
   render() {
-    const { navigation, exercises } = this.props;
+    const { navigation, exercises, workout } = this.props;
 
-    return (<ExercisesScreenView navigation={navigation} exercises={exercises} />);
+    return (
+      <ExercisesScreenView
+        navigation={navigation}
+        exercises={exercises}
+        workout={workout}
+      />
+    );
   }
 }
 
 interface StateProps {
   exercises: Exercise[];
+  workout: Workout;
 }
 
 const mapStateToProps = (state: State, ownProps: ExercisesScreenProps) => {
-  const workoutId = ownProps.navigation.getParam('workoutId');
-  const exercises: Exercise[] = exercisesSelectors.selectExercises(state, workoutId);
+  const workout: Workout = ownProps.navigation.getParam('workout');
+  const exercises: Exercise[] = exercisesSelectors.selectExercises(state, workout.id);
+
   return {
     exercises,
+    workout,
   };
 };
 
