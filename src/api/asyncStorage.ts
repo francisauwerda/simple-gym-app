@@ -46,24 +46,26 @@ const addWorkout = async (workout: WorkoutDetails): Promise<Workout[]> => {
 
 const resetWorkouts = async () => {
   await AsyncStorage.removeItem(STORAGE_KEYS.Workouts);
+  await AsyncStorage.removeItem(STORAGE_KEYS.Exercises);
 };
 
-const getExercises = async (workoutId: Exercise['workoutId']): Promise<Exercise[]> => {
+const getExercises = async (workoutId?: Exercise['workoutId']): Promise<Exercise[]> => {
   try {
     const allExercises: string = await AsyncStorage.getItem(STORAGE_KEYS.Exercises);
 
     if (!allExercises) {
       const defaultExercises = utils.getDefaultExercises();
-      console.log('defff', defaultExercises);
-      // TODO: Figure out why the default exercises aren't being rendered.
       await AsyncStorage.setItem(STORAGE_KEYS.Exercises, JSON.stringify(defaultExercises));
       return defaultExercises;
     }
 
     const parsedExercises: Exercise[] = JSON.parse(allExercises);
-    const exercises = parsedExercises.filter((exercise) => exercise.workoutId === workoutId);
 
-    return exercises;
+    if (workoutId) {
+      return parsedExercises.filter((exercise) => exercise.workoutId === workoutId);
+    }
+
+    return parsedExercises;
   } catch (error) {
     console.log('Error getting exercises', error);
     return [];
@@ -72,8 +74,8 @@ const getExercises = async (workoutId: Exercise['workoutId']): Promise<Exercise[
 
 const addExercise = async (exercise: ExerciseDetails): Promise<Exercise[]> => {
   try {
-    const exercises: Exercise[] = await getExercises(exercise.workoutId);
-    const id = utils.getId(); // TODO: add UUID
+    const exercises: Exercise[] = await getExercises();
+    const id = utils.getId();
 
     const newExercise = { ...exercise, id };
     const newExercises = [...exercises, newExercise];
