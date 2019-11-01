@@ -1,4 +1,3 @@
-/* eslint-disable import/prefer-default-export */
 import { Exercise, ExerciseDetails } from '../state/ducks/exercises/types';
 import asyncStorage from './asyncStorage';
 

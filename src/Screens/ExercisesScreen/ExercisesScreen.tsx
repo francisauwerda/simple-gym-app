@@ -51,7 +51,7 @@ interface StateProps {
   workout: Workout;
 }
 
-const mapStateToProps = (state: State, ownProps: ExercisesScreenProps) => {
+const mapStateToProps = (state: State, ownProps: ExercisesScreenProps): StateProps => {
   const workout: Workout = ownProps.navigation.getParam('workout');
   const exercises: Exercise[] = exercisesSelectors.selectExercises(state, workout.id);
 

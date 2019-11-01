@@ -1,6 +1,7 @@
 import { all, call } from 'redux-saga/effects';
 import { watchFetchWorkouts, watchAddWorkout } from './workouts/sagas';
 import { watchFetchExercises, watchAddExercise } from './exercises/sagas';
+import { watchFetchSets, watchAddSet } from './sets/sagas';
 
 // TODO: spread all here
 export default function* rootSaga() {
@@ -9,5 +10,7 @@ export default function* rootSaga() {
     call(watchAddWorkout),
     call(watchFetchExercises),
     call(watchAddExercise),
+    call(watchFetchSets),
+    call(watchAddSet),
   ]);
 }

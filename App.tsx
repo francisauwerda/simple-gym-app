@@ -8,7 +8,7 @@ import { State } from './src/state/types';
 
 const initialState: State = {
   exercisesReducer: { exercises: [] },
-  setsReducer: [],
+  setsReducer: { sets: [] },
   workoutsReducer: {
     workouts: [],
   },

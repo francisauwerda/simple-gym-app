@@ -2,11 +2,13 @@ import { AsyncStorage } from 'react-native';
 import { Workout, WorkoutDetails } from '../state/ducks/workouts/types';
 import utils from './utils';
 import { Exercise, ExerciseDetails } from '../state/ducks/exercises/types';
+import { Set, SetDetails } from '../state/ducks/sets/types';
 
 
 enum STORAGE_KEYS {
   Workouts = '@SimpleAppStorage_workouts',
-  Exercises = '@SimpleAppStorage_exercises'
+  Exercises = '@SimpleAppStorage_exercises',
+  Sets = '@SimpleAppStorage_sets'
 }
 
 const getWorkouts = async (): Promise<Workout[]> => {
@@ -47,6 +49,7 @@ const addWorkout = async (workout: WorkoutDetails): Promise<Workout[]> => {
 const resetWorkouts = async () => {
   await AsyncStorage.removeItem(STORAGE_KEYS.Workouts);
   await AsyncStorage.removeItem(STORAGE_KEYS.Exercises);
+  await AsyncStorage.removeItem(STORAGE_KEYS.Sets);
 };
 
 const getExercises = async (workoutId?: Exercise['workoutId']): Promise<Exercise[]> => {
@@ -88,10 +91,53 @@ const addExercise = async (exercise: ExerciseDetails): Promise<Exercise[]> => {
   }
 };
 
+const getSets = async (exerciseId?: Set['exerciseId']): Promise<Set[]> => {
+  try {
+    const allSets: string = await AsyncStorage.getItem(STORAGE_KEYS.Sets);
+    console.log('aa', allSets);
+
+    if (!allSets) {
+      const defaultSets = utils.getDefaultSets();
+      console.log('default', defaultSets);
+      await AsyncStorage.setItem(STORAGE_KEYS.Sets, JSON.stringify(defaultSets));
+      return defaultSets;
+    }
+
+    const parsedSets: Set[] = JSON.parse(allSets);
+
+    if (exerciseId) {
+      return parsedSets.filter((set) => set.exerciseId === exerciseId);
+    }
+
+    return parsedSets;
+  } catch (error) {
+    console.log('Error getting sets', error);
+    return [];
+  }
+};
+
+const addSet = async (set: SetDetails): Promise<Set[]> => {
+  try {
+    const sets: Set[] = await getSets();
+    const id = utils.getId();
+
+    const newSet = { ...set, id };
+    const newSets = [...sets, newSet];
+
+    await AsyncStorage.setItem(STORAGE_KEYS.Sets, JSON.stringify(newSets));
+    return newSets;
+  } catch (error) {
+    console.log('Error adding set', error);
+    return [];
+  }
+};
+
 export default {
   getWorkouts,
   resetWorkouts,
   addWorkout,
   getExercises,
   addExercise,
+  getSets,
+  addSet,
 };

@@ -21,7 +21,6 @@ function* addExercise({ payload }: ReturnType<typeof ExercisesActions.addExercis
   }
 }
 
-// eslint-disable-next-line import/prefer-default-export
 export function* watchFetchExercises() {
   yield takeEvery(types.FETCH, fetchExercises);
 }

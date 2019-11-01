@@ -4,7 +4,7 @@ import { Workout } from './ducks/workouts/types';
 
 export interface State {
   exercisesReducer: { exercises: Exercise[] },
-  setsReducer: Set[],
+  setsReducer: { sets: Set[] },
   workoutsReducer: {
     workouts: Workout[],
   }

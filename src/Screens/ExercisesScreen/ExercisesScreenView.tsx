@@ -26,7 +26,7 @@ export default function ExercisesScreenView(props: Props) {
         <Button
           key={`${exercise.id}.${exercise.name}`}
           title={`Go to ${exercise.name} with ID: ${exercise.id.substr(0, 2)}`}
-          onPress={() => props.navigation.navigate(ScreenNames.Sets)}
+          onPress={() => props.navigation.navigate(ScreenNames.Sets, { exercise })}
         />
       ))}
 
