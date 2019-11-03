@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { TextInput, Button } from 'react-native';
+import { TextInput, Button, StyleSheet } from 'react-native';
 import { WorkoutDetails } from '../../state/ducks/workouts/types';
 
 interface SubmitFormProps {
@@ -27,7 +27,7 @@ const AddWorkoutForm = (props: AddWorkoutFormProps) => {
 
   return (
     <>
-      <TextInput onChangeText={onChangeText} value={workoutName} placeholder="Enter workout name" />
+      <TextInput style={styles.input} onChangeText={onChangeText} value={workoutName} placeholder="Enter workout name" />
       <Button
         title="Add workout"
         onPress={() => submitForm({
@@ -41,3 +41,9 @@ const AddWorkoutForm = (props: AddWorkoutFormProps) => {
 };
 
 export default AddWorkoutForm;
+
+const styles = StyleSheet.create({
+  input: {
+    textAlign: 'center',
+  },
+});

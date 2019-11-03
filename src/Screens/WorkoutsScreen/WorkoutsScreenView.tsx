@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-  View, Text, Button, StyleSheet,
+  SafeAreaView, FlatList, Text, Button, StyleSheet,
 } from 'react-native';
 import { NavigationScreenProp, NavigationState, NavigationParams } from 'react-navigation';
 
@@ -20,6 +20,19 @@ interface WorkoutsScreenProps {
   navigateToExercises: ({ workout }: { workout: Workout }) => void;
 }
 
+const WorkoutButton = ({
+  workout,
+  navigateToExercises,
+}: {
+  workout: Workout,
+  navigateToExercises: ({ workout }: { workout: Workout }) => void
+}) => (
+  <Button
+    title={`Go to ${workout.name} with ID: ${workout.id.substr(0, 2)}`}
+    onPress={() => navigateToExercises({ workout })}
+  />
+);
+
 const WorkoutsScreenView = (props: WorkoutsScreenProps) => {
   const {
     workouts,
@@ -30,17 +43,19 @@ const WorkoutsScreenView = (props: WorkoutsScreenProps) => {
 
 
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
 
-      <Text>{texts.title}</Text>
-      <Text>List of workouts</Text>
-      {workouts.map((workout) => (
-        <Button
-          key={`${workout.id}.${workout.name}`}
-          title={`Go to ${workout.name} with ID: ${workout.id.substr(0, 2)}`}
-          onPress={() => navigateToExercises({ workout })}
-        />
-      ))}
+      <Text style={styles.title}>{texts.title}</Text>
+
+      <FlatList
+        style={styles.flatListContainer}
+        data={workouts}
+        renderItem={({ item }) => (
+          <WorkoutButton workout={item} navigateToExercises={navigateToExercises} />
+        )}
+        keyExtractor={(item) => item.id}
+      />
+
       <Button
         title="Debug Reset Workouts"
         onPress={resetWorkouts}
@@ -48,7 +63,7 @@ const WorkoutsScreenView = (props: WorkoutsScreenProps) => {
 
       <AddWorkoutForm addWorkout={addWorkout} />
 
-    </View>
+    </SafeAreaView>
   );
 };
 
@@ -58,7 +73,13 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: 'white',
-    alignItems: 'center',
     justifyContent: 'center',
+  },
+  flatListContainer: {
+    flex: 1,
+    flexDirection: 'column',
+  },
+  title: {
+    textAlign: 'center',
   },
 });

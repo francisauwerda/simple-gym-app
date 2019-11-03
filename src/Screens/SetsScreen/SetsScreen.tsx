@@ -27,11 +27,12 @@ class SetsScreenContainer extends Component<SetsScreenContainerProps> {
   }
 
   render() {
-    const { sets, exercise } = this.props;
+    const { sets, exercise, addSet } = this.props;
     return (
       <SetsScreenView
         sets={sets}
         exercise={exercise}
+        addSet={addSet}
       />
     );
   }

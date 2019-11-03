@@ -1,45 +1,61 @@
 import React from 'react';
 import {
-  StyleSheet, Text, View,
+  SafeAreaView, StyleSheet, Text, FlatList, View, Button,
 } from 'react-native';
 
-import { Set } from '../../state/ducks/sets/types';
+import { Set, SetDetails } from '../../state/ducks/sets/types';
 import { Exercise } from '../../state/ducks/exercises/types';
 
 interface Props {
   sets: Set[];
   exercise: Exercise;
+  addSet: (setDetails: SetDetails) => void;
 }
 
+const SetInfo = ({ set }: { set: Set }) => (
+  <View style={styles.set}>
+    <View>
+      <Text>Weight:</Text>
+      <Text>{set.weight}</Text>
+    </View>
+    <View>
+      <Text>Reps:</Text>
+      <Text>{set.reps}</Text>
+    </View>
+    <View>
+      <Text>Date:</Text>
+      <Text>{set.date}</Text>
+    </View>
+    <View>
+      <Text>Difficulty:</Text>
+      <Text>{set.difficulty}</Text>
+    </View>
+  </View>
+);
+
 export default function SetsScreenView(props: Props) {
-  const { sets, exercise } = props;
+  const { sets, exercise, addSet } = props;
 
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       <Text>{`List of Sets for ${exercise.name} ${exercise.id.substr(0, 2)}`}</Text>
+      <Button
+        title="Add a dummy set"
+        onPress={() => addSet({
+          difficulty: 5, weight: 99, exerciseId: exercise.id, reps: 5, date: '03-11-2019',
+        })}
+      />
 
-      {sets.map((set, i) => (
-        <View key={`${set.id}`} style={styles.set}>
-          <Text>{`Set ${i + 1}`}</Text>
-          <View>
-            <Text>Weight:</Text>
-            <Text>{set.weight}</Text>
-          </View>
-          <View>
-            <Text>Reps:</Text>
-            <Text>{set.reps}</Text>
-          </View>
-          <View>
-            <Text>Date:</Text>
-            <Text>{set.date}</Text>
-          </View>
-          <View>
-            <Text>Difficulty:</Text>
-            <Text>{set.difficulty}</Text>
-          </View>
-        </View>
-      ))}
-    </View>
+      <FlatList
+        data={sets}
+        renderItem={(({ item }) => (
+          <SetInfo
+            set={item}
+          />
+        ))}
+        keyExtractor={(item) => item.id}
+      />
+    </SafeAreaView>
   );
 }
 
@@ -47,13 +63,11 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
-    alignItems: 'center',
     justifyContent: 'center',
   },
   set: {
     borderRadius: 4,
     borderWidth: 0.5,
     borderColor: '#d6d7da',
-
   },
 });

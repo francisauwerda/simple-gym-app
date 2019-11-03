@@ -94,11 +94,9 @@ const addExercise = async (exercise: ExerciseDetails): Promise<Exercise[]> => {
 const getSets = async (exerciseId?: Set['exerciseId']): Promise<Set[]> => {
   try {
     const allSets: string = await AsyncStorage.getItem(STORAGE_KEYS.Sets);
-    console.log('aa', allSets);
 
     if (!allSets) {
       const defaultSets = utils.getDefaultSets();
-      console.log('default', defaultSets);
       await AsyncStorage.setItem(STORAGE_KEYS.Sets, JSON.stringify(defaultSets));
       return defaultSets;
     }
