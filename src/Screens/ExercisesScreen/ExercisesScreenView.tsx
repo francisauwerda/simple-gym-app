@@ -5,6 +5,8 @@ import {
 import {
   NavigationScreenProp, NavigationParams, NavigationState,
 } from 'react-navigation';
+
+import AddExerciseForm from './AddExerciseForm';
 import { ScreenNames } from '../enums';
 import { Exercise, ExerciseDetails } from '../../state/ducks/exercises/types';
 import { Workout } from '../../state/ducks/workouts/types';
@@ -30,11 +32,10 @@ export default function ExercisesScreenView(props: Props) {
         />
       ))}
 
-      <Button
-        title="Add a dummy exercise"
-        onPress={() => addExercise({ name: 'Fake exercise', workoutId: workout.id })}
+      <AddExerciseForm
+        addExercise={addExercise}
+        workoutId={workout.id}
       />
-
     </View>
   );
 }

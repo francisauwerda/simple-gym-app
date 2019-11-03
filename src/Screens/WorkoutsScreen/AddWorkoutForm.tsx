@@ -1,46 +1,49 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { TextInput, Button, StyleSheet } from 'react-native';
+import { Formik } from 'formik';
 import { WorkoutDetails } from '../../state/ducks/workouts/types';
-
-interface SubmitFormProps {
-  submitFormHandler: (workoutDetails: WorkoutDetails) => void;
-  formValues: WorkoutDetails;
-  resetForm: () => void;
-}
-
-const submitForm = (props: SubmitFormProps): void => {
-  const { submitFormHandler, formValues, resetForm } = props;
-
-  submitFormHandler({ ...formValues });
-  resetForm();
-};
 
 interface AddWorkoutFormProps {
   addWorkout: (workoutDetails: WorkoutDetails) => void;
 }
 
-const AddWorkoutForm = (props: AddWorkoutFormProps) => {
+const initialValues: WorkoutDetails = {
+  name: '',
+};
+
+const FormikForm = (props: AddWorkoutFormProps) => {
   const { addWorkout } = props;
 
-  const [workoutName, onChangeText] = useState('');
-  const resetForm = () => onChangeText('');
-
   return (
-    <>
-      <TextInput style={styles.input} onChangeText={onChangeText} value={workoutName} placeholder="Enter workout name" />
-      <Button
-        title="Add workout"
-        onPress={() => submitForm({
-          submitFormHandler: addWorkout,
-          formValues: { name: workoutName },
-          resetForm,
-        })}
-      />
-    </>
+    <Formik
+      initialValues={initialValues}
+      onSubmit={(values, { resetForm }) => {
+        addWorkout(values);
+        resetForm();
+      }}
+    >
+      {({
+        handleChange, handleBlur, values, submitForm,
+      }) => (
+        <>
+          <TextInput
+            style={styles.input}
+            onChangeText={handleChange('name')}
+            onBlur={handleBlur('name')}
+            value={values.name}
+            placeholder="Enter workout name"
+          />
+          <Button
+            title="Add workout"
+            onPress={submitForm}
+          />
+        </>
+      )}
+    </Formik>
   );
 };
 
-export default AddWorkoutForm;
+export default FormikForm;
 
 const styles = StyleSheet.create({
   input: {
