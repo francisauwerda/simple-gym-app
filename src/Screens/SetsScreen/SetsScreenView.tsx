@@ -1,11 +1,12 @@
 import React from 'react';
 import moment from 'moment';
 import {
-  SafeAreaView, StyleSheet, Text, FlatList, View, Button,
+  SafeAreaView, StyleSheet, Text, FlatList, View,
 } from 'react-native';
 
 import { Set, SetDetails } from '../../state/ducks/sets/types';
 import { Exercise } from '../../state/ducks/exercises/types';
+import AddSetForm from './AddSetForm';
 
 interface Props {
   sets: Set[];
@@ -40,12 +41,7 @@ export default function SetsScreenView(props: Props) {
   return (
     <SafeAreaView style={styles.container}>
       <Text style={styles.title}>{`List of Sets for ${exercise.name} ${exercise.id.substr(0, 2)}`}</Text>
-      <Button
-        title="Add a dummy set"
-        onPress={() => addSet({
-          difficulty: 5, weight: 99, exerciseId: exercise.id, reps: 5, date: moment(),
-        })}
-      />
+      <AddSetForm addSet={addSet} exercise={exercise} />
 
       <FlatList
         data={sets}

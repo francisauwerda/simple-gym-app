@@ -11,7 +11,7 @@ const initialValues: WorkoutDetails = {
   name: '',
 };
 
-const FormikForm = (props: AddWorkoutFormProps) => {
+const AddWorkoutForm = (props: AddWorkoutFormProps) => {
   const { addWorkout } = props;
 
   return (
@@ -43,7 +43,7 @@ const FormikForm = (props: AddWorkoutFormProps) => {
   );
 };
 
-export default FormikForm;
+export default AddWorkoutForm;
 
 const styles = StyleSheet.create({
   input: {
