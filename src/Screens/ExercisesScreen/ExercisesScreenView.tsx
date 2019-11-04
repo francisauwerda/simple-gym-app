@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-  StyleSheet, Text, View, Button,
+  SafeAreaView, FlatList, StyleSheet, Text, View, Button,
 } from 'react-native';
 import {
   NavigationScreenProp, NavigationParams, NavigationState,
@@ -18,25 +18,45 @@ interface Props {
   addExercise: (exerciseDetails: ExerciseDetails) => void;
 }
 
-export default function ExercisesScreenView(props: Props) {
-  const { exercises, workout, addExercise } = props;
-  return (
-    <View style={styles.container}>
-      <Text>{`List of Exercises for ${workout.name} ${workout.id.substr(0, 2)}`}</Text>
+const ExerciseButton = ({
+  exercise,
+  navigation,
+}: {
+  exercise: Exercise,
+  navigation: NavigationScreenProp<NavigationState, NavigationParams>;
+}) => (
+  <Button
+    title={`Go to ${exercise.name} with ID: ${exercise.id.substr(0, 2)}`}
+    onPress={() => navigation.navigate(ScreenNames.Sets, { exercise })}
+  />
+);
 
-      {exercises.map((exercise) => (
-        <Button
-          key={`${exercise.id}.${exercise.name}`}
-          title={`Go to ${exercise.name} with ID: ${exercise.id.substr(0, 2)}`}
-          onPress={() => props.navigation.navigate(ScreenNames.Sets, { exercise })}
-        />
-      ))}
+export default function ExercisesScreenView(props: Props) {
+  const {
+    exercises, workout, addExercise, navigation,
+  } = props;
+  return (
+    <SafeAreaView style={styles.container}>
+      <Text style={styles.title}>
+        {`List of Exercises for ${workout.name} ${workout.id.substr(0, 2)}`}
+      </Text>
+
+      <FlatList
+        data={exercises}
+        renderItem={({ item }) => (
+          <ExerciseButton
+            exercise={item}
+            navigation={navigation}
+          />
+        )}
+        keyExtractor={(item) => item.id}
+      />
 
       <AddExerciseForm
         addExercise={addExercise}
         workoutId={workout.id}
       />
-    </View>
+    </SafeAreaView>
   );
 }
 
@@ -44,7 +64,9 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
-    alignItems: 'center',
     justifyContent: 'center',
+  },
+  title: {
+    textAlign: 'center',
   },
 });

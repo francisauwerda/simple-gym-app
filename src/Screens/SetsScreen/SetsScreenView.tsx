@@ -38,7 +38,7 @@ export default function SetsScreenView(props: Props) {
 
   return (
     <SafeAreaView style={styles.container}>
-      <Text>{`List of Sets for ${exercise.name} ${exercise.id.substr(0, 2)}`}</Text>
+      <Text style={styles.title}>{`List of Sets for ${exercise.name} ${exercise.id.substr(0, 2)}`}</Text>
       <Button
         title="Add a dummy set"
         onPress={() => addSet({
@@ -48,11 +48,11 @@ export default function SetsScreenView(props: Props) {
 
       <FlatList
         data={sets}
-        renderItem={(({ item }) => (
+        renderItem={({ item }) => (
           <SetInfo
             set={item}
           />
-        ))}
+        )}
         keyExtractor={(item) => item.id}
       />
     </SafeAreaView>
@@ -64,6 +64,9 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#fff',
     justifyContent: 'center',
+  },
+  title: {
+    textAlign: 'center',
   },
   set: {
     borderRadius: 4,
