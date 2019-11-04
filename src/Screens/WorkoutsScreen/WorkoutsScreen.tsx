@@ -58,7 +58,7 @@ const mapStateToProps = (state: State) => {
 
 interface DispatchProps {
   fetchWorkouts: () => any;
-  addWorkout: (workout: WorkoutDetails) => void; // TODO: Typeof Actions
+  addWorkout: (workout: WorkoutDetails) => void;
 }
 
 const mapDispatchToProps = (dispatch): DispatchProps => ({
