@@ -1,4 +1,6 @@
 import uuid from 'uuidv4';
+import moment from 'moment';
+
 import { Workout } from '../state/ducks/workouts/types';
 import { Exercise } from '../state/ducks/exercises/types';
 import { Set } from '../state/ducks/sets/types';
@@ -37,28 +39,28 @@ const defaultData = {
   sets: [{
     id: uuid(),
     reps: 10,
-    date: '11-11-2019', // TODO: Change to moment with time precision
+    date: moment(),
     difficulty: 4,
     weight: 100,
     exerciseId: squatsId,
   }, {
     id: uuid(),
     reps: 10,
-    date: '11-11-2019',
+    date: moment(),
     difficulty: 4,
     weight: 100,
     exerciseId: squatsId,
   }, {
     id: uuid(),
     reps: 8,
-    date: '11-11-2019',
+    date: moment(),
     difficulty: 5,
     weight: 100,
     exerciseId: squatsId,
   }, {
     id: uuid(),
     reps: 8,
-    date: '11-11-2019',
+    date: moment(),
     difficulty: 5,
     weight: 90,
     exerciseId: squatsId,

@@ -1,3 +1,4 @@
+import { Moment } from 'moment';
 import { Exercise } from '../exercises/types';
 
 export type Set = {
@@ -8,7 +9,7 @@ export interface SetDetails {
   reps: number,
   weight: number,
   difficulty: number,
-  date: string,
+  date: Moment,
   exerciseId: Exercise['id']
 }
 

@@ -1,4 +1,5 @@
 import React from 'react';
+import moment from 'moment';
 import {
   SafeAreaView, StyleSheet, Text, FlatList, View, Button,
 } from 'react-native';
@@ -24,7 +25,7 @@ const SetInfo = ({ set }: { set: Set }) => (
     </View>
     <View>
       <Text>Date:</Text>
-      <Text>{set.date}</Text>
+      <Text>{moment(set.date).format()}</Text>
     </View>
     <View>
       <Text>Difficulty:</Text>
@@ -42,7 +43,7 @@ export default function SetsScreenView(props: Props) {
       <Button
         title="Add a dummy set"
         onPress={() => addSet({
-          difficulty: 5, weight: 99, exerciseId: exercise.id, reps: 5, date: '03-11-2019',
+          difficulty: 5, weight: 99, exerciseId: exercise.id, reps: 5, date: moment(),
         })}
       />
 
