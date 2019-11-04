@@ -1,16 +1,13 @@
-import { all, call } from 'redux-saga/effects';
-import { watchFetchWorkouts, watchAddWorkout } from './workouts/sagas';
-import { watchFetchExercises, watchAddExercise } from './exercises/sagas';
-import { watchFetchSets, watchAddSet } from './sets/sagas';
+import { all } from 'redux-saga/effects';
 
-// TODO: spread all here
+import { watcherSagas as watcherWorkoutsSagas } from './workouts/sagas';
+import { watcherSagas as watcherExercisesSagas } from './exercises/sagas';
+import { watcherSagas as watcherSetsSagas } from './sets/sagas';
+
 export default function* rootSaga() {
   yield all([
-    call(watchFetchWorkouts),
-    call(watchAddWorkout),
-    call(watchFetchExercises),
-    call(watchAddExercise),
-    call(watchFetchSets),
-    call(watchAddSet),
+    ...watcherWorkoutsSagas,
+    ...watcherExercisesSagas,
+    ...watcherSetsSagas,
   ]);
 }

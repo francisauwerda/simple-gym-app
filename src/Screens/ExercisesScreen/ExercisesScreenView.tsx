@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-  SafeAreaView, FlatList, StyleSheet, Text, View, Button,
+  SafeAreaView, FlatList, StyleSheet, Text, Button,
 } from 'react-native';
 import {
   NavigationScreenProp, NavigationParams, NavigationState,

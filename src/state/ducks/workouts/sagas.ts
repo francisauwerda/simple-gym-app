@@ -28,4 +28,7 @@ export function* watchAddWorkout() {
   yield takeEvery(types.ADD, addWorkout);
 }
 
-// Add default for all here.
+export const watcherSagas = [
+  watchFetchWorkouts(),
+  watchAddWorkout(),
+];

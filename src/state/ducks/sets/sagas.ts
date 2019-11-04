@@ -28,3 +28,8 @@ export function* watchFetchSets() {
 export function* watchAddSet() {
   yield takeEvery(types.ADD, addSet);
 }
+
+export const watcherSagas = [
+  watchFetchSets(),
+  watchAddSet(),
+];
