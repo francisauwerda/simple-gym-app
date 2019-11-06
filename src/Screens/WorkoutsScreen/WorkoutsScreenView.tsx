@@ -6,6 +6,7 @@ import { NavigationScreenProp, NavigationState, NavigationParams } from 'react-n
 
 import { Workout, WorkoutDetails } from '../../state/ducks/workouts/types';
 import AddWorkoutForm from './AddWorkoutForm';
+import Card from '../../components/Card';
 
 const texts = {
   title: 'Workouts Screen',
@@ -19,19 +20,6 @@ interface WorkoutsScreenProps {
   addWorkout: (workoutDetails: WorkoutDetails) => void;
   navigateToExercises: ({ workout }: { workout: Workout }) => void;
 }
-
-const WorkoutButton = ({
-  workout,
-  navigateToExercises,
-}: {
-  workout: Workout,
-  navigateToExercises: ({ workout }: { workout: Workout }) => void
-}) => (
-  <Button
-    title={`Go to ${workout.name} with ID: ${workout.id.substr(0, 2)}`}
-    onPress={() => navigateToExercises({ workout })}
-  />
-);
 
 const WorkoutsScreenView = (props: WorkoutsScreenProps) => {
   const {
@@ -51,7 +39,11 @@ const WorkoutsScreenView = (props: WorkoutsScreenProps) => {
         style={styles.flatListContainer}
         data={workouts}
         renderItem={({ item }) => (
-          <WorkoutButton workout={item} navigateToExercises={navigateToExercises} />
+          <Card
+            mainText={item.name}
+            secondaryText="7 days ago"
+            onClickHandler={() => navigateToExercises({ workout: item })}
+          />
         )}
         keyExtractor={(item) => item.id}
       />
@@ -78,6 +70,7 @@ const styles = StyleSheet.create({
   flatListContainer: {
     flex: 1,
     flexDirection: 'column',
+    margin: 16,
   },
   title: {
     textAlign: 'center',

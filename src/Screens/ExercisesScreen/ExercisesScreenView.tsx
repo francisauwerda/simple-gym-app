@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-  SafeAreaView, FlatList, StyleSheet, Text, Button,
+  SafeAreaView, FlatList, StyleSheet, Text,
 } from 'react-native';
 import {
   NavigationScreenProp, NavigationParams, NavigationState,
@@ -10,6 +10,7 @@ import AddExerciseForm from './AddExerciseForm';
 import { ScreenNames } from '../enums';
 import { Exercise, ExerciseDetails } from '../../state/ducks/exercises/types';
 import { Workout } from '../../state/ducks/workouts/types';
+import Card from '../../components/Card';
 
 interface Props {
   navigation: NavigationScreenProp<NavigationState, NavigationParams>;
@@ -17,19 +18,6 @@ interface Props {
   workout: Workout;
   addExercise: (exerciseDetails: ExerciseDetails) => void;
 }
-
-const ExerciseButton = ({
-  exercise,
-  navigation,
-}: {
-  exercise: Exercise,
-  navigation: NavigationScreenProp<NavigationState, NavigationParams>;
-}) => (
-  <Button
-    title={`Go to ${exercise.name} with ID: ${exercise.id.substr(0, 2)}`}
-    onPress={() => navigation.navigate(ScreenNames.Sets, { exercise })}
-  />
-);
 
 export default function ExercisesScreenView(props: Props) {
   const {
@@ -42,11 +30,13 @@ export default function ExercisesScreenView(props: Props) {
       </Text>
 
       <FlatList
+        style={styles.flatListContainer}
         data={exercises}
         renderItem={({ item }) => (
-          <ExerciseButton
-            exercise={item}
-            navigation={navigation}
+          <Card
+            mainText={item.name}
+            secondaryText="5 days ago"
+            onClickHandler={() => navigation.navigate(ScreenNames.Sets, { exercise: item })}
           />
         )}
         keyExtractor={(item) => item.id}
@@ -65,6 +55,11 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#fff',
     justifyContent: 'center',
+  },
+  flatListContainer: {
+    flex: 1,
+    flexDirection: 'column',
+    margin: 16,
   },
   title: {
     textAlign: 'center',
