@@ -41,7 +41,6 @@ const WorkoutsScreenView = (props: WorkoutsScreenProps) => {
         renderItem={({ item }) => (
           <Card
             mainText={item.name}
-            secondaryText="7 days ago"
             onClickHandler={() => navigateToExercises({ workout: item })}
           />
         )}

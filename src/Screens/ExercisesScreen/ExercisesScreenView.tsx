@@ -35,7 +35,6 @@ export default function ExercisesScreenView(props: Props) {
         renderItem={({ item }) => (
           <Card
             mainText={item.name}
-            secondaryText="5 days ago"
             onClickHandler={() => navigation.navigate(ScreenNames.Sets, { exercise: item })}
           />
         )}

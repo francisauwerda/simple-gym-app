@@ -9,13 +9,13 @@ const Card = ({
   onClickHandler,
 }: {
   mainText: string,
-  secondaryText: string,
+  secondaryText?: string,
   onClickHandler: any,
 }) => (
   <TouchableOpacity onPress={onClickHandler}>
     <View style={styles.cardWrapper}>
       <Text style={styles.mainText}>{mainText}</Text>
-      <Text>{secondaryText}</Text>
+      {!!secondaryText && <Text>{secondaryText}</Text>}
     </View>
   </TouchableOpacity>
 );
