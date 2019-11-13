@@ -2,5 +2,7 @@
 export enum ScreenNames {
   Exercises = 'EXERCISES',
   Workouts = 'WORKOUTS',
-  Sets = 'SETS'
+  Sets = 'SETS',
+  AddWorkout = 'ADD_WORKOUT',
+  AddExercise = 'ADD_EXERCISE'
 }

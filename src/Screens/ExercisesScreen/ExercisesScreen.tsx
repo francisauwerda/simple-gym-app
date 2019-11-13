@@ -30,6 +30,13 @@ class ExercisesScreenContainer extends React.Component<ExercisesScreenContainerP
     fetchExercises(workout.id);
   }
 
+  openModal = () => {
+    const { navigation } = this.props;
+
+    navigation.navigate('MySecondModal');
+  }
+
+
   render() {
     const {
       navigation, exercises, workout, addExercise,
@@ -41,6 +48,7 @@ class ExercisesScreenContainer extends React.Component<ExercisesScreenContainerP
         exercises={exercises}
         workout={workout}
         addExercise={addExercise}
+        openModal={this.openModal}
       />
     );
   }

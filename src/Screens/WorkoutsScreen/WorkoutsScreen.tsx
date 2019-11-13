@@ -7,6 +7,7 @@ import { Workout, WorkoutDetails } from '../../state/ducks/workouts/types';
 import actions from '../../state/ducks/workouts/actions';
 import api from '../../api';
 import { ScreenNames } from '../enums';
+import { AddWorkoutParams } from './AddWorkoutModal';
 
 const resetWorkouts = async () => {
   await api.workouts.debugResetWorkouts();
@@ -31,9 +32,18 @@ class WorkoutsScreenContainer extends React.Component<WorkoutsScreenContainerPro
     navigation.navigate(ScreenNames.Exercises, { workout });
   }
 
+  openModal = () => {
+    const { navigation, addWorkout } = this.props;
+
+    navigation.navigate(
+      ScreenNames.AddWorkout,
+      { [AddWorkoutParams.AddWorkout]: addWorkout },
+    );
+  }
+
   render() {
     const {
-      workouts, navigation, addWorkout,
+      workouts, navigation,
     } = this.props;
 
     return (
@@ -41,8 +51,8 @@ class WorkoutsScreenContainer extends React.Component<WorkoutsScreenContainerPro
         workouts={workouts}
         navigation={navigation}
         resetWorkouts={resetWorkouts}
-        addWorkout={addWorkout}
         navigateToExercises={this.navigateToExercises}
+        openModal={this.openModal}
       />
     );
   }

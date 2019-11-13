@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-  SafeAreaView, FlatList, StyleSheet, Text,
+  SafeAreaView, FlatList, StyleSheet, Text, Button,
 } from 'react-native';
 import {
   NavigationScreenProp, NavigationParams, NavigationState,
@@ -17,11 +17,12 @@ interface Props {
   exercises: Exercise[];
   workout: Workout;
   addExercise: (exerciseDetails: ExerciseDetails) => void;
+  openModal: () => void;
 }
 
 export default function ExercisesScreenView(props: Props) {
   const {
-    exercises, workout, addExercise, navigation,
+    exercises, workout, addExercise, navigation, openModal,
   } = props;
   return (
     <SafeAreaView style={styles.container}>
@@ -39,6 +40,11 @@ export default function ExercisesScreenView(props: Props) {
           />
         )}
         keyExtractor={(item) => item.id}
+      />
+
+      <Button
+        title="Open modal"
+        onPress={openModal}
       />
 
       <AddExerciseForm

@@ -4,8 +4,7 @@ import {
 } from 'react-native';
 import { NavigationScreenProp, NavigationState, NavigationParams } from 'react-navigation';
 
-import { Workout, WorkoutDetails } from '../../state/ducks/workouts/types';
-import AddWorkoutForm from './AddWorkoutForm';
+import { Workout } from '../../state/ducks/workouts/types';
 import Card from '../../components/Card';
 
 const texts = {
@@ -17,18 +16,17 @@ interface WorkoutsScreenProps {
   navigation: NavigationScreenProp<NavigationState, NavigationParams>,
   workouts: Workout[],
   resetWorkouts: () => void,
-  addWorkout: (workoutDetails: WorkoutDetails) => void;
   navigateToExercises: ({ workout }: { workout: Workout }) => void;
+  openModal: () => void;
 }
 
 const WorkoutsScreenView = (props: WorkoutsScreenProps) => {
   const {
     workouts,
     resetWorkouts,
-    addWorkout,
     navigateToExercises,
+    openModal,
   } = props;
-
 
   return (
     <SafeAreaView style={styles.container}>
@@ -48,11 +46,14 @@ const WorkoutsScreenView = (props: WorkoutsScreenProps) => {
       />
 
       <Button
+        title="Add workout"
+        onPress={openModal}
+      />
+
+      <Button
         title="Debug Reset Workouts"
         onPress={resetWorkouts}
       />
-
-      <AddWorkoutForm addWorkout={addWorkout} />
 
     </SafeAreaView>
   );
