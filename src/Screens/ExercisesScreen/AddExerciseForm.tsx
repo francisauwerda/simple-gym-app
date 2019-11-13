@@ -6,6 +6,7 @@ import { ExerciseDetails } from '../../state/ducks/exercises/types';
 interface AddExerciseFormProps {
   addExercise: (exerciseDetails: ExerciseDetails) => void;
   workoutId: ExerciseDetails['workoutId'];
+  dismissModal: () => void;
 }
 
 const initialValues: ExerciseDetails = {
@@ -14,7 +15,7 @@ const initialValues: ExerciseDetails = {
 };
 
 const AddExerciseForm = (props: AddExerciseFormProps) => {
-  const { addExercise, workoutId } = props;
+  const { addExercise, workoutId, dismissModal } = props;
 
   return (
     <Formik
@@ -22,6 +23,7 @@ const AddExerciseForm = (props: AddExerciseFormProps) => {
       onSubmit={(values, { resetForm }) => {
         addExercise(values);
         resetForm();
+        dismissModal();
       }}
     >
       {({
@@ -34,6 +36,7 @@ const AddExerciseForm = (props: AddExerciseFormProps) => {
             onBlur={handleBlur('name')}
             value={values.name}
             placeholder="Enter an exercise name"
+            autoFocus
           />
           <Button
             title="Add exercise"

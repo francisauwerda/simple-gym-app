@@ -6,9 +6,8 @@ import {
   NavigationScreenProp, NavigationParams, NavigationState,
 } from 'react-navigation';
 
-import AddExerciseForm from './AddExerciseForm';
 import { ScreenNames } from '../enums';
-import { Exercise, ExerciseDetails } from '../../state/ducks/exercises/types';
+import { Exercise } from '../../state/ducks/exercises/types';
 import { Workout } from '../../state/ducks/workouts/types';
 import Card from '../../components/Card';
 
@@ -16,13 +15,12 @@ interface Props {
   navigation: NavigationScreenProp<NavigationState, NavigationParams>;
   exercises: Exercise[];
   workout: Workout;
-  addExercise: (exerciseDetails: ExerciseDetails) => void;
   openModal: () => void;
 }
 
 export default function ExercisesScreenView(props: Props) {
   const {
-    exercises, workout, addExercise, navigation, openModal,
+    exercises, workout, navigation, openModal,
   } = props;
   return (
     <SafeAreaView style={styles.container}>
@@ -43,13 +41,8 @@ export default function ExercisesScreenView(props: Props) {
       />
 
       <Button
-        title="Open modal"
+        title="Add exercise"
         onPress={openModal}
-      />
-
-      <AddExerciseForm
-        addExercise={addExercise}
-        workoutId={workout.id}
       />
     </SafeAreaView>
   );

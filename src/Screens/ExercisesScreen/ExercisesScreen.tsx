@@ -10,6 +10,8 @@ import { Exercise, ExerciseDetails } from '../../state/ducks/exercises/types';
 import { exercisesSelectors } from '../../state/ducks/exercises';
 import actions from '../../state/ducks/exercises/actions';
 import { Workout } from '../../state/ducks/workouts/types';
+import { ScreenNames } from '../enums';
+import { AddExerciseParams } from './AddExerciseModal';
 
 interface ExercisesNavigationState extends NavigationState {
   params: {
@@ -31,15 +33,18 @@ class ExercisesScreenContainer extends React.Component<ExercisesScreenContainerP
   }
 
   openModal = () => {
-    const { navigation } = this.props;
+    const { navigation, addExercise, workout } = this.props;
 
-    navigation.navigate('MySecondModal');
+    navigation.navigate(ScreenNames.AddExercise, {
+      [AddExerciseParams.AddExercise]: addExercise,
+      [AddExerciseParams.WorkoutId]: workout.id,
+    });
   }
 
 
   render() {
     const {
-      navigation, exercises, workout, addExercise,
+      navigation, exercises, workout,
     } = this.props;
 
     return (
@@ -47,7 +52,6 @@ class ExercisesScreenContainer extends React.Component<ExercisesScreenContainerP
         navigation={navigation}
         exercises={exercises}
         workout={workout}
-        addExercise={addExercise}
         openModal={this.openModal}
       />
     );
