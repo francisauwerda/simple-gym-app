@@ -21,6 +21,10 @@ interface WorkoutsScreenProps {
 type WorkoutsScreenContainerProps = WorkoutsScreenProps & DispatchProps;
 
 class WorkoutsScreenContainer extends React.Component<WorkoutsScreenContainerProps> {
+  static navigationOptions = {
+    title: 'Workouts',
+  }
+
   componentDidMount() {
     const { fetchWorkouts } = this.props;
     fetchWorkouts();

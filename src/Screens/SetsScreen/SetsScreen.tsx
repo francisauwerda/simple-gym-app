@@ -21,6 +21,10 @@ interface SetsScreenProps {
 type SetsScreenContainerProps = SetsScreenProps & StateProps & DispatchProps;
 
 class SetsScreenContainer extends Component<SetsScreenContainerProps> {
+  static navigationOptions = {
+    title: 'Sets',
+  }
+
   componentDidMount() {
     const { fetchSets, exercise } = this.props;
     fetchSets(exercise.id);
