@@ -31,7 +31,6 @@ const styles = StyleSheet.create({
     borderColor: '#d6d7da',
   },
   mainText: {
-    textTransform: 'capitalize',
     fontSize: 20,
     fontWeight: '500',
     lineHeight: 30,

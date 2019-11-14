@@ -16,23 +16,23 @@ const shoulderPressId = uuid();
 const defaultData = {
   workouts: [{
     id: legsId,
-    name: 'legs',
+    name: 'Legs',
   }, {
     id: shouldersId,
-    name: 'shoulders',
+    name: 'Shoulders',
   }],
 
   exercises: [{
     id: squatsId,
-    name: 'squats',
+    name: 'Squats',
     workoutId: legsId,
   }, {
     id: rdlId,
-    name: 'rdl',
+    name: 'RDL',
     workoutId: legsId,
   }, {
     id: shoulderPressId,
-    name: 'shoulder press',
+    name: 'Shoulder Press',
     workoutId: shouldersId,
   }],
 

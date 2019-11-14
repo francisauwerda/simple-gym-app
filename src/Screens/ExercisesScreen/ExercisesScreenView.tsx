@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-  SafeAreaView, FlatList, StyleSheet, Text, Button,
+  SafeAreaView, FlatList, StyleSheet, Button,
 } from 'react-native';
 import {
   NavigationScreenProp, NavigationParams, NavigationState,
@@ -20,14 +20,10 @@ interface Props {
 
 export default function ExercisesScreenView(props: Props) {
   const {
-    exercises, workout, navigation, openModal,
+    exercises, navigation, openModal,
   } = props;
   return (
     <SafeAreaView style={styles.container}>
-      <Text style={styles.title}>
-        {`List of Exercises for ${workout.name} ${workout.id.substr(0, 2)}`}
-      </Text>
-
       <FlatList
         style={styles.flatListContainer}
         data={exercises}
@@ -41,7 +37,7 @@ export default function ExercisesScreenView(props: Props) {
       />
 
       <Button
-        title="Add exercise"
+        title="Add an exercise"
         onPress={openModal}
       />
     </SafeAreaView>
@@ -58,8 +54,5 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'column',
     margin: 16,
-  },
-  title: {
-    textAlign: 'center',
   },
 });

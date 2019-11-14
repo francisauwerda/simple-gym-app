@@ -1,19 +1,19 @@
 import React from 'react';
-import { SafeAreaView } from 'react-native';
+import { SafeAreaView, Text } from 'react-native';
 import { NavigationScreenProp, NavigationState, NavigationParams } from 'react-navigation';
 import AddExerciseForm from './AddExerciseForm';
-import { WorkoutDetails } from '../../state/ducks/workouts/types';
+import { Workout } from '../../state/ducks/workouts/types';
 import { ExerciseDetails } from '../../state/ducks/exercises/types';
 
 export enum AddExerciseParams {
-  AddExercise = 'ADD_EXERCISE',
-  WorkoutId = 'WORKOUT_ID'
+  AddExerciseParam = 'ADD_EXERCISE',
+  WorkoutParam = 'WORKOUT'
 }
 
 interface AddWorkoutModalNavigationState extends NavigationState {
   params: {
-    [AddExerciseParams.AddExercise]: (workoutDetails: WorkoutDetails) => void;
-    [AddExerciseParams.WorkoutId]: ExerciseDetails['workoutId'];
+    [AddExerciseParams.AddExerciseParam]: (exerciseDetails: ExerciseDetails) => void;
+    [AddExerciseParams.WorkoutParam]: Workout;
   }
 }
 
@@ -24,8 +24,8 @@ interface Props {
 const AddExerciseModal = (props: Props) => {
   const { navigation } = props;
 
-  const addExercise = navigation.getParam(AddExerciseParams.AddExercise);
-  const workoutId = navigation.getParam(AddExerciseParams.WorkoutId);
+  const addExercise = navigation.getParam(AddExerciseParams.AddExerciseParam);
+  const workout: Workout = navigation.getParam(AddExerciseParams.WorkoutParam);
 
   const dismissModal = () => {
     navigation.goBack();
@@ -33,10 +33,11 @@ const AddExerciseModal = (props: Props) => {
 
   return (
     <SafeAreaView style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+      <Text>{`Exercises for ${workout.name}`}</Text>
       <AddExerciseForm
         addExercise={addExercise}
         dismissModal={dismissModal}
-        workoutId={workoutId}
+        workoutId={workout.id}
       />
     </SafeAreaView>
   );

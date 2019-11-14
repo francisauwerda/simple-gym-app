@@ -26,8 +26,11 @@ interface ExercisesScreenProps {
 type ExercisesScreenContainerProps = ExercisesScreenProps & StateProps & DispatchProps;
 
 class ExercisesScreenContainer extends React.Component<ExercisesScreenContainerProps> {
-  static navigationOptions = {
-    title: 'Exercises',
+  static navigationOptions = ({ navigation }) => {
+    const workout: Workout = navigation.getParam('workout');
+    return {
+      title: `${workout.name}`,
+    };
   }
 
   componentDidMount() {
@@ -40,8 +43,8 @@ class ExercisesScreenContainer extends React.Component<ExercisesScreenContainerP
     const { navigation, addExercise, workout } = this.props;
 
     navigation.navigate(ScreenNames.AddExercise, {
-      [AddExerciseParams.AddExercise]: addExercise,
-      [AddExerciseParams.WorkoutId]: workout.id,
+      [AddExerciseParams.AddExerciseParam]: addExercise,
+      [AddExerciseParams.WorkoutParam]: workout,
     });
   }
 

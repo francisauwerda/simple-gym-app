@@ -1,16 +1,11 @@
 import React from 'react';
 import {
-  SafeAreaView, FlatList, Text, Button, StyleSheet,
+  SafeAreaView, FlatList, Button, StyleSheet,
 } from 'react-native';
 import { NavigationScreenProp, NavigationState, NavigationParams } from 'react-navigation';
 
 import { Workout } from '../../state/ducks/workouts/types';
 import Card from '../../components/Card';
-
-const texts = {
-  title: 'Workouts Screen',
-  button: 'Go to exercises',
-};
 
 interface WorkoutsScreenProps {
   navigation: NavigationScreenProp<NavigationState, NavigationParams>,
@@ -30,9 +25,6 @@ const WorkoutsScreenView = (props: WorkoutsScreenProps) => {
 
   return (
     <SafeAreaView style={styles.container}>
-
-      <Text style={styles.title}>{texts.title}</Text>
-
       <FlatList
         style={styles.flatListContainer}
         data={workouts}
@@ -46,7 +38,7 @@ const WorkoutsScreenView = (props: WorkoutsScreenProps) => {
       />
 
       <Button
-        title="Add workout"
+        title="Add a Workout"
         onPress={openModal}
       />
 
@@ -71,8 +63,5 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'column',
     margin: 16,
-  },
-  title: {
-    textAlign: 'center',
   },
 });

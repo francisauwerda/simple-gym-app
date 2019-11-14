@@ -40,7 +40,6 @@ export default function SetsScreenView(props: Props) {
 
   return (
     <SafeAreaView style={styles.container}>
-      <Text style={styles.title}>{`List of Sets for ${exercise.name} ${exercise.id.substr(0, 2)}`}</Text>
       <AddSetForm addSet={addSet} exercise={exercise} />
 
       <FlatList
@@ -61,9 +60,6 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#fff',
     justifyContent: 'center',
-  },
-  title: {
-    textAlign: 'center',
   },
   set: {
     borderRadius: 4,
