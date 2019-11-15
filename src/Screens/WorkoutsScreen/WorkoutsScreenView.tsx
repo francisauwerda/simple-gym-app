@@ -62,6 +62,6 @@ const styles = StyleSheet.create({
   flatListContainer: {
     flex: 1,
     flexDirection: 'column',
-    margin: 16,
+    marginHorizontal: 16,
   },
 });

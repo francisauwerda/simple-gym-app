@@ -1,7 +1,9 @@
 import React from 'react';
 import {
-  Text, StyleSheet, TouchableOpacity, View,
+  Text, StyleSheet, View,
 } from 'react-native';
+
+import TouchableComponent from '../components/TouchableComponent';
 
 const Card = ({
   mainText,
@@ -12,12 +14,12 @@ const Card = ({
   secondaryText?: string,
   onClickHandler: any,
 }) => (
-  <TouchableOpacity onPress={onClickHandler}>
+  <TouchableComponent onPress={onClickHandler}>
     <View style={styles.cardWrapper}>
       <Text style={styles.mainText}>{mainText}</Text>
       {!!secondaryText && <Text>{secondaryText}</Text>}
     </View>
-  </TouchableOpacity>
+  </TouchableComponent>
 );
 
 export default Card;
@@ -34,10 +36,5 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: '500',
     lineHeight: 30,
-  },
-  flatListContainer: {
-    flex: 1,
-    flexDirection: 'column',
-    margin: 16,
   },
 });
