@@ -1,5 +1,7 @@
 import React from 'react';
-import { TextInput, Button, StyleSheet } from 'react-native';
+import {
+  TextInput, Button, StyleSheet, View,
+} from 'react-native';
 import { Formik } from 'formik';
 import { WorkoutDetails } from '../../state/ducks/workouts/types';
 
@@ -36,10 +38,13 @@ const AddWorkoutForm = (props: AddWorkoutFormProps) => {
             placeholder="Enter workout name"
             autoFocus
           />
-          <Button
-            title="Add workout"
-            onPress={submitForm}
-          />
+          <View style={styles.buttonWrapper}>
+            <Button
+              title="Add workout"
+              onPress={submitForm}
+            />
+          </View>
+
         </>
       )}
     </Formik>
@@ -52,5 +57,11 @@ const styles = StyleSheet.create({
   input: {
     textAlign: 'center',
     height: 40,
+    fontSize: 24,
+  },
+  buttonWrapper: {
+    marginTop: 20,
+    alignSelf: 'stretch',
+    marginHorizontal: 15,
   },
 });
