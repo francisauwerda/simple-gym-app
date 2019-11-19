@@ -4,7 +4,6 @@ import {
 } from 'react-native';
 import { NavigationScreenProp, NavigationState, NavigationParams } from 'react-navigation';
 import AddWorkoutForm from './AddWorkoutForm';
-import ModalHeader from '../../components/ModalHeader';
 import { WorkoutDetails } from '../../state/ducks/workouts/types';
 
 export enum AddWorkoutParams {
@@ -21,31 +20,39 @@ interface Props {
   navigation: NavigationScreenProp<AddWorkoutModalNavigationState, NavigationParams>,
 }
 
-const AddWorkoutModal = (props: Props) => {
-  const { navigation } = props;
 
-  const addWorkout = navigation.getParam(AddWorkoutParams.AddWorkout);
+class AddWorkoutModal extends React.Component<Props> {
+  static navigationOptions = {
+    title: 'Add workout',
+  }
 
-  const dismissModal = () => {
+  addWorkout = () => {
+    const { navigation } = this.props;
+    navigation.getParam(AddWorkoutParams.AddWorkout);
+  }
+
+  dismissModal = () => {
+    const { navigation } = this.props;
     navigation.goBack();
   };
 
-  return (
+  render() {
+    return (
 
-    <KeyboardAvoidingView style={styles.container} behavior="padding" enabled>
-      <SafeAreaView style={styles.safeAreaView}>
-        <ModalHeader dismissModal={dismissModal} />
-        <View style={styles.formWrapper}>
-          <AddWorkoutForm
-            addWorkout={addWorkout}
-            dismissModal={dismissModal}
-          />
-        </View>
-      </SafeAreaView>
-    </KeyboardAvoidingView>
+      <KeyboardAvoidingView style={styles.container} behavior="padding" enabled>
+        <SafeAreaView style={styles.safeAreaView}>
+          <View style={styles.formWrapper}>
+            <AddWorkoutForm
+              addWorkout={this.addWorkout}
+              dismissModal={this.dismissModal}
+            />
+          </View>
+        </SafeAreaView>
+      </KeyboardAvoidingView>
 
-  );
-};
+    );
+  }
+}
 
 export default AddWorkoutModal;
 

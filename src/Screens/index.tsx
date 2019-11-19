@@ -18,6 +18,7 @@ const MainStack = createStackNavigator({
 const RootStack = createStackNavigator({
   Main: {
     screen: MainStack,
+    navigationOptions: { header: null },
   },
   [ScreenNames.AddWorkout]: {
     screen: AddWorkoutModal,
@@ -28,7 +29,6 @@ const RootStack = createStackNavigator({
 },
 {
   mode: 'modal',
-  headerMode: 'none',
 });
 
 export default RootStack;
