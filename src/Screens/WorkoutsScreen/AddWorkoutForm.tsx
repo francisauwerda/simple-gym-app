@@ -56,7 +56,6 @@ export default AddWorkoutForm;
 const styles = StyleSheet.create({
   input: {
     textAlign: 'center',
-    height: 40,
     fontSize: 24,
   },
   buttonWrapper: {

@@ -1,75 +1,36 @@
 import React from 'react';
-import {
-  SafeAreaView, StyleSheet, View, KeyboardAvoidingView, StatusBar,
-} from 'react-native';
-import { NavigationScreenProp, NavigationState, NavigationParams } from 'react-navigation';
-import AddWorkoutForm from './AddWorkoutForm';
+import { NavigationScreenProp, NavigationState } from 'react-navigation';
 import { WorkoutDetails } from '../../state/ducks/workouts/types';
+import ModalWrapper from '../../components/ModalWrapper';
+import AddWorkoutForm from './AddWorkoutForm';
 
 export enum AddWorkoutParams {
   AddWorkout = 'ADD_WORKOUT'
 }
 
-interface AddWorkoutModalNavigationState extends NavigationState {
-  params: {
-    [AddWorkoutParams.AddWorkout]: (workoutDetails: WorkoutDetails) => void;
-  }
+interface NavigationParams {
+  [AddWorkoutParams.AddWorkout]: (workoutDetails: WorkoutDetails) => void;
 }
+
+type Navigation = NavigationScreenProp<NavigationState, NavigationParams>;
+
 
 interface Props {
-  navigation: NavigationScreenProp<AddWorkoutModalNavigationState, NavigationParams>,
+  navigation: Navigation;
 }
 
+const AddWorkoutModal = (props: Props) => {
+  const { navigation } = props;
+  const addWorkout = navigation.state.params[AddWorkoutParams.AddWorkout];
 
-class AddWorkoutModal extends React.Component<Props> {
-  static navigationOptions = {
-    title: 'Add workout',
-  }
-
-  addWorkout = () => {
-    const { navigation } = this.props;
-    navigation.getParam(AddWorkoutParams.AddWorkout);
-  }
-
-  dismissModal = () => {
-    const { navigation } = this.props;
-    navigation.goBack();
-  };
-
-  render() {
-    return (
-
-      <KeyboardAvoidingView style={styles.container} behavior="padding" enabled>
-        <SafeAreaView style={styles.safeAreaView}>
-          <View style={styles.formWrapper}>
-            <AddWorkoutForm
-              addWorkout={this.addWorkout}
-              dismissModal={this.dismissModal}
-            />
-          </View>
-        </SafeAreaView>
-      </KeyboardAvoidingView>
-
-    );
-  }
-}
+  return (
+    <ModalWrapper>
+      <AddWorkoutForm
+        addWorkout={addWorkout}
+        dismissModal={() => navigation.goBack()}
+      />
+    </ModalWrapper>
+  );
+};
 
 export default AddWorkoutModal;
-
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-  safeAreaView: {
-    flex: 1,
-    // This is only for android but for some reason doesn't affect iOS
-    paddingTop: StatusBar.currentHeight,
-  },
-  formWrapper: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    paddingVertical: 15,
-  },
-});
