@@ -1,17 +1,17 @@
 import React from 'react';
 import moment from 'moment';
 import {
-  SafeAreaView, StyleSheet, Text, FlatList, View,
+  SafeAreaView, StyleSheet, Text, FlatList, View, Button,
 } from 'react-native';
 
 import { Set, SetDetails } from '../../state/ducks/sets/types';
 import { Exercise } from '../../state/ducks/exercises/types';
-import AddSetForm from './AddSetForm';
 
 interface Props {
   sets: Set[];
   exercise: Exercise;
   addSet: (setDetails: SetDetails) => void;
+  openModal: () => void;
 }
 
 const SetInfo = ({ set }: { set: Set }) => (
@@ -36,12 +36,10 @@ const SetInfo = ({ set }: { set: Set }) => (
 );
 
 export default function SetsScreenView(props: Props) {
-  const { sets, exercise, addSet } = props;
+  const { sets, openModal } = props;
 
   return (
     <SafeAreaView style={styles.container}>
-      <AddSetForm addSet={addSet} exercise={exercise} />
-
       <FlatList
         data={sets}
         renderItem={({ item }) => (
@@ -51,6 +49,11 @@ export default function SetsScreenView(props: Props) {
         )}
         keyExtractor={(item) => item.id}
         style={styles.flatListContainer}
+      />
+
+      <Button
+        title="Add a set"
+        onPress={openModal}
       />
     </SafeAreaView>
   );

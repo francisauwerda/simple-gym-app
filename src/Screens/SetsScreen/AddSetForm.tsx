@@ -1,5 +1,7 @@
 import React from 'react';
-import { TextInput, Button } from 'react-native';
+import {
+  TextInput, Button, StyleSheet, View,
+} from 'react-native';
 import { Formik } from 'formik';
 import moment from 'moment';
 import { SetDetails } from '../../state/ducks/sets/types';
@@ -8,6 +10,7 @@ import { Exercise } from '../../state/ducks/exercises/types';
 interface AddSetFormProps {
   addSet: (setDetails: SetDetails) => void;
   exercise: Exercise;
+  dismissModal: () => void;
 }
 
 const initialValues: any = { // TODO: Sort this out
@@ -18,7 +21,7 @@ const initialValues: any = { // TODO: Sort this out
 };
 
 const AddSetForm = (props: AddSetFormProps) => {
-  const { addSet, exercise } = props;
+  const { addSet, exercise, dismissModal } = props;
 
   return (
     <Formik
@@ -29,6 +32,7 @@ const AddSetForm = (props: AddSetFormProps) => {
 
         addSet({ ...values, date, exerciseId });
         resetForm();
+        dismissModal();
       }}
     >
       {({
@@ -36,13 +40,16 @@ const AddSetForm = (props: AddSetFormProps) => {
       }) => (
         <>
           <TextInput
+            style={styles.input}
             onChangeText={handleChange('reps')}
             value={values.reps}
             placeholder="Enter reps"
             keyboardType="numeric"
+            autoFocus
           />
 
           <TextInput
+            style={styles.input}
             onChangeText={handleChange('weight')}
             value={values.weight}
             placeholder="Enter weight in KGs"
@@ -50,16 +57,19 @@ const AddSetForm = (props: AddSetFormProps) => {
           />
 
           <TextInput
+            style={styles.input}
             onChangeText={handleChange('difficulty')}
             value={values.difficulty}
             placeholder="Enter difficulty from 1-5"
             keyboardType="numeric"
           />
 
-          <Button
-            title="Add set"
-            onPress={submitForm}
-          />
+          <View style={styles.buttonWrapper}>
+            <Button
+              title="Add set"
+              onPress={submitForm}
+            />
+          </View>
         </>
       )}
     </Formik>
@@ -67,3 +77,15 @@ const AddSetForm = (props: AddSetFormProps) => {
 };
 
 export default AddSetForm;
+
+const styles = StyleSheet.create({
+  input: {
+    textAlign: 'center',
+    fontSize: 24,
+  },
+  buttonWrapper: {
+    marginTop: 20,
+    alignSelf: 'stretch',
+    marginHorizontal: 15,
+  },
+});

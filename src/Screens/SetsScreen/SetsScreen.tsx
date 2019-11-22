@@ -7,6 +7,8 @@ import { State } from '../../state/types';
 import { Exercise } from '../../state/ducks/exercises/types';
 import { setsSelectors } from '../../state/ducks/sets';
 import SetsScreenView from './SetsScreenView';
+import { ScreenNames } from '../enums';
+import { AddSetParams } from './AddSetModal';
 
 interface SetsNavigationState extends NavigationState {
   params: {
@@ -33,6 +35,15 @@ class SetsScreenContainer extends Component<SetsScreenContainerProps> {
     fetchSets(exercise.id);
   }
 
+  openModal = () => {
+    const { navigation, addSet, exercise } = this.props;
+
+    navigation.navigate(ScreenNames.AddSet, {
+      [AddSetParams.AddSetParam]: addSet,
+      [AddSetParams.ExerciseParam]: exercise,
+    });
+  }
+
   render() {
     const { sets, exercise, addSet } = this.props;
     return (
@@ -40,6 +51,7 @@ class SetsScreenContainer extends Component<SetsScreenContainerProps> {
         sets={sets}
         exercise={exercise}
         addSet={addSet}
+        openModal={this.openModal}
       />
     );
   }
