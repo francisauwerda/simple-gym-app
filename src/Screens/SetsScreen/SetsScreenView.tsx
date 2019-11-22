@@ -50,6 +50,7 @@ export default function SetsScreenView(props: Props) {
           />
         )}
         keyExtractor={(item) => item.id}
+        style={styles.flatListContainer}
       />
     </SafeAreaView>
   );
@@ -65,5 +66,11 @@ const styles = StyleSheet.create({
     borderRadius: 4,
     borderWidth: 0.5,
     borderColor: '#d6d7da',
+  },
+  flatListContainer: {
+    flex: 1,
+    flexDirection: 'column',
+    paddingTop: 8,
+    marginHorizontal: 16,
   },
 });
