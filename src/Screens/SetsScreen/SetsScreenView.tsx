@@ -40,7 +40,7 @@ export default function SetsScreenView(props: Props) {
           />
         )}
         renderSectionHeader={({ section: { title } }) => (
-          <Text>{title}</Text>
+          <Text style={styles.sectionHeader}>{title}</Text>
         )}
       />
 
@@ -66,7 +66,13 @@ const styles = StyleSheet.create({
   sectionListContainer: {
     flex: 1,
     flexDirection: 'column',
-    paddingTop: 8,
+    marginTop: 8,
     marginHorizontal: 16,
+  },
+  sectionHeader: {
+    fontSize: 28,
+    fontWeight: '500',
+    backgroundColor: 'white',
+    paddingVertical: 16,
   },
 });
