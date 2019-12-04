@@ -9,15 +9,24 @@ const Card = ({
   mainText,
   secondaryText,
   onClickHandler,
+  leftAccessory,
 }: {
   mainText: string,
   secondaryText?: string,
   onClickHandler: any,
+  leftAccessory?: any,
 }) => (
   <TouchableComponent onPress={onClickHandler}>
     <View style={styles.cardWrapper}>
-      <Text style={styles.mainText}>{mainText}</Text>
-      {!!secondaryText && <Text>{secondaryText}</Text>}
+      {!!leftAccessory && (
+      <Text style={styles.leftAccessory}>
+        {leftAccessory}
+      </Text>
+      )}
+      <View style={styles.textWrapper}>
+        <Text style={styles.mainText}>{mainText}</Text>
+        {!!secondaryText && <Text>{secondaryText}</Text>}
+      </View>
     </View>
   </TouchableComponent>
 );
@@ -31,10 +40,23 @@ const styles = StyleSheet.create({
     borderRadius: 4,
     borderWidth: 0.5,
     borderColor: '#d6d7da',
+    display: 'flex',
+    flexDirection: 'row',
   },
   mainText: {
     fontSize: 20,
     fontWeight: '500',
     lineHeight: 30,
+  },
+  textWrapper: {
+
+  },
+  leftAccessory: {
+    paddingRight: 10,
+    paddingLeft: 5,
+    fontSize: 24,
+    fontWeight: '500',
+    lineHeight: 30,
+    textAlignVertical: 'center',
   },
 });

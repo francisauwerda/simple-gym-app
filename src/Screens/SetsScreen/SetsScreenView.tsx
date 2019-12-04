@@ -34,8 +34,9 @@ export default function SetsScreenView(props: Props) {
         keyExtractor={(item) => item.id}
         renderItem={({ item, index, section }) => (
           <Card
-            mainText={`${item.reps} reps at ${item.weight} kg. Set ${section.data.length - index}`}
-            secondaryText={`Difficulty: ${item.difficulty}. Date: ${moment(item.date).format('LLLL')}`}
+            leftAccessory={section.data.length - index}
+            mainText={`${item.weight} kg`}
+            secondaryText={`${item.reps} reps. ${moment(item.date).format('LLLL')}`}
             onClickHandler={() => {}}
           />
         )}
