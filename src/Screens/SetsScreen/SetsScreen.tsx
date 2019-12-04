@@ -45,10 +45,13 @@ class SetsScreenContainer extends Component<SetsScreenContainerProps> {
   }
 
   render() {
-    const { sets, exercise, addSet } = this.props;
+    const {
+      todaysSets, lastSessionSets, exercise, addSet,
+    } = this.props;
     return (
       <SetsScreenView
-        sets={sets}
+        todaysSets={todaysSets}
+        lastSessionSets={lastSessionSets}
         exercise={exercise}
         addSet={addSet}
         openModal={this.openModal}
@@ -58,16 +61,18 @@ class SetsScreenContainer extends Component<SetsScreenContainerProps> {
 }
 
 interface StateProps {
-  sets: Set[],
+  todaysSets: Set[],
+  lastSessionSets: Set[],
   exercise: Exercise
 }
 
 const mapStateToProps = (state: State, ownProps: SetsScreenProps): StateProps => {
-  const exercise: Exercise = ownProps.navigation.getParam('exercise');
-  const sets: Set[] = setsSelectors.selectSets(state, exercise.id);
+  const { exercise } = ownProps.navigation.state.params;
+  const { today, lastSession } = setsSelectors.selectSetsTodayAndLastSession(state, exercise.id);
 
   return {
-    sets,
+    todaysSets: today,
+    lastSessionSets: lastSession,
     exercise,
   };
 };

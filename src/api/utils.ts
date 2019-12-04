@@ -13,6 +13,12 @@ const squatsId = uuid();
 const rdlId = uuid();
 const shoulderPressId = uuid();
 
+const thisMonth = moment('2019-11-11');
+const thisMonth2 = thisMonth.clone().add(1, 'hour');
+const thisMonth3 = thisMonth.clone().add(2, 'hour');
+const yesterday = thisMonth.clone().subtract(1, 'day');
+const lastMonth = thisMonth.clone().subtract(1, 'M');
+
 const defaultData = {
   workouts: [{
     id: legsId,
@@ -39,28 +45,35 @@ const defaultData = {
   sets: [{
     id: uuid(),
     reps: 10,
-    date: moment(),
+    date: lastMonth,
     difficulty: 4,
     weight: 100,
     exerciseId: squatsId,
   }, {
     id: uuid(),
     reps: 10,
-    date: moment(),
+    date: thisMonth,
     difficulty: 4,
     weight: 100,
     exerciseId: squatsId,
   }, {
     id: uuid(),
     reps: 8,
-    date: moment(),
+    date: yesterday,
     difficulty: 5,
     weight: 100,
     exerciseId: squatsId,
   }, {
     id: uuid(),
     reps: 8,
-    date: moment(),
+    date: thisMonth2,
+    difficulty: 5,
+    weight: 90,
+    exerciseId: squatsId,
+  }, {
+    id: uuid(),
+    reps: 8,
+    date: thisMonth3,
     difficulty: 5,
     weight: 90,
     exerciseId: squatsId,

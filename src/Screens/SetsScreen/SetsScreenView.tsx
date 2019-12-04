@@ -1,54 +1,47 @@
 import React from 'react';
 import moment from 'moment';
 import {
-  SafeAreaView, StyleSheet, Text, FlatList, View, Button,
+  SafeAreaView, StyleSheet, Text, SectionList, Button,
 } from 'react-native';
 
 import { Set, SetDetails } from '../../state/ducks/sets/types';
 import { Exercise } from '../../state/ducks/exercises/types';
+import Card from '../../components/Card';
 
 interface Props {
-  sets: Set[];
+  todaysSets: Set[],
+  lastSessionSets: Set[],
   exercise: Exercise;
   addSet: (setDetails: SetDetails) => void;
   openModal: () => void;
 }
 
-const SetInfo = ({ set }: { set: Set }) => (
-  <View style={styles.set}>
-    <View>
-      <Text>Weight:</Text>
-      <Text>{set.weight}</Text>
-    </View>
-    <View>
-      <Text>Reps:</Text>
-      <Text>{set.reps}</Text>
-    </View>
-    <View>
-      <Text>Date:</Text>
-      <Text>{moment(set.date).format()}</Text>
-    </View>
-    <View>
-      <Text>Difficulty:</Text>
-      <Text>{set.difficulty}</Text>
-    </View>
-  </View>
-);
-
 export default function SetsScreenView(props: Props) {
-  const { sets, openModal } = props;
+  const { todaysSets, lastSessionSets, openModal } = props;
+  const myData = [{
+    title: 'Today',
+    data: todaysSets,
+  }, {
+    title: 'Last session',
+    data: lastSessionSets,
+  }];
 
   return (
     <SafeAreaView style={styles.container}>
-      <FlatList
-        data={sets}
-        renderItem={({ item }) => (
-          <SetInfo
-            set={item}
+      <SectionList
+        style={styles.sectionListContainer}
+        sections={myData}
+        keyExtractor={(item) => item.id}
+        renderItem={({ item, index, section }) => (
+          <Card
+            mainText={`${item.reps} reps at ${item.weight} kg. Set ${section.data.length - index}`}
+            secondaryText={`Difficulty: ${item.difficulty}. Date: ${moment(item.date).format('LLLL')}`}
+            onClickHandler={() => {}}
           />
         )}
-        keyExtractor={(item) => item.id}
-        style={styles.flatListContainer}
+        renderSectionHeader={({ section: { title } }) => (
+          <Text>{title}</Text>
+        )}
       />
 
       <Button
@@ -70,7 +63,7 @@ const styles = StyleSheet.create({
     borderWidth: 0.5,
     borderColor: '#d6d7da',
   },
-  flatListContainer: {
+  sectionListContainer: {
     flex: 1,
     flexDirection: 'column',
     paddingTop: 8,

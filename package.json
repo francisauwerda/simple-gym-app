@@ -5,7 +5,8 @@
     "android": "expo start --android",
     "ios": "expo start --ios",
     "web": "expo start --web",
-    "eject": "expo eject"
+    "eject": "expo eject",
+    "test": "jest --config ./jest.config.json"
   },
   "dependencies": {
     "expo": "^34.0.1",
@@ -25,6 +26,7 @@
     "uuidv4": "^5.0.1"
   },
   "devDependencies": {
+    "@types/jest": "^24.0.23",
     "@types/react": "^16.8.23",
     "@types/react-native": "^0.57.65",
     "@typescript-eslint/eslint-plugin": "^2.2.0",
@@ -36,6 +38,7 @@
     "eslint-plugin-jsx-a11y": "^6.2.3",
     "eslint-plugin-react": "^7.14.3",
     "eslint-plugin-react-hooks": "^1.7.0",
+    "jest": "^24.9.0",
     "typescript": "^3.4.5"
   },
   "private": true
