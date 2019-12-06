@@ -1,11 +1,13 @@
 import React from 'react';
 import {
-  SafeAreaView, FlatList, Button, StyleSheet,
+  SafeAreaView, FlatList, StyleSheet, View,
 } from 'react-native';
 import { NavigationScreenProp, NavigationState, NavigationParams } from 'react-navigation';
 
 import { Workout } from '../../state/ducks/workouts/types';
 import Card from '../../components/Card';
+import Button from '../../components/Button';
+import BottomWrapper from '../../components/BottomWrapper';
 
 interface WorkoutsScreenProps {
   navigation: NavigationScreenProp<NavigationState, NavigationParams>,
@@ -37,16 +39,21 @@ const WorkoutsScreenView = (props: WorkoutsScreenProps) => {
         keyExtractor={(item) => item.id}
       />
 
-      <Button
-        title="Add a Workout"
-        onPress={openModal}
-      />
+      <BottomWrapper>
+        <View>
+          <Button
+            title="Add a Workout"
+            onPress={openModal}
+          />
+        </View>
 
-      <Button
-        title="Debug Reset Workouts"
-        onPress={resetWorkouts}
-      />
-
+        <View>
+          <Button
+            title="Reset app"
+            onPress={resetWorkouts}
+          />
+        </View>
+      </BottomWrapper>
     </SafeAreaView>
   );
 };
@@ -58,11 +65,15 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: 'white',
     justifyContent: 'center',
+    marginBottom: 10,
   },
   flatListContainer: {
     flex: 1,
     flexDirection: 'column',
     paddingTop: 8,
     marginHorizontal: 16,
+  },
+  buttonsWrapper: {
+    marginVertical: 15,
   },
 });

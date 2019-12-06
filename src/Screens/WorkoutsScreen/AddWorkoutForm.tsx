@@ -1,9 +1,10 @@
 import React from 'react';
 import {
-  TextInput, Button, StyleSheet, View,
+  TextInput, StyleSheet, View,
 } from 'react-native';
 import { Formik } from 'formik';
 import { WorkoutDetails } from '../../state/ducks/workouts/types';
+import Button from '../../components/Button';
 
 interface AddWorkoutFormProps {
   addWorkout: (workoutDetails: WorkoutDetails) => void;

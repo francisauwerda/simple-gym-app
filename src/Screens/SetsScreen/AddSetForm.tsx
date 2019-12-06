@@ -1,11 +1,12 @@
 import React from 'react';
 import {
-  TextInput, Button, StyleSheet, View,
+  TextInput, StyleSheet, View,
 } from 'react-native';
 import { Formik } from 'formik';
 import moment from 'moment';
 import { SetDetails } from '../../state/ducks/sets/types';
 import { Exercise } from '../../state/ducks/exercises/types';
+import Button from '../../components/Button';
 
 interface AddSetFormProps {
   addSet: (setDetails: SetDetails) => void;
@@ -43,7 +44,7 @@ const AddSetForm = (props: AddSetFormProps) => {
             style={styles.input}
             onChangeText={handleChange('reps')}
             value={values.reps}
-            placeholder="Enter reps"
+            placeholder="Reps"
             keyboardType="numeric"
             autoFocus
           />
@@ -52,7 +53,7 @@ const AddSetForm = (props: AddSetFormProps) => {
             style={styles.input}
             onChangeText={handleChange('weight')}
             value={values.weight}
-            placeholder="Enter weight in KGs"
+            placeholder="Weight"
             keyboardType="numeric"
           />
 
@@ -60,7 +61,7 @@ const AddSetForm = (props: AddSetFormProps) => {
             style={styles.input}
             onChangeText={handleChange('difficulty')}
             value={values.difficulty}
-            placeholder="Enter difficulty from 1-5"
+            placeholder="Difficulty"
             keyboardType="numeric"
           />
 

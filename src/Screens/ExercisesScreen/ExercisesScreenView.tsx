@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-  SafeAreaView, FlatList, StyleSheet, Button,
+  SafeAreaView, FlatList, StyleSheet,
 } from 'react-native';
 import {
   NavigationScreenProp, NavigationParams, NavigationState,
@@ -10,6 +10,8 @@ import { ScreenNames } from '../enums';
 import { Exercise } from '../../state/ducks/exercises/types';
 import { Workout } from '../../state/ducks/workouts/types';
 import Card from '../../components/Card';
+import Button from '../../components/Button';
+import BottomWrapper from '../../components/BottomWrapper';
 
 interface Props {
   navigation: NavigationScreenProp<NavigationState, NavigationParams>;
@@ -36,10 +38,12 @@ export default function ExercisesScreenView(props: Props) {
         keyExtractor={(item) => item.id}
       />
 
-      <Button
-        title="Add an exercise"
-        onPress={openModal}
-      />
+      <BottomWrapper>
+        <Button
+          title="Add an exercise"
+          onPress={openModal}
+        />
+      </BottomWrapper>
     </SafeAreaView>
   );
 }
@@ -49,6 +53,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#fff',
     justifyContent: 'center',
+    marginBottom: 10,
   },
   flatListContainer: {
     flex: 1,

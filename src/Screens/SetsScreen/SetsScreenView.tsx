@@ -1,12 +1,14 @@
 import React from 'react';
 import moment from 'moment';
 import {
-  SafeAreaView, StyleSheet, Text, SectionList, Button,
+  SafeAreaView, StyleSheet, Text, SectionList,
 } from 'react-native';
 
 import { Set, SetDetails } from '../../state/ducks/sets/types';
 import { Exercise } from '../../state/ducks/exercises/types';
 import Card from '../../components/Card';
+import Button from '../../components/Button';
+import BottomWrapper from '../../components/BottomWrapper';
 
 interface Props {
   todaysSets: Set[],
@@ -45,10 +47,12 @@ export default function SetsScreenView(props: Props) {
         )}
       />
 
-      <Button
-        title="Add a set"
-        onPress={openModal}
-      />
+      <BottomWrapper>
+        <Button
+          title="Add a set"
+          onPress={openModal}
+        />
+      </BottomWrapper>
     </SafeAreaView>
   );
 }
@@ -58,6 +62,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#fff',
     justifyContent: 'center',
+    marginBottom: 10,
   },
   set: {
     borderRadius: 4,
