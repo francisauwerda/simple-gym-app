@@ -15,11 +15,17 @@ interface Props {
   lastSessionSets: Set[],
   exercise: Exercise;
   addSet: (setDetails: SetDetails) => void;
+  deleteSet: (id: Set['id']) => void;
   openModal: () => void;
 }
 
 export default function SetsScreenView(props: Props) {
-  const { todaysSets, lastSessionSets, openModal } = props;
+  const {
+    todaysSets,
+    lastSessionSets,
+    openModal,
+    deleteSet,
+  } = props;
 
   const myData = [];
   if (todaysSets.length) {
@@ -52,11 +58,15 @@ export default function SetsScreenView(props: Props) {
         keyExtractor={(item) => item.id}
         renderItem={({ item, index, section }) => (
           <Card
-            disabled
+            // disabled
+            // TODO: Change this to a special button and only allow for todays sets??
             leftAccessory={section.data.length - index}
             mainText={`${item.weight} kg`}
             secondaryText={`Reps: ${item.reps}`}
-            onClickHandler={() => {}}
+            onClickHandler={() => {
+              console.log('Deleting set: ', item.id);
+              deleteSet(item.id);
+            }}
           />
         )}
         renderSectionHeader={({ section: { title, subtitle } }) => (

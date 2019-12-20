@@ -46,7 +46,7 @@ class SetsScreenContainer extends Component<SetsScreenContainerProps> {
 
   render() {
     const {
-      todaysSets, lastSessionSets, exercise, addSet,
+      todaysSets, lastSessionSets, exercise, addSet, deleteSet,
     } = this.props;
     return (
       <SetsScreenView
@@ -54,6 +54,7 @@ class SetsScreenContainer extends Component<SetsScreenContainerProps> {
         lastSessionSets={lastSessionSets}
         exercise={exercise}
         addSet={addSet}
+        deleteSet={deleteSet}
         openModal={this.openModal}
       />
     );
@@ -80,6 +81,7 @@ const mapStateToProps = (state: State, ownProps: SetsScreenProps): StateProps =>
 interface DispatchProps {
   fetchSets: (exerciseId: Set['exerciseId']) => void;
   addSet: (set: SetDetails) => void;
+  deleteSet: (id: Set['id']) => void;
 }
 
 const mapDispatchToProps = (dispatch): DispatchProps => ({
@@ -88,6 +90,9 @@ const mapDispatchToProps = (dispatch): DispatchProps => ({
   },
   addSet: (set: SetDetails) => {
     dispatch(actions.addSet(set));
+  },
+  deleteSet: (id: Set['id']) => {
+    dispatch(actions.deleteSet(id));
   },
 });
 
