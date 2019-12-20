@@ -42,3 +42,18 @@ export const addSet = async (set: SetDetails): Promise<Set[]> => {
     return [];
   }
 };
+
+export const deleteSet = async (id: Set['id']): Promise<Set[]> => {
+  try {
+    console.log(`Deleting set with id: ${id}`);
+
+    const sets = await getSets();
+    const filteredSets = sets.filter((set) => set.id !== id);
+
+    await AsyncStorage.setItem(STORAGE_KEYS.Sets, JSON.stringify(filteredSets));
+    return filteredSets;
+  } catch (error) {
+    console.log(`Error deleting set with id: ${id}`, error);
+    return [];
+  }
+};

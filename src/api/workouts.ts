@@ -16,3 +16,9 @@ export const addWorkout = async (workoutDetails: WorkoutDetails): Promise<Workou
 
   return workouts;
 };
+
+export const deleteWorkout = async (id: Workout['id']): Promise<Workout[]> => {
+  const workouts: Workout[] = await asyncStorage.workouts.deleteWorkout(id);
+
+  return workouts;
+};

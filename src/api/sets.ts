@@ -11,7 +11,7 @@ export const addSet = async (setDetails: SetDetails): Promise<Set[]> => {
   return sets;
 };
 
-// export const deleteSet = async (id: Set['id']): Promise<Set[]> => {
-//   const sets: Set[] = await asyncStorage.deleteSet(id);
-//   return sets;
-// };
+export const deleteSet = async (id: Set['id']): Promise<Set[]> => {
+  const sets: Set[] = await asyncStorage.sets.deleteSet(id);
+  return sets;
+};
