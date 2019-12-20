@@ -2,13 +2,13 @@ import { Exercise, ExerciseDetails } from '../state/ducks/exercises/types';
 import asyncStorage from './asyncStorage';
 
 export const getExercises = async (workoutId: Exercise['workoutId']): Promise<Exercise[]> => {
-  const exercises = await asyncStorage.getExercises(workoutId);
+  const exercises = await asyncStorage.exercises.getExercises(workoutId);
 
   return exercises;
 };
 
 export const addExercise = async (exerciseDetails: ExerciseDetails): Promise<Exercise[]> => {
-  const exercises: Exercise[] = await asyncStorage.addExercise(exerciseDetails);
+  const exercises: Exercise[] = await asyncStorage.exercises.addExercise(exerciseDetails);
 
   return exercises;
 };
