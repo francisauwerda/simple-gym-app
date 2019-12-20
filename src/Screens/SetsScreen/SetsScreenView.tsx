@@ -55,7 +55,6 @@ export default function SetsScreenView(props: Props) {
             leftAccessory={section.data.length - index}
             mainText={`${item.weight} kg`}
             secondaryText={`Reps: ${item.reps}`}
-            // secondaryText={`Reps: ${item.reps}. ${moment(item.date).format('LLLL')}`}
             onClickHandler={() => {}}
           />
         )}

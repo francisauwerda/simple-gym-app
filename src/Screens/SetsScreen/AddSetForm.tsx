@@ -57,13 +57,14 @@ const AddSetForm = (props: AddSetFormProps) => {
             keyboardType="numeric"
           />
 
-          <TextInput
+          {/* Implement when I add difficulty */}
+          {/* <TextInput
             style={styles.input}
             onChangeText={handleChange('difficulty')}
             value={values.difficulty}
             placeholder="Difficulty"
             keyboardType="numeric"
-          />
+          /> */}
 
           <View style={styles.buttonWrapper}>
             <Button
@@ -83,6 +84,7 @@ const styles = StyleSheet.create({
   input: {
     textAlign: 'center',
     fontSize: 24,
+    paddingVertical: 10,
   },
   buttonWrapper: {
     marginTop: 20,
