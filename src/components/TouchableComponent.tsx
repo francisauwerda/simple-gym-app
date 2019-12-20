@@ -4,20 +4,21 @@ import { TouchableOpacity, Platform, TouchableNativeFeedback } from 'react-nativ
 interface Props {
   children: any,
   onPress: any,
+  disabled?: boolean,
 }
 
 const TouchableComponent = (props: Props) => {
-  const { children, onPress } = props;
+  const { children, onPress, disabled } = props;
   if (Platform.OS === 'ios') {
     return (
-      <TouchableOpacity onPress={onPress}>
+      <TouchableOpacity onPress={onPress} disabled={disabled}>
         {children}
       </TouchableOpacity>
     );
   }
 
   return (
-    <TouchableNativeFeedback onPress={onPress}>
+    <TouchableNativeFeedback onPress={onPress} disabled={disabled}>
       {children}
     </TouchableNativeFeedback>
   );

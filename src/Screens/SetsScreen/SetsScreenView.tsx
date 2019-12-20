@@ -52,6 +52,7 @@ export default function SetsScreenView(props: Props) {
         keyExtractor={(item) => item.id}
         renderItem={({ item, index, section }) => (
           <Card
+            disabled
             leftAccessory={section.data.length - index}
             mainText={`${item.weight} kg`}
             secondaryText={`Reps: ${item.reps}`}
@@ -82,11 +83,6 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     justifyContent: 'center',
     marginBottom: 10,
-  },
-  set: {
-    borderRadius: 4,
-    borderWidth: 0.5,
-    borderColor: '#d6d7da',
   },
   sectionListContainer: {
     flex: 1,

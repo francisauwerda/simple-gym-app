@@ -10,13 +10,15 @@ const Card = ({
   secondaryText,
   onClickHandler,
   leftAccessory,
+  disabled,
 }: {
   mainText: string,
   secondaryText?: string,
   onClickHandler: any,
   leftAccessory?: any,
+  disabled?: boolean,
 }) => (
-  <TouchableComponent onPress={onClickHandler}>
+  <TouchableComponent onPress={onClickHandler} disabled={disabled}>
     <View style={styles.cardWrapper}>
       {!!leftAccessory && (
       <Text style={styles.leftAccessory}>
