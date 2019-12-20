@@ -20,7 +20,7 @@ const Card = ({
     <View style={styles.cardWrapper}>
       {!!leftAccessory && (
       <Text style={styles.leftAccessory}>
-        {leftAccessory}
+        {`Set ${leftAccessory}`}
       </Text>
       )}
       <View style={styles.textWrapper}>
@@ -49,14 +49,14 @@ const styles = StyleSheet.create({
     lineHeight: 30,
   },
   textWrapper: {
-
   },
   leftAccessory: {
-    paddingRight: 10,
-    paddingLeft: 5,
     fontSize: 24,
-    fontWeight: '500',
     lineHeight: 30,
     textAlignVertical: 'center',
+    borderRightWidth: 1,
+    borderRightColor: 'black',
+    paddingRight: 10,
+    marginRight: 10,
   },
 });
