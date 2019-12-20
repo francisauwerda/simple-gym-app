@@ -1,7 +1,7 @@
 import React from 'react';
 import moment from 'moment';
 import {
-  SafeAreaView, StyleSheet, Text, SectionList,
+  SafeAreaView, StyleSheet, Text, SectionList, View,
 } from 'react-native';
 
 import { Set, SetDetails } from '../../state/ducks/sets/types';
@@ -20,13 +20,29 @@ interface Props {
 
 export default function SetsScreenView(props: Props) {
   const { todaysSets, lastSessionSets, openModal } = props;
-  const myData = [{
-    title: 'Today',
-    data: todaysSets,
-  }, {
-    title: 'Last session',
-    data: lastSessionSets,
-  }];
+
+  const myData = [];
+  if (todaysSets.length) {
+    myData.push({
+      title: 'Today',
+      data: todaysSets,
+    });
+  }
+
+  if (lastSessionSets.length) {
+    myData.push({
+      title: 'Last session',
+      subtitle: `${moment(lastSessionSets[0].date).calendar(null, {
+        sameDay: '[Today]',
+        nextDay: '[Tomorrow]',
+        nextWeek: 'dddd',
+        lastDay: '[Yesterday]',
+        lastWeek: '[Last] dddd',
+        sameElse: 'DD/MM/YYYY',
+      })}`,
+      data: lastSessionSets,
+    });
+  }
 
   return (
     <SafeAreaView style={styles.container}>
@@ -38,12 +54,16 @@ export default function SetsScreenView(props: Props) {
           <Card
             leftAccessory={section.data.length - index}
             mainText={`${item.weight} kg`}
-            secondaryText={`${item.reps} reps. ${moment(item.date).format('LLLL')}`}
+            secondaryText={`Reps: ${item.reps}`}
+            // secondaryText={`Reps: ${item.reps}. ${moment(item.date).format('LLLL')}`}
             onClickHandler={() => {}}
           />
         )}
-        renderSectionHeader={({ section: { title } }) => (
-          <Text style={styles.sectionHeader}>{title}</Text>
+        renderSectionHeader={({ section: { title, subtitle } }) => (
+          <View style={styles.sectionTitles}>
+            <Text style={styles.sectionTitle}>{title}</Text>
+            {!!subtitle && <Text style={styles.sectionSubtitle}>{subtitle}</Text>}
+          </View>
         )}
       />
 
@@ -75,10 +95,15 @@ const styles = StyleSheet.create({
     marginTop: 8,
     marginHorizontal: 16,
   },
-  sectionHeader: {
-    fontSize: 28,
-    fontWeight: '500',
+  sectionTitles: {
     backgroundColor: 'white',
     paddingVertical: 16,
+  },
+  sectionTitle: {
+    fontSize: 28,
+    fontWeight: '500',
+  },
+  sectionSubtitle: {
+    fontSize: 16,
   },
 });
