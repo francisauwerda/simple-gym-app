@@ -10,7 +10,13 @@ const addSet = (set: SetDetails) => ({
   payload: set,
 });
 
+const deleteSet = (id: Set['id']) => ({
+  type: types.DELETE,
+  payload: { id },
+});
+
 export default {
   fetchSets,
   addSet,
+  deleteSet,
 };

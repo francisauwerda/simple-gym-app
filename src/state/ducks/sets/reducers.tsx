@@ -14,7 +14,15 @@ const setsReducer = (state = initialState, action) => {
     case types.ADD_SUCCESS: {
       return {
         ...state,
+        // Here do the same as delete. Override all sets with what came from server.
         ...action.payload,
+      };
+    }
+
+    case types.DELETE_SUCCESS: {
+      return {
+        ...state,
+        sets: action.payload.sets,
       };
     }
 
