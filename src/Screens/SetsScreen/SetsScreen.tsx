@@ -26,7 +26,7 @@ class SetsScreenContainer extends Component<SetsScreenContainerProps> {
   static navigationOptions = ({ navigation }) => {
     const exercise: Exercise = navigation.getParam('exercise');
     return {
-      title: `${exercise.name}`,
+      title: `${exercise.name} sets`,
     };
   }
 

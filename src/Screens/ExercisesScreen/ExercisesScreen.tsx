@@ -29,7 +29,7 @@ class ExercisesScreenContainer extends React.Component<ExercisesScreenContainerP
   static navigationOptions = ({ navigation }) => {
     const workout: Workout = navigation.getParam('workout');
     return {
-      title: `${workout.name}`,
+      title: `${workout.name} exercises`,
     };
   }
 
