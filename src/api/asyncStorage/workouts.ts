@@ -10,12 +10,12 @@ export const getWorkouts = async (): Promise<Workout[]> => {
   try {
     const workouts: string = await AsyncStorage.getItem(STORAGE_KEYS.Workouts);
 
-    if (!workouts) {
-      const defaultWorkouts = utils.getDefaultWorkouts();
+    // if (!workouts) {
+    //   const defaultWorkouts = utils.getDefaultWorkouts();
 
-      await AsyncStorage.setItem(STORAGE_KEYS.Workouts, JSON.stringify(defaultWorkouts));
-      return defaultWorkouts;
-    }
+    //   await AsyncStorage.setItem(STORAGE_KEYS.Workouts, JSON.stringify(defaultWorkouts));
+    //   return defaultWorkouts;
+    // }
 
     return JSON.parse(workouts);
   } catch (error) {
