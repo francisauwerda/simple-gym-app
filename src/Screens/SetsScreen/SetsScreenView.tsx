@@ -59,11 +59,14 @@ export default function SetsScreenView(props: Props) {
         renderItem={({ item, index, section }) => (
           <Card
             // disabled
-            // TODO: Change this to a special button and only allow for todays sets??
             leftAccessory={section.data.length - index}
             mainText={`${item.weight} kg`}
             secondaryText={`Reps: ${item.reps}`}
             onClickHandler={() => {
+              console.log('Short press: ', item.id);
+            }}
+            onLongPress={() => {
+              // TODO: Add Are you sure dialog.
               console.log('Deleting set: ', item.id);
               deleteSet(item.id);
             }}

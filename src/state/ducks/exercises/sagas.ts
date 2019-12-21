@@ -21,6 +21,17 @@ function* addExercise({ payload }: ReturnType<typeof ExercisesActions.addExercis
   }
 }
 
+function* deleteExercise({ payload }: ReturnType<typeof ExercisesActions.deleteExercise>) {
+  try {
+    const { id } = payload;
+    const exercises = yield api.exercises.deleteExercise(id);
+
+    yield put({ type: types.DELETE_SUCCESS, payload: { exercises } });
+  } catch (error) {
+    yield put({ type: types.DELETE_FAILURE, error });
+  }
+}
+
 export function* watchFetchExercises() {
   yield takeEvery(types.FETCH, fetchExercises);
 }
@@ -29,7 +40,12 @@ export function* watchAddExercise() {
   yield takeEvery(types.ADD, addExercise);
 }
 
+export function* watchDeleteExercise() {
+  yield takeEvery(types.DELETE, deleteExercise);
+}
+
 export const watcherSagas = [
   watchFetchExercises(),
   watchAddExercise(),
+  watchDeleteExercise(),
 ];

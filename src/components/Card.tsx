@@ -11,14 +11,16 @@ const Card = ({
   onClickHandler,
   leftAccessory,
   disabled,
+  onLongPress,
 }: {
   mainText: string,
   secondaryText?: string,
   onClickHandler: any,
   leftAccessory?: any,
   disabled?: boolean,
+  onLongPress?: any,
 }) => (
-  <TouchableComponent onPress={onClickHandler} disabled={disabled}>
+  <TouchableComponent onPress={onClickHandler} disabled={disabled} onLongPress={onLongPress}>
     <View style={styles.cardWrapper}>
       {!!leftAccessory && (
       <Text style={styles.leftAccessory}>

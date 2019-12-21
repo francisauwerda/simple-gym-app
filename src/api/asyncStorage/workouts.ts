@@ -60,6 +60,8 @@ export const deleteWorkout = async (id: Workout['id']): Promise<Workout[]> => {
 
     const workouts = await getWorkouts();
     const filteredWorkouts = workouts.filter((workout) => workout.id !== id);
+    await AsyncStorage.setItem(STORAGE_KEYS.Workouts, JSON.stringify(filteredWorkouts));
+
     return filteredWorkouts;
   } catch (error) {
     console.log(`Error deleting workout with id: ${id}`, error);

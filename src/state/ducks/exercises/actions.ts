@@ -10,7 +10,13 @@ const addExercise = (exercise: ExerciseDetails) => ({
   payload: exercise,
 });
 
+const deleteExercise = (id: Exercise['id']) => ({
+  type: types.DELETE,
+  payload: { id },
+});
+
 export default {
   fetchExercises,
   addExercise,
+  deleteExercise,
 };

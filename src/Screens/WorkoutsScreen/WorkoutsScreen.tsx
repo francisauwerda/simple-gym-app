@@ -5,13 +5,8 @@ import WorkoutsScreenView from './WorkoutsScreenView';
 import { State } from '../../state/types';
 import { Workout, WorkoutDetails } from '../../state/ducks/workouts/types';
 import actions from '../../state/ducks/workouts/actions';
-import api from '../../api';
 import { ScreenNames } from '../enums';
 import { AddWorkoutParams } from './AddWorkoutModal';
-
-const resetWorkouts = async () => {
-  await api.workouts.debugResetWorkouts();
-};
 
 interface WorkoutsScreenProps {
   navigation: NavigationScreenProp<NavigationState, NavigationParams>,
@@ -22,7 +17,7 @@ type WorkoutsScreenContainerProps = WorkoutsScreenProps & DispatchProps;
 
 class WorkoutsScreenContainer extends React.Component<WorkoutsScreenContainerProps> {
   static navigationOptions = {
-    title: 'Workouts',
+    title: 'Workouts 💪',
   }
 
   componentDidMount() {
@@ -47,16 +42,16 @@ class WorkoutsScreenContainer extends React.Component<WorkoutsScreenContainerPro
 
   render() {
     const {
-      workouts, navigation,
+      workouts, navigation, deleteWorkout,
     } = this.props;
 
     return (
       <WorkoutsScreenView
         workouts={workouts}
         navigation={navigation}
-        resetWorkouts={resetWorkouts}
         navigateToExercises={this.navigateToExercises}
         openModal={this.openModal}
+        deleteWorkout={deleteWorkout}
       />
     );
   }
@@ -73,6 +68,7 @@ const mapStateToProps = (state: State) => {
 interface DispatchProps {
   fetchWorkouts: () => any;
   addWorkout: (workout: WorkoutDetails) => void;
+  deleteWorkout: (id: Workout['id']) => void;
 }
 
 const mapDispatchToProps = (dispatch): DispatchProps => ({
@@ -81,6 +77,9 @@ const mapDispatchToProps = (dispatch): DispatchProps => ({
   },
   addWorkout: (workout: WorkoutDetails) => {
     dispatch(actions.addWorkout(workout));
+  },
+  deleteWorkout: (id: Workout['id']) => {
+    dispatch(actions.deleteWorkout(id));
   },
 });
 

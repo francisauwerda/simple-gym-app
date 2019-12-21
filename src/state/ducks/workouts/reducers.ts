@@ -18,6 +18,13 @@ const workoutsReducer = (state = initialState, action) => {
       };
     }
 
+    case types.DELETE_SUCCESS: {
+      return {
+        ...state,
+        workouts: action.payload.workouts,
+      };
+    }
+
     default:
       return state;
   }

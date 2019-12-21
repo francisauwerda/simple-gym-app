@@ -18,6 +18,13 @@ const exercisesReducer = (state = initialState, action) => {
       };
     }
 
+    case types.DELETE_SUCCESS: {
+      return {
+        ...state,
+        exercises: action.payload.exercises,
+      };
+    }
+
     default:
       return state;
   }

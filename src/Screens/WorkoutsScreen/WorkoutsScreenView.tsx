@@ -12,17 +12,17 @@ import BottomWrapper from '../../components/BottomWrapper';
 interface WorkoutsScreenProps {
   navigation: NavigationScreenProp<NavigationState, NavigationParams>,
   workouts: Workout[],
-  resetWorkouts: () => void,
   navigateToExercises: ({ workout }: { workout: Workout }) => void;
   openModal: () => void;
+  deleteWorkout: (id: Workout['id']) => void;
 }
 
 const WorkoutsScreenView = (props: WorkoutsScreenProps) => {
   const {
     workouts,
-    resetWorkouts,
     navigateToExercises,
     openModal,
+    deleteWorkout,
   } = props;
 
   return (
@@ -34,6 +34,10 @@ const WorkoutsScreenView = (props: WorkoutsScreenProps) => {
           <Card
             mainText={item.name}
             onClickHandler={() => navigateToExercises({ workout: item })}
+            onLongPress={() => {
+              console.log('Deleting workout: ', item.id);
+              deleteWorkout(item.id);
+            }}
           />
         )}
         keyExtractor={(item) => item.id}
@@ -44,13 +48,6 @@ const WorkoutsScreenView = (props: WorkoutsScreenProps) => {
           <Button
             title="Add a Workout"
             onPress={openModal}
-          />
-        </View>
-
-        <View>
-          <Button
-            title="Reset app"
-            onPress={resetWorkouts}
           />
         </View>
       </BottomWrapper>

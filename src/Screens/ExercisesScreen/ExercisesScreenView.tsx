@@ -18,11 +18,12 @@ interface Props {
   exercises: Exercise[];
   workout: Workout;
   openModal: () => void;
+  deleteExercise: (id: Exercise['id']) => void;
 }
 
 export default function ExercisesScreenView(props: Props) {
   const {
-    exercises, navigation, openModal,
+    exercises, navigation, openModal, deleteExercise,
   } = props;
   return (
     <SafeAreaView style={styles.container}>
@@ -33,6 +34,10 @@ export default function ExercisesScreenView(props: Props) {
           <Card
             mainText={item.name}
             onClickHandler={() => navigation.navigate(ScreenNames.Sets, { exercise: item })}
+            onLongPress={() => {
+              console.log('Deleting exercise: ', item.id);
+              deleteExercise(item.id);
+            }}
           />
         )}
         keyExtractor={(item) => item.id}
