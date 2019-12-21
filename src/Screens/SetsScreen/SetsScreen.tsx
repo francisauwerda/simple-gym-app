@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { NavigationScreenProp, NavigationParams, NavigationState } from 'react-navigation';
-import { Set, SetDetails } from '../../state/ducks/sets/types';
+import { Set, SetDetails, SetInputs } from '../../state/ducks/sets/types';
 import actions from '../../state/ducks/sets/actions';
 import { State } from '../../state/types';
 import { Exercise } from '../../state/ducks/exercises/types';
@@ -35,12 +35,13 @@ class SetsScreenContainer extends Component<SetsScreenContainerProps> {
     fetchSets(exercise.id);
   }
 
-  openModal = () => {
+  openModal = ({ initialValues }: { initialValues: SetInputs }) => {
     const { navigation, addSet, exercise } = this.props;
 
     navigation.navigate(ScreenNames.AddSet, {
       [AddSetParams.AddSetParam]: addSet,
       [AddSetParams.ExerciseParam]: exercise,
+      [AddSetParams.InitialValues]: initialValues,
     });
   }
 

@@ -4,7 +4,7 @@ import {
   SafeAreaView, StyleSheet, Text, SectionList, View,
 } from 'react-native';
 
-import { Set, SetDetails } from '../../state/ducks/sets/types';
+import { Set, SetDetails, SetInputs } from '../../state/ducks/sets/types';
 import { Exercise } from '../../state/ducks/exercises/types';
 import Card from '../../components/Card';
 import Button from '../../components/Button';
@@ -16,7 +16,7 @@ interface Props {
   exercise: Exercise;
   addSet: (setDetails: SetDetails) => void;
   deleteSet: (id: Set['id']) => void;
-  openModal: () => void;
+  openModal: ({ initialValues }: { initialValues?: SetInputs }) => void;
 }
 
 export default function SetsScreenView(props: Props) {
@@ -27,7 +27,7 @@ export default function SetsScreenView(props: Props) {
     deleteSet,
   } = props;
 
-  const myData = [];
+  const myData: { title: string, subtitle?: string, data: Set[] }[] = [];
   if (todaysSets.length) {
     myData.push({
       title: 'Today',
@@ -64,6 +64,13 @@ export default function SetsScreenView(props: Props) {
             secondaryText={`Reps: ${item.reps}`}
             onClickHandler={() => {
               console.log('Short press: ', item.id);
+              openModal({
+                initialValues: {
+                  reps: item.reps,
+                  weight: item.weight,
+                  difficulty: item.difficulty,
+                },
+              });
             }}
             onLongPress={() => {
               // TODO: Add Are you sure dialog.
@@ -83,7 +90,7 @@ export default function SetsScreenView(props: Props) {
       <BottomWrapper>
         <Button
           title="Add a set"
-          onPress={openModal}
+          onPress={() => openModal({})}
         />
       </BottomWrapper>
     </SafeAreaView>

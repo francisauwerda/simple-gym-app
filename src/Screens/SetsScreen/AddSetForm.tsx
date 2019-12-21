@@ -4,7 +4,7 @@ import {
 } from 'react-native';
 import { Formik } from 'formik';
 import moment from 'moment';
-import { SetDetails } from '../../state/ducks/sets/types';
+import { SetDetails, SetInputs } from '../../state/ducks/sets/types';
 import { Exercise } from '../../state/ducks/exercises/types';
 import Button from '../../components/Button';
 
@@ -12,9 +12,10 @@ interface AddSetFormProps {
   addSet: (setDetails: SetDetails) => void;
   exercise: Exercise;
   dismissModal: () => void;
+  initialValues?: SetInputs;
 }
 
-const initialValues: any = { // TODO: Sort this out
+const defaultInitialValues: any = { // TODO: Sort this out
   reps: null,
   weight: null,
   date: null,
@@ -22,7 +23,12 @@ const initialValues: any = { // TODO: Sort this out
 };
 
 const AddSetForm = (props: AddSetFormProps) => {
-  const { addSet, exercise, dismissModal } = props;
+  const {
+    addSet,
+    exercise,
+    dismissModal,
+    initialValues = defaultInitialValues,
+  } = props;
 
   return (
     <Formik
