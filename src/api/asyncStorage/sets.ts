@@ -8,11 +8,10 @@ export const getSets = async (exerciseId?: Set['exerciseId']): Promise<Set[]> =>
   try {
     const allSets: string = await AsyncStorage.getItem(STORAGE_KEYS.Sets);
 
-    // if (!allSets) {
-    //   const defaultSets = utils.getDefaultSets();
-    //   await AsyncStorage.setItem(STORAGE_KEYS.Sets, JSON.stringify(defaultSets));
-    //   return defaultSets;
-    // }
+    if (!allSets) {
+      await AsyncStorage.setItem(STORAGE_KEYS.Sets, JSON.stringify([]));
+      return [];
+    }
 
     const parsedSets: Set[] = JSON.parse(allSets);
 

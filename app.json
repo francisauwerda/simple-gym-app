@@ -24,7 +24,11 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.francisauwerda.simplegymapp"
+    },
+    "android": {
+      "package": "com.francisauwerda.simplegymapp"
     }
   }
 }
