@@ -1,7 +1,7 @@
 import { Set, SetDetails } from '../state/ducks/sets/types';
 import asyncStorage from './asyncStorage';
 
-export const getSets = async (exerciseId: Set['exerciseId']): Promise<Set[]> => {
+export const getSets = async (exerciseId?: Set['exerciseId']): Promise<Set[]> => {
   const sets = await asyncStorage.sets.getSets(exerciseId);
   return sets;
 };

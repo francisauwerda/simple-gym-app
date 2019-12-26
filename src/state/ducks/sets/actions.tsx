@@ -1,6 +1,6 @@
 import types, { Set, SetDetails } from './types';
 
-const fetchSets = (exerciseId: Set['exerciseId']) => ({
+const fetchSets = (exerciseId?: Set['exerciseId']) => ({
   type: types.FETCH,
   payload: { exerciseId },
 });

@@ -69,6 +69,7 @@ const selectSetsTodayAndLastSession = (
 ): SetsTodayAndLastSession => {
   const sets = [...selectExerciseSets(state, exerciseId)];
 
+  // Sort by latest dates first. Descending.
   const todaysSets = sets
     .sort((a, b) => moment(b.date).valueOf() - moment(a.date).valueOf())
     .filter((set) => moment().isSame(moment(set.date), 'date'));

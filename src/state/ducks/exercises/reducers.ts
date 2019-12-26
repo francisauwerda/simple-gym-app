@@ -7,7 +7,7 @@ const exercisesReducer = (state = initialState, action) => {
     case types.FETCH_SUCCESS: {
       return {
         ...state,
-        ...action.payload,
+        exercises: action.payload.exercises,
       };
     }
 

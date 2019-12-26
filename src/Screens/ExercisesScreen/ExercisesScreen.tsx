@@ -24,19 +24,18 @@ interface ExercisesScreenProps {
 }
 
 type ExercisesScreenContainerProps = ExercisesScreenProps & StateProps & DispatchProps;
-
 class ExercisesScreenContainer extends React.Component<ExercisesScreenContainerProps> {
   static navigationOptions = ({ navigation }) => {
     const workout: Workout = navigation.getParam('workout');
     return {
-      title: `${workout.name} exercises`,
+      title: `${workout.name} exercises 🏋️‍♂️`,
     };
   }
 
   componentDidMount() {
-    const { fetchExercises, workout } = this.props;
+    const { fetchExercises } = this.props;
 
-    fetchExercises(workout.id);
+    fetchExercises();
   }
 
   openModal = () => {
@@ -82,14 +81,14 @@ const mapStateToProps = (state: State, ownProps: ExercisesScreenProps): StatePro
 };
 
 interface DispatchProps {
-  fetchExercises: (workoutId: Exercise['workoutId']) => void;
+  fetchExercises: () => void;
   addExercise: (exercise: ExerciseDetails) => void;
   deleteExercise: (id: Exercise['id']) => void;
 }
 
 const mapDispatchToProps = (dispatch): DispatchProps => ({
-  fetchExercises: (workoutId: Exercise['workoutId']) => {
-    dispatch(actions.fetchExercises(workoutId));
+  fetchExercises: () => {
+    dispatch(actions.fetchExercises());
   },
   addExercise: (exercise: ExerciseDetails) => {
     dispatch(actions.addExercise(exercise));

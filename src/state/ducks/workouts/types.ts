@@ -1,3 +1,5 @@
+import { Set } from '../sets/types';
+
 export type Workout = {
   id: string
 } & WorkoutDetails
@@ -5,6 +7,10 @@ export type Workout = {
 export interface WorkoutDetails {
   name: string
 }
+
+export type WorkoutWithLastModified = {
+  lastModified: Set['date']
+} & Workout;
 
 const FETCH = 'workouts/FETCH';
 const FETCH_SUCCESS = 'workouts/FETCH_SUCCESS';

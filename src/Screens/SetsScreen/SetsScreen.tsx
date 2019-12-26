@@ -31,8 +31,8 @@ class SetsScreenContainer extends Component<SetsScreenContainerProps> {
   }
 
   componentDidMount() {
-    const { fetchSets, exercise } = this.props;
-    fetchSets(exercise.id);
+    const { fetchSets } = this.props;
+    fetchSets();
   }
 
   openModal = ({ initialValues }: { initialValues: SetInputs }) => {
@@ -80,14 +80,14 @@ const mapStateToProps = (state: State, ownProps: SetsScreenProps): StateProps =>
 };
 
 interface DispatchProps {
-  fetchSets: (exerciseId: Set['exerciseId']) => void;
+  fetchSets: () => void;
   addSet: (set: SetDetails) => void;
   deleteSet: (id: Set['id']) => void;
 }
 
 const mapDispatchToProps = (dispatch): DispatchProps => ({
-  fetchSets: (exerciseId: Set['exerciseId']) => {
-    dispatch(actions.fetchSets(exerciseId));
+  fetchSets: () => {
+    dispatch(actions.fetchSets());
   },
   addSet: (set: SetDetails) => {
     dispatch(actions.addSet(set));

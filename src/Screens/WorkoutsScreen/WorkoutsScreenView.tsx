@@ -1,21 +1,41 @@
 import React from 'react';
+import moment from 'moment';
 import {
   SafeAreaView, FlatList, StyleSheet, View,
 } from 'react-native';
 import { NavigationScreenProp, NavigationState, NavigationParams } from 'react-navigation';
 
-import { Workout } from '../../state/ducks/workouts/types';
+import { Workout, WorkoutWithLastModified } from '../../state/ducks/workouts/types';
 import Card from '../../components/Card';
 import Button from '../../components/Button';
 import BottomWrapper from '../../components/BottomWrapper';
 
 interface WorkoutsScreenProps {
   navigation: NavigationScreenProp<NavigationState, NavigationParams>,
-  workouts: Workout[],
+  workouts: WorkoutWithLastModified[],
   navigateToExercises: ({ workout }: { workout: Workout }) => void;
   openModal: () => void;
   deleteWorkout: (id: Workout['id']) => void;
 }
+
+const getLastModifiedText = (lastModified: WorkoutWithLastModified['lastModified']): string => {
+  if (lastModified) {
+    const daysAgo = moment().diff(lastModified, 'days');
+    if (daysAgo) {
+      return `${daysAgo} day${daysAgo !== 1 ? 's' : ''} ago`;
+    }
+
+    const hoursAgo = moment().diff(lastModified, 'hours');
+    if (hoursAgo) {
+      return `${hoursAgo} hour${hoursAgo !== 1 ? 's' : ''} ago`;
+    }
+
+    const minutesAgo = moment().diff(lastModified, 'minutes');
+    return `${minutesAgo} minute${minutesAgo !== 1 ? 's' : ''} ago`;
+  }
+
+  return '';
+};
 
 const WorkoutsScreenView = (props: WorkoutsScreenProps) => {
   const {
@@ -33,6 +53,7 @@ const WorkoutsScreenView = (props: WorkoutsScreenProps) => {
         renderItem={({ item }) => (
           <Card
             mainText={item.name}
+            secondaryText={getLastModifiedText(item.lastModified)}
             onClickHandler={() => navigateToExercises({ workout: item })}
             onLongPress={() => {
               console.log('Deleting workout: ', item.id);

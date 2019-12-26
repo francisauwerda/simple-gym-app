@@ -1,6 +1,6 @@
 import types, { Exercise, ExerciseDetails } from './types';
 
-const fetchExercises = (workoutId: Exercise['workoutId']) => ({
+const fetchExercises = (workoutId?: Exercise['workoutId']) => ({
   type: types.FETCH,
   payload: { workoutId },
 });

@@ -1,7 +1,7 @@
 import { Exercise, ExerciseDetails } from '../state/ducks/exercises/types';
 import asyncStorage from './asyncStorage';
 
-export const getExercises = async (workoutId: Exercise['workoutId']): Promise<Exercise[]> => {
+export const getExercises = async (workoutId?: Exercise['workoutId']): Promise<Exercise[]> => {
   const exercises = await asyncStorage.exercises.getExercises(workoutId);
 
   return exercises;
