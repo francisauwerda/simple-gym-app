@@ -25,7 +25,13 @@ const TouchableComponent = (props: Props) => {
   }
 
   return (
-    <TouchableNativeFeedback onPress={onPress} disabled={disabled} onLongPress={onLongPress}>
+    <TouchableNativeFeedback
+      onPress={onPress}
+      onLongPress={onLongPress}
+      disabled={disabled}
+      useForeground
+      delayPressIn={0}
+    >
       {children}
     </TouchableNativeFeedback>
   );
