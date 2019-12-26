@@ -1,11 +1,20 @@
 import React from 'react';
 import {
-  Text, StyleSheet, View, Image,
+  Text, StyleSheet, View,
 } from 'react-native';
+import Options from './Options';
 
 import TouchableComponent from '../components/TouchableComponent';
 
-const optionsIcon = require('../assets/round_more_vert_black_48.png');
+
+interface CardProps {
+  mainText: string,
+  secondaryText?: string,
+  onClickHandler: any,
+  leftAccessory?: any,
+  disabled?: boolean,
+  onLongPress?: any,
+}
 
 const Card = ({
   mainText,
@@ -14,14 +23,7 @@ const Card = ({
   leftAccessory,
   disabled,
   onLongPress,
-}: {
-  mainText: string,
-  secondaryText?: string,
-  onClickHandler: any,
-  leftAccessory?: any,
-  disabled?: boolean,
-  onLongPress?: any,
-}) => (
+}: CardProps) => (
   <TouchableComponent onPress={onClickHandler} disabled={disabled} onLongPress={onLongPress}>
     <View style={styles.cardWrapper}>
       <View style={styles.leftSideWrapper}>
@@ -35,22 +37,12 @@ const Card = ({
           {!!secondaryText && <Text>{secondaryText}</Text>}
         </View>
       </View>
-      <View style={styles.optionsWrapper}>
-        <TouchableComponent onPress={() => { console.log('hi'); }}>
-          <View style={styles.optionsIconWrapper}>
-            <Image source={optionsIcon} style={styles.optionsIconStyles} />
-          </View>
-        </TouchableComponent>
-      </View>
+      <Options onPress={() => { console.log('do something'); }} />
     </View>
   </TouchableComponent>
 );
 
 export default Card;
-
-const OPTIONS_SLOP_DIMENSIONS = 52;
-const OPTIONS_BORDER_RADIUS = OPTIONS_SLOP_DIMENSIONS / 2;
-const OPTIONS_IMAGE_DIMENSIONS = 32;
 
 const styles = StyleSheet.create({
   cardWrapper: {
@@ -63,19 +55,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-  },
-  optionsIconWrapper: {
-    borderRadius: OPTIONS_BORDER_RADIUS,
-    width: OPTIONS_SLOP_DIMENSIONS,
-    height: OPTIONS_SLOP_DIMENSIONS,
-    overflow: 'hidden',
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  optionsIconStyles: {
-    width: OPTIONS_IMAGE_DIMENSIONS,
-    height: OPTIONS_IMAGE_DIMENSIONS,
   },
   leftSideWrapper: {
     display: 'flex',
@@ -96,10 +75,5 @@ const styles = StyleSheet.create({
     borderRightColor: 'black',
     paddingRight: 10,
     marginRight: 10,
-  },
-  optionsWrapper: {
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
   },
 });
