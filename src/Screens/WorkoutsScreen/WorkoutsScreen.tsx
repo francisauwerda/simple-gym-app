@@ -48,7 +48,7 @@ class WorkoutsScreenContainer extends React.Component<WorkoutsScreenContainerPro
 
   render() {
     const {
-      workoutsWithLastModified, navigation, deleteWorkout,
+      workoutsWithLastModified, navigation, deleteWorkout, editWorkout,
     } = this.props;
 
     return (
@@ -58,6 +58,7 @@ class WorkoutsScreenContainer extends React.Component<WorkoutsScreenContainerPro
         navigateToExercises={this.navigateToExercises}
         openModal={this.openModal}
         deleteWorkout={deleteWorkout}
+        editWorkout={editWorkout}
       />
     );
   }
@@ -81,6 +82,7 @@ interface DispatchProps {
   fetchSets: () => any;
   addWorkout: (workout: WorkoutDetails) => void;
   deleteWorkout: (id: Workout['id']) => void;
+  editWorkout: (id: Workout['id'], fields: Partial<WorkoutDetails>) => void;
 }
 
 const mapDispatchToProps = (dispatch): DispatchProps => ({
@@ -98,6 +100,9 @@ const mapDispatchToProps = (dispatch): DispatchProps => ({
   },
   deleteWorkout: (id: Workout['id']) => {
     dispatch(workoutActions.deleteWorkout(id));
+  },
+  editWorkout: (id: Workout['id'], fields: Partial<WorkoutDetails>) => {
+    dispatch(workoutActions.editWorkout(id, fields));
   },
 });
 

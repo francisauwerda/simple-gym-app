@@ -22,3 +22,12 @@ export const deleteWorkout = async (id: Workout['id']): Promise<Workout[]> => {
 
   return workouts;
 };
+
+export const editWorkout = async (id: Workout['id'], fields: Partial<WorkoutDetails>): Promise<Workout> => {
+  console.log('Changing these fields', fields);
+
+  return {
+    id,
+    name: 'changed',
+  };
+};

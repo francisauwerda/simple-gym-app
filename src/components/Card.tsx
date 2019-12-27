@@ -37,6 +37,7 @@ const Card = ({
           {!!secondaryText && <Text>{secondaryText}</Text>}
         </View>
       </View>
+      {/* TODO: Pop up from bottom drawer like iOS */}
       <Options onPress={() => { console.log('do something'); }} />
     </View>
   </TouchableComponent>

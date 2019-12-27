@@ -5,7 +5,7 @@ import {
 } from 'react-native';
 import { NavigationScreenProp, NavigationState, NavigationParams } from 'react-navigation';
 
-import { Workout, WorkoutWithLastModified } from '../../state/ducks/workouts/types';
+import { Workout, WorkoutWithLastModified, WorkoutDetails } from '../../state/ducks/workouts/types';
 import Card from '../../components/Card';
 import Button from '../../components/Button';
 import BottomWrapper from '../../components/BottomWrapper';
@@ -16,6 +16,7 @@ interface WorkoutsScreenProps {
   navigateToExercises: ({ workout }: { workout: Workout }) => void;
   openModal: () => void;
   deleteWorkout: (id: Workout['id']) => void;
+  editWorkout: (id: Workout['id'], fields: Partial<WorkoutDetails>) => void;
 }
 
 const getLastModifiedText = (lastModified: WorkoutWithLastModified['lastModified']): string => {
@@ -43,6 +44,7 @@ const WorkoutsScreenView = (props: WorkoutsScreenProps) => {
     navigateToExercises,
     openModal,
     deleteWorkout,
+    editWorkout,
   } = props;
 
   return (
@@ -56,8 +58,9 @@ const WorkoutsScreenView = (props: WorkoutsScreenProps) => {
             secondaryText={getLastModifiedText(item.lastModified)}
             onClickHandler={() => navigateToExercises({ workout: item })}
             onLongPress={() => {
-              console.log('Deleting workout: ', item.id);
-              deleteWorkout(item.id);
+              console.log('Editing workout: ', item.id);
+              // deleteWorkout(item.id);
+              editWorkout(item.id, { name: 'fuck' });
             }}
           />
         )}

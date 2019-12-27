@@ -14,8 +14,14 @@ const deleteWorkout = (id: Workout['id']) => ({
   payload: { id },
 });
 
+const editWorkout = (id: Workout['id'], fields: Partial<WorkoutDetails>) => ({
+  type: types.EDIT,
+  payload: { id, fields },
+});
+
 export default {
   fetchWorkouts,
   addWorkout,
   deleteWorkout,
+  editWorkout,
 };

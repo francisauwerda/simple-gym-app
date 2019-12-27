@@ -25,6 +25,21 @@ const workoutsReducer = (state = initialState, action) => {
       };
     }
 
+    case types.EDIT_SUCCESS: {
+      const updatedWorkout = action.payload.workout;
+      const updatedWorkouts = state.workouts.map((workout) => {
+        if (workout.id === updatedWorkout.id) {
+          return updatedWorkout;
+        }
+        return workout;
+      });
+
+      return {
+        ...state,
+        workouts: updatedWorkouts,
+      };
+    }
+
     default:
       return state;
   }
