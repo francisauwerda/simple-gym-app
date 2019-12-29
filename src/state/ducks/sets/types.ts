@@ -27,6 +27,10 @@ const DELETE = 'sets/DELETE';
 const DELETE_SUCCESS = 'sets/DELETE_SUCCESS';
 const DELETE_FAILURE = 'sets/DELETE_FAILURE';
 
+const EDIT = 'sets/EDIT';
+const EDIT_SUCCESS = 'sets/EDIT_SUCCESS';
+const EDIT_FAILURE = 'sets/EDIT_FAILURE';
+
 export default {
   FETCH,
   FETCH_SUCCESS,
@@ -36,4 +40,7 @@ export default {
   DELETE,
   DELETE_SUCCESS,
   DELETE_FAILURE,
+  EDIT,
+  EDIT_SUCCESS,
+  EDIT_FAILURE,
 };

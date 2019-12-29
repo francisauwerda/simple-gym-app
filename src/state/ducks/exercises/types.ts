@@ -11,6 +11,7 @@ export interface ExerciseDetails {
 
 const FETCH = 'exercises/FETCH';
 const FETCH_SUCCESS = 'exercises/FETCH_SUCCESS';
+
 const ADD = 'exercises/ADD';
 const ADD_SUCCESS = 'exercises/ADD_SUCCESS';
 const ADD_FAILURE = 'exercises/ADD_FAILURE';
@@ -18,6 +19,10 @@ const ADD_FAILURE = 'exercises/ADD_FAILURE';
 const DELETE = 'exercises/DELETE';
 const DELETE_SUCCESS = 'exercises/DELETE_SUCCESS';
 const DELETE_FAILURE = 'exercises/DELETE_FAILURE';
+
+const EDIT = 'exercises/EDIT';
+const EDIT_SUCCESS = 'exercises/EDIT_SUCCESS';
+const EDIT_FAILURE = 'exercises/EDIT_FAILURE';
 
 export default {
   FETCH,
@@ -28,4 +33,7 @@ export default {
   DELETE,
   DELETE_SUCCESS,
   DELETE_FAILURE,
+  EDIT,
+  EDIT_SUCCESS,
+  EDIT_FAILURE,
 };

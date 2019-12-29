@@ -15,8 +15,14 @@ const deleteSet = (id: Set['id']) => ({
   payload: { id },
 });
 
+const editSet = (id: Set['id'], fields: Partial<SetDetails>) => ({
+  type: types.EDIT,
+  payload: { id, fields },
+});
+
 export default {
   fetchSets,
   addSet,
   deleteSet,
+  editSet,
 };
