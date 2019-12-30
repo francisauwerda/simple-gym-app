@@ -15,3 +15,19 @@ export const deleteSet = async (id: Set['id']): Promise<Set[]> => {
   const sets: Set[] = await asyncStorage.sets.deleteSet(id);
   return sets;
 };
+
+export const editSet = async (
+  id: Set['id'],
+  fields: Partial<SetDetails>,
+): Promise<Set> => {
+  console.log('Set: changing fields:', fields);
+
+  return {
+    id,
+    reps: fields.reps,
+    weight: fields.weight,
+    date: fields.date,
+    difficulty: fields.difficulty,
+    exerciseId: fields.exerciseId,
+  };
+};

@@ -24,10 +24,10 @@ export const deleteWorkout = async (id: Workout['id']): Promise<Workout[]> => {
 };
 
 export const editWorkout = async (id: Workout['id'], fields: Partial<WorkoutDetails>): Promise<Workout> => {
-  console.log('Changing these fields', fields);
+  console.log('Workout: changing fields:', fields);
 
   return {
     id,
-    name: 'changed',
+    name: fields.name,
   };
 };

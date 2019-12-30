@@ -18,3 +18,16 @@ export const deleteExercise = async (id: Exercise['id']): Promise<Exercise[]> =>
 
   return exercises;
 };
+
+export const editExercise = async (
+  id: Exercise['id'],
+  fields: Partial<ExerciseDetails>,
+): Promise<Exercise> => {
+  console.log('Exercise: changing fields:', fields);
+
+  return {
+    id,
+    name: fields.name,
+    workoutId: fields.workoutId,
+  };
+};

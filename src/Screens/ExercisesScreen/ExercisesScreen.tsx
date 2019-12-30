@@ -50,7 +50,7 @@ class ExercisesScreenContainer extends React.Component<ExercisesScreenContainerP
 
   render() {
     const {
-      navigation, exercises, workout, deleteExercise,
+      navigation, exercises, workout, deleteExercise, editExercise,
     } = this.props;
 
     return (
@@ -60,6 +60,7 @@ class ExercisesScreenContainer extends React.Component<ExercisesScreenContainerP
         workout={workout}
         openModal={this.openModal}
         deleteExercise={deleteExercise}
+        editExercise={editExercise}
       />
     );
   }
@@ -80,10 +81,11 @@ const mapStateToProps = (state: State, ownProps: ExercisesScreenProps): StatePro
   };
 };
 
-interface DispatchProps {
+export interface DispatchProps {
   fetchExercises: () => void;
   addExercise: (exercise: ExerciseDetails) => void;
   deleteExercise: (id: Exercise['id']) => void;
+  editExercise: (id: Exercise['id'], fields: Partial<ExerciseDetails>) => void;
 }
 
 const mapDispatchToProps = (dispatch): DispatchProps => ({
@@ -95,6 +97,9 @@ const mapDispatchToProps = (dispatch): DispatchProps => ({
   },
   deleteExercise: (id: Exercise['id']) => {
     dispatch(actions.deleteExercise(id));
+  },
+  editExercise: (id: Exercise['id'], fields: Partial<ExerciseDetails>) => {
+    dispatch(actions.editExercise(id, fields));
   },
 });
 

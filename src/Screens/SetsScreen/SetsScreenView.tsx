@@ -4,20 +4,19 @@ import {
   SafeAreaView, StyleSheet, Text, SectionList, View,
 } from 'react-native';
 
-import { Set, SetDetails, SetInputs } from '../../state/ducks/sets/types';
+import { Set, SetInputs } from '../../state/ducks/sets/types';
 import { Exercise } from '../../state/ducks/exercises/types';
 import Card from '../../components/Card';
 import Button from '../../components/Button';
 import BottomWrapper from '../../components/BottomWrapper';
+import { DispatchProps } from './SetsScreen';
 
-interface Props {
+type Props = {
   todaysSets: Set[],
   lastSessionSets: Set[],
   exercise: Exercise;
-  addSet: (setDetails: SetDetails) => void;
-  deleteSet: (id: Set['id']) => void;
   openModal: ({ initialValues }: { initialValues?: SetInputs }) => void;
-}
+} & Partial<DispatchProps>
 
 export default function SetsScreenView(props: Props) {
   const {
@@ -25,8 +24,10 @@ export default function SetsScreenView(props: Props) {
     lastSessionSets,
     openModal,
     deleteSet,
+    editSet,
   } = props;
 
+  // TODO: Move this our of the render function
   const myData: { title: string, subtitle?: string, data: Set[] }[] = [];
   if (todaysSets.length) {
     myData.push({
@@ -75,7 +76,11 @@ export default function SetsScreenView(props: Props) {
             onLongPress={() => {
               // TODO: Add Are you sure dialog.
               console.log('Deleting set: ', item.id);
-              deleteSet(item.id);
+              // deleteSet(item.id);
+              editSet(item.id, {
+                ...item,
+                reps: 666,
+              });
             }}
           />
         )}

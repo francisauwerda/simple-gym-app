@@ -12,18 +12,18 @@ import { Workout } from '../../state/ducks/workouts/types';
 import Card from '../../components/Card';
 import Button from '../../components/Button';
 import BottomWrapper from '../../components/BottomWrapper';
+import { DispatchProps } from './ExercisesScreen';
 
-interface Props {
+type Props = {
   navigation: NavigationScreenProp<NavigationState, NavigationParams>;
   exercises: Exercise[];
   workout: Workout;
   openModal: () => void;
-  deleteExercise: (id: Exercise['id']) => void;
-}
+} & Partial<DispatchProps>;
 
 export default function ExercisesScreenView(props: Props) {
   const {
-    exercises, navigation, openModal, deleteExercise,
+    exercises, navigation, openModal, deleteExercise, editExercise,
   } = props;
   return (
     <SafeAreaView style={styles.container}>
@@ -36,7 +36,11 @@ export default function ExercisesScreenView(props: Props) {
             onClickHandler={() => navigation.navigate(ScreenNames.Sets, { exercise: item })}
             onLongPress={() => {
               console.log('Deleting exercise: ', item.id);
-              deleteExercise(item.id);
+              // deleteExercise(item.id);
+              editExercise(item.id, {
+                ...item,
+                name: 'Changed exercise',
+              });
             }}
           />
         )}

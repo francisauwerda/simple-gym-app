@@ -32,6 +32,17 @@ function* deleteSet({ payload }: ReturnType<typeof SetActions.deleteSet>) {
   }
 }
 
+function* editSet({ payload }: ReturnType<typeof SetActions.editSet>) {
+  try {
+    const { id, fields } = payload;
+    const set = yield api.sets.editSet(id, fields);
+
+    yield put({ type: types.EDIT_SUCCESS, payload: { set } });
+  } catch (error) {
+    yield put({ type: types.EDIT_FAILURE, error });
+  }
+}
+
 export function* watchFetchSets() {
   yield takeEvery(types.FETCH, fetchSets);
 }
@@ -44,8 +55,13 @@ export function* watchDeleteSet() {
   yield takeEvery(types.DELETE, deleteSet);
 }
 
+export function* watchEditSet() {
+  yield takeEvery(types.EDIT, editSet);
+}
+
 export const watcherSagas = [
   watchFetchSets(),
   watchAddSet(),
   watchDeleteSet(),
+  watchEditSet(),
 ];
