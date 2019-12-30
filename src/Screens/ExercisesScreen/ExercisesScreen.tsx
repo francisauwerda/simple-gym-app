@@ -85,7 +85,7 @@ export interface DispatchProps {
   fetchExercises: () => void;
   addExercise: (exercise: ExerciseDetails) => void;
   deleteExercise: (id: Exercise['id']) => void;
-  editExercise: (id: Exercise['id'], fields: Partial<ExerciseDetails>) => void;
+  editExercise: (id: Exercise['id'], fields: ExerciseDetails) => void;
 }
 
 const mapDispatchToProps = (dispatch): DispatchProps => ({
@@ -98,7 +98,7 @@ const mapDispatchToProps = (dispatch): DispatchProps => ({
   deleteExercise: (id: Exercise['id']) => {
     dispatch(actions.deleteExercise(id));
   },
-  editExercise: (id: Exercise['id'], fields: Partial<ExerciseDetails>) => {
+  editExercise: (id: Exercise['id'], fields: ExerciseDetails) => {
     dispatch(actions.editExercise(id, fields));
   },
 });

@@ -66,3 +66,31 @@ export const deleteExercise = async (id: Exercise['id']): Promise<Exercise[]> =>
     return [];
   }
 };
+
+export const editExercise = async (id: Exercise['id'], fields: ExerciseDetails): Promise<Exercise> => {
+  console.log(`Editing exercise: ${id}`);
+  const exercises = await getExercises();
+
+  const exercise = exercises.filter((e) => e.id === id)[0];
+
+  if (!exercise) {
+    console.log('No exercise found');
+    throw new Error(`No exercise found with id: ${id}`);
+  }
+
+  try {
+    const updatedExercise = {
+      ...exercise,
+      ...fields,
+    };
+
+    const updatedExercises = exercises.map((e) => (e.id === id ? updatedExercise : e));
+
+    await AsyncStorage.setItem(STORAGE_KEYS.Exercises, JSON.stringify(updatedExercises));
+
+    return updatedExercise;
+  } catch (error) {
+    console.log(`Error editing exercise: ${id}`, error);
+    return exercise;
+  }
+};

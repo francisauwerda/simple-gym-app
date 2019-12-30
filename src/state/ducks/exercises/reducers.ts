@@ -27,12 +27,8 @@ const exercisesReducer = (state = initialState, action) => {
 
     case types.EDIT_SUCCESS: {
       const updatedExercise = action.payload.exercise;
-      const updatedExercises = state.exercises.map((exercise) => {
-        if (exercise.id === updatedExercise.id) {
-          return updatedExercise;
-        }
-        return exercise;
-      });
+      const updatedExercises = state.exercises
+        .map((exercise) => (exercise.id === updatedExercise.id ? updatedExercise : exercise));
 
       return {
         ...state,

@@ -84,7 +84,7 @@ export interface DispatchProps {
   fetchSets: () => void;
   addSet: (set: SetDetails) => void;
   deleteSet: (id: Set['id']) => void;
-  editSet: (id: Set['id'], fields: Partial<SetDetails>) => void;
+  editSet: (id: Set['id'], fields: SetDetails) => void;
 }
 
 const mapDispatchToProps = (dispatch): DispatchProps => ({
@@ -97,7 +97,7 @@ const mapDispatchToProps = (dispatch): DispatchProps => ({
   deleteSet: (id: Set['id']) => {
     dispatch(actions.deleteSet(id));
   },
-  editSet: (id: Set['id'], fields: Partial<SetDetails>) => {
+  editSet: (id: Set['id'], fields: SetDetails) => {
     dispatch(actions.editSet(id, fields));
   },
 });

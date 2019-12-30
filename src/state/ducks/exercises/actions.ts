@@ -15,7 +15,7 @@ const deleteExercise = (id: Exercise['id']) => ({
   payload: { id },
 });
 
-const editExercise = (id: Exercise['id'], fields: Partial<ExerciseDetails>) => ({
+const editExercise = (id: Exercise['id'], fields: ExerciseDetails) => ({
   type: types.EDIT,
   payload: { id, fields },
 });

@@ -28,12 +28,8 @@ const setsReducer = (state = initialState, action) => {
 
     case types.EDIT_SUCCESS: {
       const updatedSet = action.payload.set;
-      const updatedSets = state.sets.map((set) => {
-        if (set.id === updatedSet.id) {
-          return updatedSet;
-        }
-        return set;
-      });
+      const updatedSets = state.sets
+        .map((set) => (set.id === updatedSet.id ? updatedSet : set));
 
       return {
         ...state,

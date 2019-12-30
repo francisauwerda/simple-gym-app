@@ -76,13 +76,13 @@ const mapStateToProps = (state: State): StateProps => {
   };
 };
 
-interface DispatchProps {
+export interface DispatchProps {
   fetchWorkouts: () => any;
   fetchExercises: () => any;
   fetchSets: () => any;
   addWorkout: (workout: WorkoutDetails) => void;
   deleteWorkout: (id: Workout['id']) => void;
-  editWorkout: (id: Workout['id'], fields: Partial<WorkoutDetails>) => void;
+  editWorkout: (id: Workout['id'], fields: WorkoutDetails) => void;
 }
 
 const mapDispatchToProps = (dispatch): DispatchProps => ({
@@ -101,7 +101,7 @@ const mapDispatchToProps = (dispatch): DispatchProps => ({
   deleteWorkout: (id: Workout['id']) => {
     dispatch(workoutActions.deleteWorkout(id));
   },
-  editWorkout: (id: Workout['id'], fields: Partial<WorkoutDetails>) => {
+  editWorkout: (id: Workout['id'], fields: WorkoutDetails) => {
     dispatch(workoutActions.editWorkout(id, fields));
   },
 });

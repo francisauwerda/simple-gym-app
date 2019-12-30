@@ -56,3 +56,31 @@ export const deleteSet = async (id: Set['id']): Promise<Set[]> => {
     return [];
   }
 };
+
+export const editSet = async (id: Set['id'], fields: SetDetails): Promise<Set> => {
+  console.log(`Editing set: ${id}`);
+  const sets = await getSets();
+
+  const set = sets.filter((s) => s.id === id)[0];
+
+  if (!set) {
+    console.log('No set found');
+    throw new Error(`No set found with id: ${id}`);
+  }
+
+  try {
+    const updatedSet = {
+      ...set,
+      ...fields,
+    };
+
+    const updatedSets = sets.map((s) => (s.id === id ? updatedSet : s));
+
+    await AsyncStorage.setItem(STORAGE_KEYS.Sets, JSON.stringify(updatedSets));
+
+    return updatedSet;
+  } catch (error) {
+    console.log(`Error editing set: ${id}`, error);
+    return set;
+  }
+};

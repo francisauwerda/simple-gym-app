@@ -15,7 +15,7 @@ const deleteSet = (id: Set['id']) => ({
   payload: { id },
 });
 
-const editSet = (id: Set['id'], fields: Partial<SetDetails>) => ({
+const editSet = (id: Set['id'], fields: SetDetails) => ({
   type: types.EDIT,
   payload: { id, fields },
 });

@@ -5,19 +5,18 @@ import {
 } from 'react-native';
 import { NavigationScreenProp, NavigationState, NavigationParams } from 'react-navigation';
 
-import { Workout, WorkoutWithLastModified, WorkoutDetails } from '../../state/ducks/workouts/types';
+import { Workout, WorkoutWithLastModified } from '../../state/ducks/workouts/types';
 import Card from '../../components/Card';
 import Button from '../../components/Button';
 import BottomWrapper from '../../components/BottomWrapper';
+import { DispatchProps } from './WorkoutsScreen';
 
-interface WorkoutsScreenProps {
+type WorkoutsScreenProps = {
   navigation: NavigationScreenProp<NavigationState, NavigationParams>,
   workouts: WorkoutWithLastModified[],
   navigateToExercises: ({ workout }: { workout: Workout }) => void;
   openModal: () => void;
-  deleteWorkout: (id: Workout['id']) => void;
-  editWorkout: (id: Workout['id'], fields: Partial<WorkoutDetails>) => void;
-}
+} & Partial<DispatchProps>;
 
 const getLastModifiedText = (lastModified: WorkoutWithLastModified['lastModified']): string => {
   if (lastModified) {

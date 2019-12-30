@@ -21,13 +21,11 @@ export const deleteExercise = async (id: Exercise['id']): Promise<Exercise[]> =>
 
 export const editExercise = async (
   id: Exercise['id'],
-  fields: Partial<ExerciseDetails>,
+  fields: ExerciseDetails,
 ): Promise<Exercise> => {
   console.log('Exercise: changing fields:', fields);
 
-  return {
-    id,
-    name: fields.name,
-    workoutId: fields.workoutId,
-  };
+  const exercise = await asyncStorage.exercises.editExercise(id, fields);
+
+  return exercise;
 };
