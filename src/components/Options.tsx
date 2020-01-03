@@ -1,18 +1,79 @@
 import React from 'react';
 import { View, Image, StyleSheet } from 'react-native';
+import { ActionSheetProvider, useActionSheet } from '@expo/react-native-action-sheet';
+
 import TouchableComponent from './TouchableComponent';
 
 const optionsIcon = require('../assets/round_more_vert_black_48.png');
 
-const Options = ({ onPress }: { onPress: any }) => (
-  <View style={styles.optionsWrapper}>
-    <TouchableComponent onPress={onPress}>
-      <View style={styles.optionsIconWrapper}>
-        <Image source={optionsIcon} style={styles.optionsIconStyles} />
-      </View>
-    </TouchableComponent>
-  </View>
-);
+export interface OptionsActionSheetProps {
+  onEditHandler?: () => void;
+  onDeleteHandler?: () => void;
+}
+
+export const OptionsActionSheet = (props: OptionsActionSheetProps) => {
+  const { onDeleteHandler, onEditHandler } = props;
+
+  return (
+    <View>
+      <ActionSheetProvider>
+        <Options
+          onDeleteHandler={onDeleteHandler}
+          onEditHandler={onEditHandler}
+        />
+      </ActionSheetProvider>
+    </View>
+  );
+};
+
+type OptionsHandlers = {
+  actionSheetHandler: any;
+} & OptionsActionSheetProps;
+
+const handleOptionsPress = (optionsSettings: OptionsHandlers) => {
+  const { onDeleteHandler, onEditHandler, actionSheetHandler } = optionsSettings;
+  const options: string[] = [
+    ...[onDeleteHandler && 'Delete'],
+    ...[onEditHandler && 'Edit'],
+    'Cancel',
+  ];
+
+  const destructiveButtonIndex = onDeleteHandler ? 0 : undefined;
+  const cancelButtonIndex = options.length;
+
+  actionSheetHandler({
+    options,
+    cancelButtonIndex,
+    destructiveButtonIndex,
+  }, (buttonIndex: number) => {
+    if (buttonIndex === 0) {
+      onDeleteHandler();
+    } else if (buttonIndex === 1) {
+      onEditHandler();
+    }
+  });
+};
+
+const Options = (props: OptionsActionSheetProps) => {
+  const { showActionSheetWithOptions } = useActionSheet();
+  const { onDeleteHandler, onEditHandler } = props;
+
+  const onPressHandler = () => handleOptionsPress({
+    actionSheetHandler: showActionSheetWithOptions,
+    onDeleteHandler,
+    onEditHandler,
+  });
+
+  return (
+    <View style={styles.optionsWrapper}>
+      <TouchableComponent onPress={onPressHandler}>
+        <View style={styles.optionsIconWrapper}>
+          <Image source={optionsIcon} style={styles.optionsIconStyles} />
+        </View>
+      </TouchableComponent>
+    </View>
+  );
+};
 
 export default Options;
 

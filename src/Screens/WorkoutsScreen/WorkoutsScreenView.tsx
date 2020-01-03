@@ -56,10 +56,13 @@ const WorkoutsScreenView = (props: WorkoutsScreenProps) => {
             mainText={item.name}
             secondaryText={getLastModifiedText(item.lastModified)}
             onClickHandler={() => navigateToExercises({ workout: item })}
-            onLongPress={() => {
-              console.log('Editing workout: ', item.id);
-              // deleteWorkout(item.id);
-              editWorkout(item.id, { name: 'fuck' });
+            optionsActionSheetProps={{
+              onEditHandler: () => {
+                console.log('Edit not yet implemented');
+              },
+              onDeleteHandler: () => {
+                deleteWorkout(item.id);
+              },
             }}
           />
         )}

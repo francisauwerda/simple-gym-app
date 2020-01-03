@@ -9,6 +9,7 @@
     "test": "jest --config ./jest.config.json"
   },
   "dependencies": {
+    "@expo/react-native-action-sheet": "^3.4.1",
     "expo": "^34.0.1",
     "formik": "^2.0.3",
     "moment": "^2.24.0",

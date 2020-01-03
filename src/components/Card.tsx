@@ -2,10 +2,9 @@ import React from 'react';
 import {
   Text, StyleSheet, View,
 } from 'react-native';
-import Options from './Options';
 
+import { OptionsActionSheet, OptionsActionSheetProps } from './Options';
 import TouchableComponent from '../components/TouchableComponent';
-
 
 interface CardProps {
   mainText: string,
@@ -14,6 +13,7 @@ interface CardProps {
   leftAccessory?: any,
   disabled?: boolean,
   onLongPress?: any,
+  optionsActionSheetProps?: OptionsActionSheetProps;
 }
 
 const Card = ({
@@ -23,6 +23,7 @@ const Card = ({
   leftAccessory,
   disabled,
   onLongPress,
+  optionsActionSheetProps,
 }: CardProps) => (
   <TouchableComponent onPress={onClickHandler} disabled={disabled} onLongPress={onLongPress}>
     <View style={styles.cardWrapper}>
@@ -37,8 +38,12 @@ const Card = ({
           {!!secondaryText && <Text>{secondaryText}</Text>}
         </View>
       </View>
-      {/* TODO: Pop up from bottom drawer like iOS */}
-      <Options onPress={() => { console.log('do something'); }} />
+      {!!optionsActionSheetProps && (
+        <OptionsActionSheet
+          onDeleteHandler={optionsActionSheetProps.onDeleteHandler}
+          onEditHandler={optionsActionSheetProps.onEditHandler}
+        />
+      )}
     </View>
   </TouchableComponent>
 );
