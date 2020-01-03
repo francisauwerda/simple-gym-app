@@ -8,7 +8,7 @@ import workoutActions from '../../state/ducks/workouts/actions';
 import exerciseActions from '../../state/ducks/exercises/actions';
 import setActions from '../../state/ducks/sets/actions';
 import { ScreenNames } from '../enums';
-import { AddWorkoutParams } from './AddWorkoutModal';
+import { NavigationParams as WorkoutModalNavigationParams } from './WorkoutModal';
 import { workoutsSelectors } from '../../state/ducks/workouts';
 
 interface WorkoutsScreenProps {
@@ -18,6 +18,16 @@ interface WorkoutsScreenProps {
 type WorkoutsScreenContainerProps = WorkoutsScreenProps
   & DispatchProps
   & StateProps;
+
+export interface OpenModalProps {
+  id?: Workout['id'];
+  initialValues?: WorkoutDetails;
+}
+
+export enum FORM_MODES {
+  ADD,
+  EDIT
+}
 
 class WorkoutsScreenContainer extends React.Component<WorkoutsScreenContainerProps> {
   static navigationOptions = {
@@ -37,13 +47,28 @@ class WorkoutsScreenContainer extends React.Component<WorkoutsScreenContainerPro
     navigation.navigate(ScreenNames.Exercises, { workout });
   }
 
-  openModal = () => {
-    const { navigation, addWorkout } = this.props;
+  openModal = ({ id, initialValues }: OpenModalProps) => {
+    const { navigation, addWorkout, editWorkout } = this.props;
 
-    navigation.navigate(
-      ScreenNames.AddWorkout,
-      { [AddWorkoutParams.AddWorkout]: addWorkout },
-    );
+    let onSubmitHandler: any; // TODO: Is this my best option?
+    let formMode: FORM_MODES;
+
+    // TODO: Think about extracting this
+    if (id) {
+      onSubmitHandler = (fields: WorkoutDetails) => editWorkout(id, fields);
+      formMode = FORM_MODES.EDIT;
+    } else {
+      onSubmitHandler = (fields: WorkoutDetails) => addWorkout(fields);
+      formMode = FORM_MODES.ADD;
+    }
+
+    const navigationParams: WorkoutModalNavigationParams = {
+      onSubmitHandler,
+      initialValues,
+      formMode,
+    };
+
+    navigation.navigate(ScreenNames.WorkoutModal, navigationParams);
   }
 
   render() {

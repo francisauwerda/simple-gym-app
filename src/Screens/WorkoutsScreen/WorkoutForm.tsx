@@ -5,24 +5,32 @@ import {
 import { Formik } from 'formik';
 import { WorkoutDetails } from '../../state/ducks/workouts/types';
 import Button from '../../components/Button';
+import { FORM_MODES } from './WorkoutsScreen';
 
-interface AddWorkoutFormProps {
-  addWorkout: (workoutDetails: WorkoutDetails) => void;
+interface WorkoutFormProps {
+  onSubmitHandler: (fields: WorkoutDetails) => void;
+  initialValues: WorkoutDetails;
   dismissModal: () => void;
+  formMode: FORM_MODES
 }
 
-const initialValues: WorkoutDetails = {
+const defaultInitialValues: WorkoutDetails = {
   name: '',
 };
 
-const AddWorkoutForm = (props: AddWorkoutFormProps) => {
-  const { addWorkout, dismissModal } = props;
+const WorkoutForm = (props: WorkoutFormProps) => {
+  const {
+    onSubmitHandler, dismissModal, initialValues = defaultInitialValues, formMode,
+  } = props;
+
+  // TOOD: Move this logic to the parent
+  const buttonText = formMode === FORM_MODES.ADD ? 'Add workout' : 'Edit workout';
 
   return (
     <Formik
       initialValues={initialValues}
       onSubmit={(values, { resetForm }) => {
-        addWorkout(values);
+        onSubmitHandler(values);
         resetForm();
         dismissModal();
       }}
@@ -41,7 +49,7 @@ const AddWorkoutForm = (props: AddWorkoutFormProps) => {
           />
           <View style={styles.buttonWrapper}>
             <Button
-              title="Add workout"
+              title={buttonText}
               onPress={submitForm}
             />
           </View>
@@ -52,7 +60,7 @@ const AddWorkoutForm = (props: AddWorkoutFormProps) => {
   );
 };
 
-export default AddWorkoutForm;
+export default WorkoutForm;
 
 const styles = StyleSheet.create({
   input: {

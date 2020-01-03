@@ -3,7 +3,7 @@ export enum ScreenNames {
   Exercises = 'EXERCISES',
   Workouts = 'WORKOUTS',
   Sets = 'SETS',
-  AddWorkout = 'ADD_WORKOUT',
+  WorkoutModal = 'WORKOUT_MODAL',
   AddExercise = 'ADD_EXERCISE',
   AddSet = 'ADD_SET'
 }

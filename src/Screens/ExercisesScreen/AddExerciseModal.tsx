@@ -27,15 +27,11 @@ const AddExerciseModal = (props: Props) => {
   const addExercise = navigation.state.params[AddExerciseParams.AddExerciseParam];
   const workout = navigation.state.params[AddExerciseParams.WorkoutParam];
 
-  const dismissModal = () => {
-    navigation.goBack();
-  };
-
   return (
     <ModalWrapper>
       <AddExerciseForm
         addExercise={addExercise}
-        dismissModal={dismissModal}
+        dismissModal={() => navigation.goBack()}
         workout={workout}
       />
     </ModalWrapper>

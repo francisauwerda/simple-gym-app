@@ -3,7 +3,7 @@ import { createStackNavigator } from 'react-navigation-stack';
 import ExercisesScreen from './ExercisesScreen/ExercisesScreen';
 import WorkoutsScreen from './WorkoutsScreen/WorkoutsScreen';
 import SetsScreen from './SetsScreen/SetsScreen';
-import AddWorkoutModal from './WorkoutsScreen/AddWorkoutModal';
+import WorkoutModal from './WorkoutsScreen/WorkoutModal';
 import AddExerciseModal from './ExercisesScreen/AddExerciseModal';
 import { ScreenNames } from './enums';
 import AddSetModal from './SetsScreen/AddSetModal';
@@ -21,8 +21,8 @@ const RootStack = createStackNavigator({
     screen: MainStack,
     navigationOptions: { header: null },
   },
-  [ScreenNames.AddWorkout]: {
-    screen: AddWorkoutModal,
+  [ScreenNames.WorkoutModal]: {
+    screen: WorkoutModal,
   },
   [ScreenNames.AddExercise]: {
     screen: AddExerciseModal,

@@ -9,13 +9,13 @@ import { Workout, WorkoutWithLastModified } from '../../state/ducks/workouts/typ
 import Card from '../../components/Card';
 import Button from '../../components/Button';
 import BottomWrapper from '../../components/BottomWrapper';
-import { DispatchProps } from './WorkoutsScreen';
+import { DispatchProps, OpenModalProps } from './WorkoutsScreen';
 
 type WorkoutsScreenProps = {
   navigation: NavigationScreenProp<NavigationState, NavigationParams>,
   workouts: WorkoutWithLastModified[],
   navigateToExercises: ({ workout }: { workout: Workout }) => void;
-  openModal: () => void;
+  openModal: (props: OpenModalProps) => void;
 } & Partial<DispatchProps>;
 
 const getLastModifiedText = (lastModified: WorkoutWithLastModified['lastModified']): string => {
@@ -43,7 +43,6 @@ const WorkoutsScreenView = (props: WorkoutsScreenProps) => {
     navigateToExercises,
     openModal,
     deleteWorkout,
-    editWorkout,
   } = props;
 
   return (
@@ -58,7 +57,12 @@ const WorkoutsScreenView = (props: WorkoutsScreenProps) => {
             onClickHandler={() => navigateToExercises({ workout: item })}
             optionsActionSheetProps={{
               onEditHandler: () => {
-                console.log('Edit not yet implemented');
+                openModal({
+                  id: item.id,
+                  initialValues: {
+                    name: item.name,
+                  },
+                });
               },
               onDeleteHandler: () => {
                 deleteWorkout(item.id);
@@ -73,7 +77,7 @@ const WorkoutsScreenView = (props: WorkoutsScreenProps) => {
         <View>
           <Button
             title="Add a Workout"
-            onPress={openModal}
+            onPress={() => openModal({})}
           />
         </View>
       </BottomWrapper>
