@@ -49,12 +49,12 @@ export default function SetsScreenView(props: Props) {
         style={styles.sectionListContainer}
         sections={myData}
         keyExtractor={(item) => item.id}
-        renderItem={({ item, index, section }: {
+        renderItem={({ item, index }: {
           item: Set, index: number, section: any
         }) => (
           <Card
             // disabled
-            leftAccessory={section.data.length - index}
+            leftAccessory={index + 1}
             mainText={`${item.weight} kg`}
             secondaryText={`Reps: ${item.reps}`}
             onClickHandler={() => {
