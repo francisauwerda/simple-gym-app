@@ -25,10 +25,10 @@
     ],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.francisauwerda.simplegymapp"
+      "bundleIdentifier": "com.simplegymapp.simplegymapp"
     },
     "android": {
-      "package": "com.francisauwerda.simplegymapp",
+      "package": "com.simplegymapp.simplegymapp",
       "versionCode": 1
     }
   }
