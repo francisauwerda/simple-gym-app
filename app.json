@@ -29,7 +29,7 @@
     },
     "android": {
       "package": "com.francisauwerda.simplegymapp",
-      "versionCode": "1.1.0"
+      "versionCode": 1
     }
   }
 }
