@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "Simple gym app",
-    "slug": "SimpleGymApp",
+    "slug": "simple-gym-app",
     "privacy": "public",
     "sdkVersion": "34.0.0",
     "platforms": [
@@ -9,7 +9,7 @@
       "android",
       "web"
     ],
-    "version": "1.0.0",
+    "version": "1.1.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "splash": {
