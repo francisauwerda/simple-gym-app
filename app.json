@@ -28,7 +28,8 @@
       "bundleIdentifier": "com.francisauwerda.simplegymapp"
     },
     "android": {
-      "package": "com.francisauwerda.simplegymapp"
+      "package": "com.francisauwerda.simplegymapp",
+      "versionCode": "1.1.0"
     }
   }
 }
