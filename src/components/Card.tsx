@@ -2,8 +2,9 @@ import React from 'react';
 import {
   Text, StyleSheet, View,
 } from 'react-native';
+import { useActionSheet } from '@expo/react-native-action-sheet';
 
-import OptionsActionSheet, { OptionsActionSheetProps } from './OptionsActionSheet';
+import { OptionsActionSheetProps, handleOptionsPress } from './OptionsActionSheet';
 import TouchableComponent from '../components/TouchableComponent';
 
 interface CardProps {
@@ -12,7 +13,6 @@ interface CardProps {
   onClickHandler: any,
   leftAccessory?: any,
   disabled?: boolean,
-  onLongPress?: any,
   optionsActionSheetProps?: OptionsActionSheetProps;
 }
 
@@ -22,31 +22,46 @@ const Card = ({
   onClickHandler,
   leftAccessory,
   disabled,
-  onLongPress,
   optionsActionSheetProps,
-}: CardProps) => (
-  <TouchableComponent onPress={onClickHandler} disabled={disabled} onLongPress={onLongPress}>
-    <View style={styles.cardWrapper}>
-      <View style={styles.leftSideWrapper}>
-        {!!leftAccessory && (
-        <Text style={styles.leftAccessory}>
-          {`Set ${leftAccessory}`}
-        </Text>
-        )}
-        <View style={styles.textWrapper}>
-          <Text style={styles.mainText}>{mainText}</Text>
-          {!!secondaryText && <Text>{secondaryText}</Text>}
+}: CardProps) => {
+  const { showActionSheetWithOptions } = useActionSheet();
+  const { onDeleteHandler, onEditHandler } = optionsActionSheetProps;
+
+  const onLongPressHandler = () => handleOptionsPress({
+    actionSheetHandler: showActionSheetWithOptions,
+    onEditHandler,
+    onDeleteHandler,
+  });
+
+  return (
+    <TouchableComponent
+      onPress={onClickHandler}
+      disabled={disabled}
+      onLongPress={onLongPressHandler}
+    >
+      <View style={styles.cardWrapper}>
+        <View style={styles.leftSideWrapper}>
+          {!!leftAccessory && (
+          <Text style={styles.leftAccessory}>
+            {`Set ${leftAccessory}`}
+          </Text>
+          )}
+          <View style={styles.textWrapper}>
+            <Text style={styles.mainText}>{mainText}</Text>
+            {!!secondaryText && <Text>{secondaryText}</Text>}
+          </View>
         </View>
-      </View>
-      {!!optionsActionSheetProps && (
+        {/* Comment out temporarily. Not sure if I want this anymore. */}
+        {/* {!!optionsActionSheetProps && (
         <OptionsActionSheet
           onDeleteHandler={optionsActionSheetProps.onDeleteHandler}
           onEditHandler={optionsActionSheetProps.onEditHandler}
         />
-      )}
-    </View>
-  </TouchableComponent>
-);
+        )} */}
+      </View>
+    </TouchableComponent>
+  );
+};
 
 export default Card;
 

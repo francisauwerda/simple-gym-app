@@ -43,11 +43,9 @@ const SetForm = (props: SetFormProps) => {
     <Formik
       initialValues={{ ...initialValues, exerciseId: exercise.id }}
       onSubmit={(values, { resetForm }) => {
-        const date = moment();
-
         onSubmitHandler({
           ...values,
-          date,
+          date: values.date ? values.date : moment(),
         });
         resetForm();
         dismissModal();

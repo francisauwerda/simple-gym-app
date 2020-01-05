@@ -10,7 +10,7 @@ type OptionsHandlers = {
   actionSheetHandler: any;
 } & OptionsActionSheetProps;
 
-const handleOptionsPress = (optionsSettings: OptionsHandlers) => {
+export const handleOptionsPress = (optionsSettings: OptionsHandlers) => {
   const { onDeleteHandler, onEditHandler, actionSheetHandler } = optionsSettings;
   const options: string[] = [
     ...[onDeleteHandler && 'Delete'],
