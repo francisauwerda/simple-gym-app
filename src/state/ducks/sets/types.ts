@@ -6,14 +6,11 @@ export type Set = {
 } & SetDetails
 
 export type SetDetails = {
-  date: Moment,
-  exerciseId: Exercise['id']
-} & SetInputs
-
-export interface SetInputs {
   reps: number,
   weight: number,
   difficulty: number,
+  date: Moment,
+  exerciseId: Exercise['id']
 }
 
 const FETCH = 'sets/FETCH';

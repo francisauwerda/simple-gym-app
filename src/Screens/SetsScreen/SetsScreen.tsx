@@ -1,14 +1,15 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { NavigationScreenProp, NavigationParams, NavigationState } from 'react-navigation';
-import { Set, SetDetails, SetInputs } from '../../state/ducks/sets/types';
+import { Set, SetDetails } from '../../state/ducks/sets/types';
 import actions from '../../state/ducks/sets/actions';
 import { State } from '../../state/types';
 import { Exercise } from '../../state/ducks/exercises/types';
 import { setsSelectors } from '../../state/ducks/sets';
 import SetsScreenView from './SetsScreenView';
 import { ScreenNames } from '../enums';
-import { AddSetParams } from './AddSetModal';
+import { NavigationParams as SetModalNavigationParams } from './SetModal';
+import { getModalProps } from '../helpers';
 
 interface SetsNavigationState extends NavigationState {
   params: {
@@ -18,6 +19,11 @@ interface SetsNavigationState extends NavigationState {
 
 interface SetsScreenProps {
   navigation: NavigationScreenProp<SetsNavigationState, NavigationParams>;
+}
+
+export interface OpenModalProps {
+  id?: Set['id'];
+  initialValues?: SetDetails;
 }
 
 type SetsScreenContainerProps = SetsScreenProps & StateProps & DispatchProps;
@@ -35,19 +41,30 @@ class SetsScreenContainer extends Component<SetsScreenContainerProps> {
     fetchSets();
   }
 
-  openModal = ({ initialValues }: { initialValues: SetInputs }) => {
-    const { navigation, addSet, exercise } = this.props;
+  openModal = ({ id, initialValues }: OpenModalProps) => {
+    const {
+      navigation, addSet, exercise, editSet,
+    } = this.props;
 
-    navigation.navigate(ScreenNames.AddSet, {
-      [AddSetParams.AddSetParam]: addSet,
-      [AddSetParams.ExerciseParam]: exercise,
-      [AddSetParams.InitialValues]: initialValues,
+    const { onSubmitHandler, formMode } = getModalProps({
+      id,
+      addHandler: addSet,
+      editHandler: editSet,
     });
+
+    const navigationParams: SetModalNavigationParams = {
+      onSubmitHandler,
+      formMode,
+      exercise,
+      initialValues,
+    };
+
+    navigation.navigate(ScreenNames.SetModal, navigationParams);
   }
 
   render() {
     const {
-      todaysSets, lastSessionSets, exercise, addSet, deleteSet, editSet,
+      todaysSets, lastSessionSets, exercise, addSet, deleteSet,
     } = this.props;
     return (
       <SetsScreenView
@@ -57,7 +74,6 @@ class SetsScreenContainer extends Component<SetsScreenContainerProps> {
         addSet={addSet}
         deleteSet={deleteSet}
         openModal={this.openModal}
-        editSet={editSet}
       />
     );
   }

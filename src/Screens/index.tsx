@@ -6,7 +6,7 @@ import SetsScreen from './SetsScreen/SetsScreen';
 import WorkoutModal from './WorkoutsScreen/WorkoutModal';
 import ExerciseModal from './ExercisesScreen/ExerciseModal';
 import { ScreenNames } from './enums';
-import AddSetModal from './SetsScreen/AddSetModal';
+import SetModal from './SetsScreen/SetModal';
 
 const MainStack = createStackNavigator({
   [ScreenNames.Exercises]: ExercisesScreen,
@@ -27,8 +27,8 @@ const RootStack = createStackNavigator({
   [ScreenNames.ExerciseModal]: {
     screen: ExerciseModal,
   },
-  [ScreenNames.AddSet]: {
-    screen: AddSetModal,
+  [ScreenNames.SetModal]: {
+    screen: SetModal,
   },
 },
 {

@@ -30,6 +30,7 @@ export interface OpenModalProps {
 }
 
 type ExercisesScreenContainerProps = ExercisesScreenProps & StateProps & DispatchProps;
+
 class ExercisesScreenContainer extends React.Component<ExercisesScreenContainerProps> {
   static navigationOptions = ({ navigation }) => {
     const workout: Workout = navigation.getParam('workout');

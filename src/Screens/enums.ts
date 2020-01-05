@@ -4,7 +4,7 @@ export enum ScreenNames {
   Sets = 'SETS',
   WorkoutModal = 'WORKOUT_MODAL',
   ExerciseModal = 'EXERCISE_MODAL',
-  AddSet = 'ADD_SET'
+  SetModal = 'SET_MODAL'
 }
 
 export enum FORM_MODES {

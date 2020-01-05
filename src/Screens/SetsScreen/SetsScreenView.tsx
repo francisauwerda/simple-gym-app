@@ -4,18 +4,18 @@ import {
   SafeAreaView, StyleSheet, Text, SectionList, View,
 } from 'react-native';
 
-import { Set, SetInputs } from '../../state/ducks/sets/types';
+import { Set } from '../../state/ducks/sets/types';
 import { Exercise } from '../../state/ducks/exercises/types';
 import Card from '../../components/Card';
 import Button from '../../components/Button';
 import BottomWrapper from '../../components/BottomWrapper';
-import { DispatchProps } from './SetsScreen';
+import { DispatchProps, OpenModalProps } from './SetsScreen';
 
 type Props = {
   todaysSets: Set[],
   lastSessionSets: Set[],
   exercise: Exercise;
-  openModal: ({ initialValues }: { initialValues?: SetInputs }) => void;
+  openModal: (props: OpenModalProps) => void;
 } & Partial<DispatchProps>
 
 export default function SetsScreenView(props: Props) {
@@ -24,10 +24,9 @@ export default function SetsScreenView(props: Props) {
     lastSessionSets,
     openModal,
     deleteSet,
-    editSet,
   } = props;
 
-  // TODO: Move this our of the render function
+  // TODO: Move this out of the render function
   const myData: { title: string, subtitle?: string, data: Set[] }[] = [];
   if (todaysSets.length) {
     myData.push({
@@ -57,30 +56,41 @@ export default function SetsScreenView(props: Props) {
         style={styles.sectionListContainer}
         sections={myData}
         keyExtractor={(item) => item.id}
-        renderItem={({ item, index, section }) => (
+        renderItem={({ item, index, section }: {
+          item: Set, index: number, section: any
+        }) => (
           <Card
             // disabled
             leftAccessory={section.data.length - index}
             mainText={`${item.weight} kg`}
             secondaryText={`Reps: ${item.reps}`}
             onClickHandler={() => {
-              console.log('Short press: ', item.id);
               openModal({
                 initialValues: {
-                  reps: item.reps,
-                  weight: item.weight,
+                  date: item.date,
                   difficulty: item.difficulty,
+                  weight: item.weight,
+                  reps: item.reps,
+                  exerciseId: item.exerciseId,
                 },
               });
             }}
-            onLongPress={() => {
-              // TODO: Add Are you sure dialog.
-              console.log('Deleting set: ', item.id);
-              // deleteSet(item.id);
-              editSet(item.id, {
-                ...item,
-                reps: 666,
-              });
+            optionsActionSheetProps={{
+              onEditHandler: () => {
+                openModal({
+                  id: item.id,
+                  initialValues: {
+                    date: item.date,
+                    difficulty: item.difficulty,
+                    weight: item.weight,
+                    reps: item.reps,
+                    exerciseId: item.exerciseId,
+                  },
+                });
+              },
+              onDeleteHandler: () => {
+                deleteSet(item.id);
+              },
             }}
           />
         )}
