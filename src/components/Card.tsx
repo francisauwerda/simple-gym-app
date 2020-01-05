@@ -3,7 +3,7 @@ import {
   Text, StyleSheet, View,
 } from 'react-native';
 
-import { OptionsActionSheet, OptionsActionSheetProps } from './Options';
+import OptionsActionSheet, { OptionsActionSheetProps } from './OptionsActionSheet';
 import TouchableComponent from '../components/TouchableComponent';
 
 interface CardProps {

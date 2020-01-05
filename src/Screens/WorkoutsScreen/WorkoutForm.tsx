@@ -5,7 +5,7 @@ import {
 import { Formik } from 'formik';
 import { WorkoutDetails } from '../../state/ducks/workouts/types';
 import Button from '../../components/Button';
-import { FORM_MODES } from './WorkoutsScreen';
+import { FORM_MODES } from '../enums';
 
 interface WorkoutFormProps {
   onSubmitHandler: (fields: WorkoutDetails) => void;
@@ -23,7 +23,6 @@ const WorkoutForm = (props: WorkoutFormProps) => {
     onSubmitHandler, dismissModal, initialValues = defaultInitialValues, formMode,
   } = props;
 
-  // TOOD: Move this logic to the parent
   const buttonText = formMode === FORM_MODES.ADD ? 'Add workout' : 'Edit workout';
 
   return (

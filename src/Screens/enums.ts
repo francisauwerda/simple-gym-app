@@ -1,9 +1,13 @@
-// eslint-disable-next-line import/prefer-default-export
 export enum ScreenNames {
   Exercises = 'EXERCISES',
   Workouts = 'WORKOUTS',
   Sets = 'SETS',
   WorkoutModal = 'WORKOUT_MODAL',
-  AddExercise = 'ADD_EXERCISE',
+  ExerciseModal = 'EXERCISE_MODAL',
   AddSet = 'ADD_SET'
+}
+
+export enum FORM_MODES {
+  ADD,
+  EDIT
 }

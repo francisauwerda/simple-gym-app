@@ -1,30 +1,10 @@
 import React from 'react';
 import { View, Image, StyleSheet } from 'react-native';
-import { ActionSheetProvider, useActionSheet } from '@expo/react-native-action-sheet';
+import { useActionSheet } from '@expo/react-native-action-sheet';
 
 import TouchableComponent from './TouchableComponent';
 
 const optionsIcon = require('../assets/round_more_vert_black_48.png');
-
-export interface OptionsActionSheetProps {
-  onEditHandler?: () => void;
-  onDeleteHandler?: () => void;
-}
-
-export const OptionsActionSheet = (props: OptionsActionSheetProps) => {
-  const { onDeleteHandler, onEditHandler } = props;
-
-  return (
-    <View>
-      <ActionSheetProvider>
-        <Options
-          onDeleteHandler={onDeleteHandler}
-          onEditHandler={onEditHandler}
-        />
-      </ActionSheetProvider>
-    </View>
-  );
-};
 
 type OptionsHandlers = {
   actionSheetHandler: any;
@@ -54,7 +34,13 @@ const handleOptionsPress = (optionsSettings: OptionsHandlers) => {
   });
 };
 
-const Options = (props: OptionsActionSheetProps) => {
+
+export interface OptionsActionSheetProps {
+  onEditHandler?: () => void;
+  onDeleteHandler?: () => void;
+}
+
+const OptionsActionSheet = (props: OptionsActionSheetProps) => {
   const { showActionSheetWithOptions } = useActionSheet();
   const { onDeleteHandler, onEditHandler } = props;
 
@@ -75,7 +61,7 @@ const Options = (props: OptionsActionSheetProps) => {
   );
 };
 
-export default Options;
+export default OptionsActionSheet;
 
 const OPTIONS_SLOP_DIMENSIONS = 52;
 const OPTIONS_BORDER_RADIUS = OPTIONS_SLOP_DIMENSIONS / 2;

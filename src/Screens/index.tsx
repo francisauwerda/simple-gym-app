@@ -4,7 +4,7 @@ import ExercisesScreen from './ExercisesScreen/ExercisesScreen';
 import WorkoutsScreen from './WorkoutsScreen/WorkoutsScreen';
 import SetsScreen from './SetsScreen/SetsScreen';
 import WorkoutModal from './WorkoutsScreen/WorkoutModal';
-import AddExerciseModal from './ExercisesScreen/AddExerciseModal';
+import ExerciseModal from './ExercisesScreen/ExerciseModal';
 import { ScreenNames } from './enums';
 import AddSetModal from './SetsScreen/AddSetModal';
 
@@ -24,8 +24,8 @@ const RootStack = createStackNavigator({
   [ScreenNames.WorkoutModal]: {
     screen: WorkoutModal,
   },
-  [ScreenNames.AddExercise]: {
-    screen: AddExerciseModal,
+  [ScreenNames.ExerciseModal]: {
+    screen: ExerciseModal,
   },
   [ScreenNames.AddSet]: {
     screen: AddSetModal,

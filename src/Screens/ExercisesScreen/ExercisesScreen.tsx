@@ -11,7 +11,8 @@ import { exercisesSelectors } from '../../state/ducks/exercises';
 import actions from '../../state/ducks/exercises/actions';
 import { Workout } from '../../state/ducks/workouts/types';
 import { ScreenNames } from '../enums';
-import { AddExerciseParams } from './AddExerciseModal';
+import { NavigationParams as ExerciseModalNavigationParams } from './ExerciseModal';
+import { getModalProps } from '../helpers';
 
 interface ExercisesNavigationState extends NavigationState {
   params: {
@@ -21,6 +22,11 @@ interface ExercisesNavigationState extends NavigationState {
 
 interface ExercisesScreenProps {
   navigation: NavigationScreenProp<ExercisesNavigationState, NavigationParams>;
+}
+
+export interface OpenModalProps {
+  id?: Exercise['id'];
+  initialValues?: ExerciseDetails;
 }
 
 type ExercisesScreenContainerProps = ExercisesScreenProps & StateProps & DispatchProps;
@@ -38,19 +44,31 @@ class ExercisesScreenContainer extends React.Component<ExercisesScreenContainerP
     fetchExercises();
   }
 
-  openModal = () => {
-    const { navigation, addExercise, workout } = this.props;
+  openModal = ({ id, initialValues }: OpenModalProps) => {
+    const {
+      navigation, addExercise, workout, editExercise,
+    } = this.props;
 
-    navigation.navigate(ScreenNames.AddExercise, {
-      [AddExerciseParams.AddExerciseParam]: addExercise,
-      [AddExerciseParams.WorkoutParam]: workout,
+    const { onSubmitHandler, formMode } = getModalProps({
+      id,
+      addHandler: addExercise,
+      editHandler: editExercise,
     });
+
+    const navigationParams: ExerciseModalNavigationParams = {
+      onSubmitHandler,
+      formMode,
+      initialValues,
+      workout,
+    };
+
+    navigation.navigate(ScreenNames.ExerciseModal, navigationParams);
   }
 
 
   render() {
     const {
-      navigation, exercises, workout, deleteExercise, editExercise,
+      navigation, exercises, workout, deleteExercise,
     } = this.props;
 
     return (
@@ -60,7 +78,6 @@ class ExercisesScreenContainer extends React.Component<ExercisesScreenContainerP
         workout={workout}
         openModal={this.openModal}
         deleteExercise={deleteExercise}
-        editExercise={editExercise}
       />
     );
   }

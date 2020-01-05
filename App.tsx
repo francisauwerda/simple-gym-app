@@ -1,5 +1,6 @@
 import React from 'react';
 import { Provider } from 'react-redux';
+import { ActionSheetProvider } from '@expo/react-native-action-sheet'; // TODO: Check if we can remove press delay for android
 
 import { createAppContainer } from 'react-navigation';
 import RootStack from './src/Screens';
@@ -20,7 +21,9 @@ const reduxStore = configureStore(initialState);
 export default function App() {
   return (
     <Provider store={reduxStore}>
-      <AppContainer />
+      <ActionSheetProvider>
+        <AppContainer />
+      </ActionSheetProvider>
     </Provider>
   );
 }

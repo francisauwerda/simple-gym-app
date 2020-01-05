@@ -1,37 +1,42 @@
 import React from 'react';
 import { NavigationScreenProp, NavigationState } from 'react-navigation';
+import ExerciseForm from './ExerciseForm';
+import { Workout } from '../../state/ducks/workouts/types';
+import { ExerciseDetails } from '../../state/ducks/exercises/types';
 import ModalWrapper from '../../components/ModalWrapper';
-import WorkoutForm from './WorkoutForm';
-import { WorkoutDetails } from '../../state/ducks/workouts/types';
 import { FORM_MODES } from '../enums';
 
 export interface NavigationParams {
-  onSubmitHandler: any;
-  initialValues?: WorkoutDetails;
+  onSubmitHandler: (fields: ExerciseDetails) => void;
+  initialValues?: ExerciseDetails;
   formMode: FORM_MODES;
+  workout: Workout;
 }
 
 type Navigation = NavigationScreenProp<NavigationState, NavigationParams>;
-
 
 interface Props {
   navigation: Navigation;
 }
 
-const WorkoutModal = (props: Props) => {
+const ExerciseModal = (props: Props) => {
   const { navigation } = props;
-  const { onSubmitHandler, initialValues, formMode } = navigation.state.params;
+
+  const {
+    workout, onSubmitHandler, initialValues, formMode,
+  } = navigation.state.params;
 
   return (
     <ModalWrapper>
-      <WorkoutForm
+      <ExerciseForm
         onSubmitHandler={onSubmitHandler}
-        formMode={formMode}
         initialValues={initialValues}
+        formMode={formMode}
         dismissModal={() => navigation.goBack()}
+        workout={workout}
       />
     </ModalWrapper>
   );
 };
 
-export default WorkoutModal;
+export default ExerciseModal;

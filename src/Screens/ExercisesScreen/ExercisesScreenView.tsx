@@ -12,18 +12,18 @@ import { Workout } from '../../state/ducks/workouts/types';
 import Card from '../../components/Card';
 import Button from '../../components/Button';
 import BottomWrapper from '../../components/BottomWrapper';
-import { DispatchProps } from './ExercisesScreen';
+import { DispatchProps, OpenModalProps } from './ExercisesScreen';
 
 type Props = {
   navigation: NavigationScreenProp<NavigationState, NavigationParams>;
   exercises: Exercise[];
   workout: Workout;
-  openModal: () => void;
+  openModal: (props: OpenModalProps) => void;
 } & Partial<DispatchProps>;
 
 export default function ExercisesScreenView(props: Props) {
   const {
-    exercises, navigation, openModal, deleteExercise, editExercise,
+    exercises, navigation, openModal, deleteExercise,
   } = props;
   return (
     <SafeAreaView style={styles.container}>
@@ -34,13 +34,19 @@ export default function ExercisesScreenView(props: Props) {
           <Card
             mainText={item.name}
             onClickHandler={() => navigation.navigate(ScreenNames.Sets, { exercise: item })}
-            onLongPress={() => {
-              console.log('Deleting exercise: ', item.id);
-              // deleteExercise(item.id);
-              editExercise(item.id, {
-                ...item,
-                name: 'Changed exercise',
-              });
+            optionsActionSheetProps={{
+              onEditHandler: () => {
+                openModal({
+                  id: item.id,
+                  initialValues: {
+                    name: item.name,
+                    workoutId: item.workoutId,
+                  },
+                });
+              },
+              onDeleteHandler: () => {
+                deleteExercise(item.id);
+              },
             }}
           />
         )}
@@ -50,7 +56,7 @@ export default function ExercisesScreenView(props: Props) {
       <BottomWrapper>
         <Button
           title="Add an exercise"
-          onPress={openModal}
+          onPress={() => openModal({})}
         />
       </BottomWrapper>
     </SafeAreaView>

@@ -10,6 +10,7 @@ import setActions from '../../state/ducks/sets/actions';
 import { ScreenNames } from '../enums';
 import { NavigationParams as WorkoutModalNavigationParams } from './WorkoutModal';
 import { workoutsSelectors } from '../../state/ducks/workouts';
+import { getModalProps } from '../helpers';
 
 interface WorkoutsScreenProps {
   navigation: NavigationScreenProp<NavigationState, NavigationParams>,
@@ -22,11 +23,6 @@ type WorkoutsScreenContainerProps = WorkoutsScreenProps
 export interface OpenModalProps {
   id?: Workout['id'];
   initialValues?: WorkoutDetails;
-}
-
-export enum FORM_MODES {
-  ADD,
-  EDIT
 }
 
 class WorkoutsScreenContainer extends React.Component<WorkoutsScreenContainerProps> {
@@ -50,17 +46,11 @@ class WorkoutsScreenContainer extends React.Component<WorkoutsScreenContainerPro
   openModal = ({ id, initialValues }: OpenModalProps) => {
     const { navigation, addWorkout, editWorkout } = this.props;
 
-    let onSubmitHandler: any; // TODO: Is this my best option?
-    let formMode: FORM_MODES;
-
-    // TODO: Think about extracting this
-    if (id) {
-      onSubmitHandler = (fields: WorkoutDetails) => editWorkout(id, fields);
-      formMode = FORM_MODES.EDIT;
-    } else {
-      onSubmitHandler = (fields: WorkoutDetails) => addWorkout(fields);
-      formMode = FORM_MODES.ADD;
-    }
+    const { onSubmitHandler, formMode } = getModalProps({
+      id,
+      addHandler: addWorkout,
+      editHandler: editWorkout,
+    });
 
     const navigationParams: WorkoutModalNavigationParams = {
       onSubmitHandler,
