@@ -1,4 +1,7 @@
+import moment from 'moment';
+
 import { FORM_MODES } from './enums';
+import { WorkoutWithLastModified } from '../state/ducks/workouts/types';
 
 interface ModalProps {
   onSubmitHandler: (fields: any) => void;
@@ -11,7 +14,6 @@ interface Handlers {
   editHandler: (id: any, fields: any) => void;
 }
 
-// eslint-disable-next-line import/prefer-default-export
 export const getModalProps = ({
   id,
   addHandler,
@@ -32,4 +34,23 @@ export const getModalProps = ({
     onSubmitHandler,
     formMode,
   };
+};
+
+export const getLastModifiedText = (lastModified: WorkoutWithLastModified['lastModified']): string => {
+  if (lastModified) {
+    const daysAgo = moment().diff(lastModified, 'days');
+    if (daysAgo) {
+      return `${daysAgo} day${daysAgo !== 1 ? 's' : ''} ago`;
+    }
+
+    const hoursAgo = moment().diff(lastModified, 'hours');
+    if (hoursAgo) {
+      return `${hoursAgo} hour${hoursAgo !== 1 ? 's' : ''} ago`;
+    }
+
+    const minutesAgo = moment().diff(lastModified, 'minutes');
+    return `${minutesAgo} minute${minutesAgo !== 1 ? 's' : ''} ago`;
+  }
+
+  return '';
 };

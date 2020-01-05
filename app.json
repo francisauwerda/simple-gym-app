@@ -9,7 +9,7 @@
       "android",
       "web"
     ],
-    "version": "1.1.0",
+    "version": "1.1.1",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "splash": {
@@ -29,7 +29,7 @@
     },
     "android": {
       "package": "com.simplegymapp.simplegymapp",
-      "versionCode": 1
+      "versionCode": 2
     }
   }
 }

@@ -1,5 +1,4 @@
 import React from 'react';
-import moment from 'moment';
 import {
   SafeAreaView, FlatList, StyleSheet, View,
 } from 'react-native';
@@ -10,6 +9,7 @@ import Card from '../../components/Card';
 import Button from '../../components/Button';
 import BottomWrapper from '../../components/BottomWrapper';
 import { DispatchProps, OpenModalProps } from './WorkoutsScreen';
+import { getLastModifiedText } from '../helpers';
 
 type WorkoutsScreenProps = {
   navigation: NavigationScreenProp<NavigationState, NavigationParams>,
@@ -17,25 +17,6 @@ type WorkoutsScreenProps = {
   navigateToExercises: ({ workout }: { workout: Workout }) => void;
   openModal: (props: OpenModalProps) => void;
 } & Partial<DispatchProps>;
-
-const getLastModifiedText = (lastModified: WorkoutWithLastModified['lastModified']): string => {
-  if (lastModified) {
-    const daysAgo = moment().diff(lastModified, 'days');
-    if (daysAgo) {
-      return `${daysAgo} day${daysAgo !== 1 ? 's' : ''} ago`;
-    }
-
-    const hoursAgo = moment().diff(lastModified, 'hours');
-    if (hoursAgo) {
-      return `${hoursAgo} hour${hoursAgo !== 1 ? 's' : ''} ago`;
-    }
-
-    const minutesAgo = moment().diff(lastModified, 'minutes');
-    return `${minutesAgo} minute${minutesAgo !== 1 ? 's' : ''} ago`;
-  }
-
-  return '';
-};
 
 const WorkoutsScreenView = (props: WorkoutsScreenProps) => {
   const {

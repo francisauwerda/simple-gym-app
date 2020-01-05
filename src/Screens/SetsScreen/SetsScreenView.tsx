@@ -1,5 +1,4 @@
 import React from 'react';
-import moment from 'moment';
 import {
   SafeAreaView, StyleSheet, Text, SectionList, View,
 } from 'react-native';
@@ -10,6 +9,7 @@ import Card from '../../components/Card';
 import Button from '../../components/Button';
 import BottomWrapper from '../../components/BottomWrapper';
 import { DispatchProps, OpenModalProps } from './SetsScreen';
+import { getLastModifiedText } from '../helpers';
 
 type Props = {
   todaysSets: Set[],
@@ -38,14 +38,7 @@ export default function SetsScreenView(props: Props) {
   if (lastSessionSets.length) {
     myData.push({
       title: 'Last session',
-      subtitle: `${moment(lastSessionSets[0].date).calendar(null, {
-        sameDay: '[Today]',
-        nextDay: '[Tomorrow]',
-        nextWeek: 'dddd',
-        lastDay: '[Yesterday]',
-        lastWeek: '[Last] dddd',
-        sameElse: 'DD/MM/YYYY',
-      })}`,
+      subtitle: getLastModifiedText(lastSessionSets[0].date),
       data: lastSessionSets,
     });
   }

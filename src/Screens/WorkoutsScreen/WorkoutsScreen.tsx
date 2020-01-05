@@ -27,7 +27,7 @@ export interface OpenModalProps {
 
 class WorkoutsScreenContainer extends React.Component<WorkoutsScreenContainerProps> {
   static navigationOptions = {
-    title: 'Workouts',
+    title: 'Workouts 🏋️‍♂️',
   }
 
   componentDidMount() {
