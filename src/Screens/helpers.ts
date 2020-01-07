@@ -43,13 +43,7 @@ export const getLastModifiedText = (lastModified: WorkoutWithLastModified['lastM
       return `${daysAgo} day${daysAgo !== 1 ? 's' : ''} ago`;
     }
 
-    const hoursAgo = moment().diff(lastModified, 'hours');
-    if (hoursAgo) {
-      return `${hoursAgo} hour${hoursAgo !== 1 ? 's' : ''} ago`;
-    }
-
-    const minutesAgo = moment().diff(lastModified, 'minutes');
-    return `${minutesAgo} minute${minutesAgo !== 1 ? 's' : ''} ago`;
+    return 'Today';
   }
 
   return '';
