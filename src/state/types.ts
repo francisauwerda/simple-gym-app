@@ -1,11 +1,3 @@
-import { Exercise } from './ducks/exercises/types';
-import { Set } from './ducks/sets/types';
-import { Workout } from './ducks/workouts/types';
+import { rootReducer } from './store';
 
-export interface State {
-  exercisesReducer: { exercises: Exercise[] },
-  setsReducer: { sets: Set[] },
-  workoutsReducer: {
-    workouts: Workout[],
-  }
-}
+export type AppState = ReturnType<typeof rootReducer>;

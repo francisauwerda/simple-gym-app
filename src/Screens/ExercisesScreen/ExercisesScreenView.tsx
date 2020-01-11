@@ -7,16 +7,17 @@ import {
 } from 'react-navigation';
 
 import { ScreenNames } from '../enums';
-import { Exercise } from '../../state/ducks/exercises/types';
+import { ExerciseWithLastModified } from '../../state/ducks/exercises/types';
 import { Workout } from '../../state/ducks/workouts/types';
 import Card from '../../components/Card';
 import Button from '../../components/Button';
 import BottomWrapper from '../../components/BottomWrapper';
 import { DispatchProps, OpenModalProps } from './ExercisesScreen';
+import { getLastModifiedText } from '../helpers';
 
 type Props = {
   navigation: NavigationScreenProp<NavigationState, NavigationParams>;
-  exercises: Exercise[];
+  exercises: ExerciseWithLastModified[];
   workout: Workout;
   openModal: (props: OpenModalProps) => void;
 } & Partial<DispatchProps>;
@@ -33,6 +34,7 @@ export default function ExercisesScreenView(props: Props) {
         renderItem={({ item }) => (
           <Card
             mainText={item.name}
+            secondaryText={getLastModifiedText(item.lastModified)}
             onClickHandler={() => navigation.navigate(ScreenNames.Sets, { exercise: item })}
             optionsActionSheetProps={{
               onEditHandler: () => {

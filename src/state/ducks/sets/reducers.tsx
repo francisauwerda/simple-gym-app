@@ -1,8 +1,16 @@
 import types, { Set } from './types';
 
-const initialState: { sets: Set[] } = { sets: [] };
+export const initialState: { sets: Set[] } = { sets: [] };
 
-const setsReducer = (state = initialState, action) => {
+interface ActionType {
+  type: string,
+  payload: {
+    set?: Set,
+    sets?: Set[]
+  }
+}
+
+const setsReducer = (state = initialState, action: ActionType) => {
   switch (action.type) {
     case types.FETCH_SUCCESS: {
       return {

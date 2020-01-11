@@ -3,11 +3,12 @@ import createSagaMiddleware from 'redux-saga';
 
 import * as reducers from './ducks';
 import rootSaga from './ducks/sagas';
-import { State } from './types';
+import { AppState } from './types';
 
-export default function configureStore(initialState: State) {
+export const rootReducer = combineReducers(reducers);
+
+export default function configureStore(initialState: AppState) {
   const sagaMiddleware = createSagaMiddleware();
-  const rootReducer = combineReducers(reducers);
 
   const store = createStore(
     rootReducer,

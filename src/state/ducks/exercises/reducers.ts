@@ -1,8 +1,16 @@
 import types, { Exercise } from './types';
 
-const initialState: { exercises: Exercise[] } = { exercises: [] };
+export const initialState: { exercises: Exercise[] } = { exercises: [] };
 
-const exercisesReducer = (state = initialState, action) => {
+interface ActionType {
+  type: string,
+  payload: {
+    exercises?: Exercise[],
+    exercise?: Exercise
+  }
+}
+
+const exercisesReducer = (state = initialState, action: ActionType) => {
   switch (action.type) {
     case types.FETCH_SUCCESS: {
       return {

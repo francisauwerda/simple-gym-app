@@ -3,8 +3,7 @@ import uuid from 'uuidv4';
 import moment from 'moment';
 
 import { setsSelectors } from '..';
-import { State } from '../../../types';
-import { SetsByDays } from '../selectors';
+import { AppState } from '../../../types';
 import { Workout } from '../../workouts/types';
 import { Exercise } from '../../exercises/types';
 import { Set } from '../types';
@@ -17,16 +16,19 @@ interface DefaultData {
 
 describe('My Test Suite', () => {
   let defaultData: DefaultData;
+  let today;
+  let yesterday;
+  let squatsId;
 
   beforeAll(() => {
     const legsId = uuid();
     const shouldersId = uuid();
 
-    const squatsId = uuid();
+    squatsId = uuid();
     const rdlId = uuid();
     const shoulderPressId = uuid();
-    const today = moment();
-    const yesterday = today.clone().subtract(1, 'day');
+    today = moment();
+    yesterday = today.clone().subtract(1, 'day');
     const lastMonth = today.clone().subtract(1, 'M');
     const lastYear = today.clone().subtract(1, 'year');
 
@@ -92,52 +94,8 @@ describe('My Test Suite', () => {
     };
   });
 
-  it.skip('My Test Case', () => {
-    const state: State = {
-      exercisesReducer: {
-        exercises: [...defaultData.exercises],
-      },
-      setsReducer: {
-        sets: [...defaultData.sets],
-      },
-      workoutsReducer: {
-        workouts: [...defaultData.workouts],
-      },
-    };
-    const mySets = setsSelectors.selectSetsGroupedByDate(state, defaultData.exercises[0].id);
-
-
-    const result: SetsByDays = {
-      2018: {
-        10: {
-          11: [
-            defaultData.sets[4],
-          ],
-        },
-      },
-      2019: {
-        10: {
-          10: [
-            defaultData.sets[2],
-          ],
-          11: [
-            defaultData.sets[3],
-          ],
-        },
-        9: {
-          11: [
-            defaultData.sets[0],
-            defaultData.sets[1],
-          ],
-        },
-      },
-    };
-
-    expect(mySets).toEqual(result);
-  });
-
   it('Today and Last session', () => {
-    const state: State = {
+    const state: AppState = {
       exercisesReducer: {
         exercises: [...defaultData.exercises],
       },
@@ -150,6 +108,16 @@ describe('My Test Suite', () => {
     };
     const sorted = setsSelectors.selectSetsTodayAndLastSession(state, defaultData.exercises[0].id);
 
-    expect(sorted).toEqual({});
+    expect(sorted).toEqual({
+      lastSession: [{
+        id: uuid(),
+        reps: 10,
+        date: yesterday,
+        difficulty: 4,
+        weight: 123,
+        exerciseId: squatsId,
+      }],
+      today: [],
+    });
   });
 });

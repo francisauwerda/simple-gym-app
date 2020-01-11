@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { NavigationScreenProp, NavigationState, NavigationParams } from 'react-navigation';
 import WorkoutsScreenView from './WorkoutsScreenView';
-import { State } from '../../state/types';
+import { AppState } from '../../state/types';
 import { Workout, WorkoutDetails, WorkoutWithLastModified } from '../../state/ducks/workouts/types';
 import workoutActions from '../../state/ducks/workouts/actions';
 import exerciseActions from '../../state/ducks/exercises/actions';
@@ -83,7 +83,7 @@ interface StateProps {
   workoutsWithLastModified: WorkoutWithLastModified[];
 }
 
-const mapStateToProps = (state: State): StateProps => {
+const mapStateToProps = (state: AppState): StateProps => {
   const workoutsWithLastModified = workoutsSelectors.selectWorkoutsWithLastModified(state);
 
   return {

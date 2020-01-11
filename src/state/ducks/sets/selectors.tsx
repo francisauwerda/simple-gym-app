@@ -1,13 +1,21 @@
 import moment, { Moment } from 'moment';
-import { State } from '../../types';
+import { AppState } from '../../types';
 import { Set } from './types';
 
 
-const selectSets = (state: State) => state.setsReducer.sets;
+const selectSets = (state: AppState) => state.setsReducer.sets;
 
-const selectExerciseSets = (state: State, exerciseId: Set['exerciseId']): Set[] => {
+const selectExerciseSets = (state: AppState, exerciseId: Set['exerciseId']): Set[] => {
   const sets = selectSets(state);
   return sets.filter((set) => set.exerciseId === exerciseId);
+};
+
+const selectExerciseLastModified = (state: AppState, exerciseId: Set['exerciseId']): Set['date'] => {
+  const exerciseSetsDates = selectExerciseSets(state, exerciseId)
+    .map((set) => set.date)
+    .sort((a, b) => moment(b).valueOf() - moment(a).valueOf());
+
+  return exerciseSetsDates[0];
 };
 
 export interface SetsByDays {
@@ -18,53 +26,13 @@ export interface SetsByDays {
   }
 }
 
-const groupSetsByDate = (sets: Set[]): SetsByDays => sets.reduce((previousVal, currentVal) => {
-  const date = moment(currentVal.date).date();
-  const month = moment(currentVal.date).month();
-  const year = moment(currentVal.date).year();
-
-  const accumulator = {
-    ...previousVal,
-  };
-
-  if (!accumulator[year]) {
-    accumulator[year] = {
-      [month]: {
-        [date]: [currentVal],
-      },
-    };
-  } else if (!accumulator[year][month]) {
-    accumulator[year] = {
-      ...accumulator[year],
-      [month]: {
-        [date]: [currentVal],
-      },
-    };
-  } else if (!accumulator[year][month][date]) {
-    accumulator[year][month] = {
-      ...accumulator[year][month],
-      [date]: [currentVal],
-    };
-  } else {
-    accumulator[year][month][date].push(currentVal);
-  }
-
-  return accumulator;
-}, {});
-
-const selectSetsGroupedByDate = (state: State, exerciseId: Set['exerciseId']): SetsByDays => {
-  const sets = selectExerciseSets(state, exerciseId);
-  const groupedByDays: SetsByDays = groupSetsByDate(sets);
-  return groupedByDays;
-};
-
 interface SetsTodayAndLastSession {
   today: Set[];
   lastSession: Set[];
 }
 
 const selectSetsTodayAndLastSession = (
-  state: State,
+  state: AppState,
   exerciseId: Set['exerciseId'],
 ): SetsTodayAndLastSession => {
   const sets = [...selectExerciseSets(state, exerciseId)];
@@ -96,6 +64,6 @@ const selectSetsTodayAndLastSession = (
 
 export default {
   selectExerciseSets,
-  selectSetsGroupedByDate,
   selectSetsTodayAndLastSession,
+  selectExerciseLastModified,
 };

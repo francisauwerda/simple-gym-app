@@ -1,4 +1,5 @@
 import { Workout } from '../workouts/types';
+import { Set } from '../sets/types';
 
 export type Exercise = {
   id: string,
@@ -8,6 +9,10 @@ export interface ExerciseDetails {
   name: string,
   workoutId: Workout['id']
 }
+
+export type ExerciseWithLastModified = {
+  lastModified: Set['date']
+} & Exercise;
 
 const FETCH = 'exercises/FETCH';
 const FETCH_SUCCESS = 'exercises/FETCH_SUCCESS';

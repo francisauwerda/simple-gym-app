@@ -4,15 +4,15 @@ import {
   NavigationScreenProp, NavigationParams, NavigationState,
 } from 'react-navigation';
 
-import { State } from '../../state/types';
 import ExercisesScreenView from './ExercisesScreenView';
-import { Exercise, ExerciseDetails } from '../../state/ducks/exercises/types';
+import { Exercise, ExerciseDetails, ExerciseWithLastModified } from '../../state/ducks/exercises/types';
 import { exercisesSelectors } from '../../state/ducks/exercises';
 import actions from '../../state/ducks/exercises/actions';
 import { Workout } from '../../state/ducks/workouts/types';
 import { ScreenNames } from '../enums';
 import { NavigationParams as ExerciseModalNavigationParams } from './ExerciseModal';
 import { getModalProps } from '../helpers';
+import { AppState } from '../../state/types';
 
 interface ExercisesNavigationState extends NavigationState {
   params: {
@@ -85,13 +85,13 @@ class ExercisesScreenContainer extends React.Component<ExercisesScreenContainerP
 }
 
 interface StateProps {
-  exercises: Exercise[];
+  exercises: ExerciseWithLastModified[];
   workout: Workout;
 }
 
-const mapStateToProps = (state: State, ownProps: ExercisesScreenProps): StateProps => {
+const mapStateToProps = (state: AppState, ownProps: ExercisesScreenProps): StateProps => {
   const workout: Workout = ownProps.navigation.getParam('workout');
-  const exercises: Exercise[] = exercisesSelectors.selectExercises(state, workout.id);
+  const exercises = exercisesSelectors.selectExercisesWithLastModified(state, workout.id);
 
   return {
     exercises,
