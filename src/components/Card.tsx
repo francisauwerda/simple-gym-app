@@ -6,6 +6,8 @@ import { useActionSheet } from '@expo/react-native-action-sheet';
 
 import { OptionsActionSheetProps, handleOptionsPress } from './OptionsActionSheet';
 import TouchableComponent from '../components/TouchableComponent';
+import colors from '../styles/colors';
+import { Difficulty } from '../state/ducks/sets/types';
 
 interface CardProps {
   mainText: string,
@@ -14,7 +16,28 @@ interface CardProps {
   leftAccessory?: any,
   disabled?: boolean,
   optionsActionSheetProps?: OptionsActionSheetProps;
+  difficulty?: Difficulty,
 }
+
+const getDifficultyStyles = (difficulty: Difficulty) => {
+  switch (difficulty) {
+    case Difficulty.EASY: {
+      return styles.easy;
+    }
+
+    case Difficulty.MODERATE: {
+      return styles.moderate;
+    }
+
+    case Difficulty.HARD: {
+      return styles.hard;
+    }
+
+    default: {
+      return {};
+    }
+  }
+};
 
 const Card = ({
   mainText,
@@ -23,6 +46,7 @@ const Card = ({
   leftAccessory,
   disabled,
   optionsActionSheetProps,
+  difficulty,
 }: CardProps) => {
   const { showActionSheetWithOptions } = useActionSheet();
   const { onDeleteHandler, onEditHandler } = optionsActionSheetProps;
@@ -33,13 +57,15 @@ const Card = ({
     onDeleteHandler,
   });
 
+  const difficultyStyles = getDifficultyStyles(difficulty);
+
   return (
     <TouchableComponent
       onPress={onClickHandler}
       disabled={disabled}
       onLongPress={onLongPressHandler}
     >
-      <View style={styles.cardWrapper}>
+      <View style={[styles.cardWrapper, difficultyStyles]}>
         <View style={styles.leftSideWrapper}>
           {!!leftAccessory && (
           <Text style={styles.leftAccessory}>
@@ -76,6 +102,15 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
+  },
+  easy: {
+    backgroundColor: colors.easy,
+  },
+  moderate: {
+    backgroundColor: colors.moderate,
+  },
+  hard: {
+    backgroundColor: colors.hard,
   },
   leftSideWrapper: {
     display: 'flex',

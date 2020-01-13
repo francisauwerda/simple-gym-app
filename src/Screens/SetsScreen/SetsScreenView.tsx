@@ -53,7 +53,7 @@ export default function SetsScreenView(props: Props) {
           item: Set, index: number, section: any
         }) => (
           <Card
-            // disabled
+            difficulty={item.difficulty}
             leftAccessory={index + 1}
             mainText={`${item.weight} kg`}
             secondaryText={`Reps: ${item.reps}`}

@@ -1,10 +1,10 @@
 import React from 'react';
 import {
-  TextInput, StyleSheet, View,
+  TextInput, StyleSheet, View, Text,
 } from 'react-native';
 import { Formik } from 'formik';
 import moment from 'moment';
-import { SetDetails } from '../../state/ducks/sets/types';
+import { SetDetails, Difficulty } from '../../state/ducks/sets/types';
 import { Exercise } from '../../state/ducks/exercises/types';
 import Button from '../../components/Button';
 import { FORM_MODES } from '../enums';
@@ -28,6 +28,18 @@ const defaultInitialValues: any = {
   exerciseId: null,
 };
 
+// TODO: Temporary until I create radio buttons
+const convertDifficulty = (difficulty: string) => {
+  if (difficulty === '0') {
+    return Difficulty.EASY;
+  } if (difficulty === '1') {
+    return Difficulty.MODERATE;
+  } if (difficulty === '2') {
+    return Difficulty.HARD;
+  }
+  return null;
+};
+
 const SetForm = (props: SetFormProps) => {
   const {
     onSubmitHandler,
@@ -43,9 +55,12 @@ const SetForm = (props: SetFormProps) => {
     <Formik
       initialValues={{ ...initialValues, exerciseId: exercise.id }}
       onSubmit={(values, { resetForm }) => {
+        const { difficulty } = values;
+        const convertedDifficulty = convertDifficulty(difficulty);
         onSubmitHandler({
           ...values,
           date: values.date ? values.date : moment(),
+          difficulty: convertedDifficulty,
         });
         resetForm();
         dismissModal();
@@ -55,33 +70,39 @@ const SetForm = (props: SetFormProps) => {
         handleChange, values, submitForm,
       }) => (
         <>
-          <TextInput
-            style={styles.input}
-            onChangeText={handleChange('reps')}
-            value={values.reps}
-            placeholder="Reps"
-            keyboardType="numeric"
-            autoFocus
-            maxLength={5}
-          />
+          <View>
+            <Text style={styles.label}>Reps:</Text>
+            <TextInput
+              style={styles.input}
+              onChangeText={handleChange('reps')}
+              value={values.reps}
+              placeholder="How many reps?"
+              keyboardType="numeric"
+              autoFocus
+              maxLength={5}
+            />
+          </View>
 
-          <TextInput
-            style={styles.input}
-            onChangeText={handleChange('weight')}
-            value={values.weight}
-            placeholder="Weight"
-            keyboardType="numeric"
-            maxLength={5}
-          />
+          <View>
+            <Text style={styles.label}>Weight:</Text>
+            <TextInput
+              style={styles.input}
+              onChangeText={handleChange('weight')}
+              value={values.weight}
+              placeholder="How much weight?"
+              keyboardType="numeric"
+              maxLength={5}
+            />
+          </View>
+
 
           {/* Implement when I add difficulty */}
-          {/* <TextInput
+          <TextInput
             style={styles.input}
             onChangeText={handleChange('difficulty')}
-            value={values.difficulty}
+            value={`${values.difficulty}`}
             placeholder="Difficulty"
-            keyboardType="numeric"
-          /> */}
+          />
 
           <View style={styles.buttonWrapper}>
             <Button
@@ -98,6 +119,9 @@ const SetForm = (props: SetFormProps) => {
 export default SetForm;
 
 const styles = StyleSheet.create({
+  label: {
+    textAlign: 'center',
+  },
   input: {
     textAlign: 'center',
     fontSize: 24,

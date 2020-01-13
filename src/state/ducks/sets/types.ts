@@ -1,6 +1,12 @@
 import { Moment } from 'moment';
 import { Exercise } from '../exercises/types';
 
+export enum Difficulty {
+  EASY,
+  MODERATE,
+  HARD
+}
+
 export type Set = {
   id: string
 } & SetDetails
@@ -8,7 +14,7 @@ export type Set = {
 export type SetDetails = {
   reps: number,
   weight: number,
-  difficulty: number,
+  difficulty: Difficulty,
   date: Moment,
   exerciseId: Exercise['id']
 }
