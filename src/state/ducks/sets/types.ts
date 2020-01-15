@@ -2,9 +2,9 @@ import { Moment } from 'moment';
 import { Exercise } from '../exercises/types';
 
 export enum Difficulty {
-  EASY,
-  MODERATE,
-  HARD
+  Easy = 'EASY',
+  Moderate = 'MODERATE',
+  Hard = 'HARD'
 }
 
 export type Set = {

@@ -21,15 +21,15 @@ interface CardProps {
 
 const getDifficultyStyles = (difficulty: Difficulty) => {
   switch (difficulty) {
-    case Difficulty.EASY: {
+    case Difficulty.Easy: {
       return styles.easy;
     }
 
-    case Difficulty.MODERATE: {
+    case Difficulty.Moderate: {
       return styles.moderate;
     }
 
-    case Difficulty.HARD: {
+    case Difficulty.Hard: {
       return styles.hard;
     }
 
@@ -105,12 +105,18 @@ const styles = StyleSheet.create({
   },
   easy: {
     backgroundColor: colors.easy,
+    borderWidth: 1,
+    borderColor: '#303030',
   },
   moderate: {
     backgroundColor: colors.moderate,
+    borderWidth: 1,
+    borderColor: '#303030',
   },
   hard: {
     backgroundColor: colors.hard,
+    borderWidth: 1,
+    borderColor: '#303030',
   },
   leftSideWrapper: {
     display: 'flex',

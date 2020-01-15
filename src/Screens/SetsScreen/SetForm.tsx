@@ -8,6 +8,7 @@ import { SetDetails, Difficulty } from '../../state/ducks/sets/types';
 import { Exercise } from '../../state/ducks/exercises/types';
 import Button from '../../components/Button';
 import { FORM_MODES } from '../enums';
+import RadioButton from '../../components/RadioButton';
 
 interface SetFormProps {
   onSubmitHandler: (fields: SetDetails) => void;
@@ -24,20 +25,8 @@ const defaultInitialValues: any = {
   reps: null,
   weight: null,
   date: null,
-  difficulty: null,
+  difficulty: Difficulty.Easy,
   exerciseId: null,
-};
-
-// TODO: Temporary until I create radio buttons
-const convertDifficulty = (difficulty: string) => {
-  if (difficulty === '0') {
-    return Difficulty.EASY;
-  } if (difficulty === '1') {
-    return Difficulty.MODERATE;
-  } if (difficulty === '2') {
-    return Difficulty.HARD;
-  }
-  return null;
 };
 
 const SetForm = (props: SetFormProps) => {
@@ -55,19 +44,16 @@ const SetForm = (props: SetFormProps) => {
     <Formik
       initialValues={{ ...initialValues, exerciseId: exercise.id }}
       onSubmit={(values, { resetForm }) => {
-        const { difficulty } = values;
-        const convertedDifficulty = convertDifficulty(difficulty);
         onSubmitHandler({
           ...values,
           date: values.date ? values.date : moment(),
-          difficulty: convertedDifficulty,
         });
         resetForm();
         dismissModal();
       }}
     >
       {({
-        handleChange, values, submitForm,
+        handleChange, values, submitForm, setFieldValue,
       }) => (
         <>
           <View>
@@ -95,14 +81,23 @@ const SetForm = (props: SetFormProps) => {
             />
           </View>
 
-
-          {/* Implement when I add difficulty */}
-          <TextInput
-            style={styles.input}
-            onChangeText={handleChange('difficulty')}
-            value={`${values.difficulty}`}
-            placeholder="Difficulty"
-          />
+          <View style={styles.radioButtons}>
+            <RadioButton
+              selected={values.difficulty === Difficulty.Easy}
+              difficulty={Difficulty.Easy}
+              onPress={() => setFieldValue('difficulty', Difficulty.Easy)}
+            />
+            <RadioButton
+              selected={values.difficulty === Difficulty.Moderate}
+              difficulty={Difficulty.Moderate}
+              onPress={() => setFieldValue('difficulty', Difficulty.Moderate)}
+            />
+            <RadioButton
+              selected={values.difficulty === Difficulty.Hard}
+              difficulty={Difficulty.Hard}
+              onPress={() => setFieldValue('difficulty', Difficulty.Hard)}
+            />
+          </View>
 
           <View style={styles.buttonWrapper}>
             <Button
@@ -131,5 +126,9 @@ const styles = StyleSheet.create({
     marginTop: 20,
     alignSelf: 'stretch',
     marginHorizontal: 15,
+  },
+  radioButtons: {
+    flexDirection: 'row',
+    paddingVertical: 10,
   },
 });
