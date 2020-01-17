@@ -1,6 +1,7 @@
 import moment, { Moment } from 'moment';
 import { AppState } from '../../types';
 import { Set } from './types';
+import DateWrapper from '../../../wrappers/dateWrapper';
 
 
 const selectSets = (state: AppState) => state.setsReducer.sets;
@@ -38,14 +39,12 @@ const selectSetsTodayAndLastSession = (
   const sets = [...selectExerciseSets(state, exerciseId)];
 
   const todaysSets = sets
-    .sort((a, b) => moment(a.date).valueOf() - moment(b.date).valueOf())
-    .filter((set) => moment().isSame(moment(set.date), 'date'));
-
+    .filter((set) => moment(DateWrapper.createDate()).isSame(moment(set.date), 'date'));
 
   let lastSessionDate: Moment;
   const lastSessionSets = sets
     .filter((set) => (!todaysSets.includes(set)))
-    .sort((a, b) => moment(a.date).valueOf() - moment(b.date).valueOf())
+    .sort((a, b) => moment(b.date).valueOf() - moment(a.date).valueOf())
     .filter((set) => {
       if (!lastSessionDate) {
         lastSessionDate = moment(set.date);

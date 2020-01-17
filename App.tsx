@@ -5,9 +5,9 @@ import { ActionSheetProvider } from '@expo/react-native-action-sheet'; // TODO: 
 import { createAppContainer } from 'react-navigation';
 import RootStack from './src/Screens';
 import configureStore from './src/state/store';
-import { State } from './src/state/types';
+import { AppState } from './src/state/types';
 
-const initialState: State = {
+const initialState: AppState = {
   exercisesReducer: { exercises: [] },
   setsReducer: { sets: [] },
   workoutsReducer: {

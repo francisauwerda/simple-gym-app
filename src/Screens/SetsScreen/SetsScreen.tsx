@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { NavigationScreenProp, NavigationParams, NavigationState } from 'react-navigation';
 import { Set, SetDetails } from '../../state/ducks/sets/types';
 import actions from '../../state/ducks/sets/actions';
-import { State } from '../../state/types';
+import { AppState } from '../../state/types';
 import { Exercise } from '../../state/ducks/exercises/types';
 import { setsSelectors } from '../../state/ducks/sets';
 import SetsScreenView from './SetsScreenView';
@@ -85,7 +85,7 @@ interface StateProps {
   exercise: Exercise
 }
 
-const mapStateToProps = (state: State, ownProps: SetsScreenProps): StateProps => {
+const mapStateToProps = (state: AppState, ownProps: SetsScreenProps): StateProps => {
   const { exercise } = ownProps.navigation.state.params;
   const { today, lastSession } = setsSelectors.selectSetsTodayAndLastSession(state, exercise.id);
 
