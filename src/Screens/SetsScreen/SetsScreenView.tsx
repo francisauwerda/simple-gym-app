@@ -2,6 +2,7 @@ import React from 'react';
 import {
   SafeAreaView, StyleSheet, Text, SectionList, View,
 } from 'react-native';
+import moment from 'moment';
 
 import { Set } from '../../state/ducks/sets/types';
 import { Exercise } from '../../state/ducks/exercises/types';
@@ -60,7 +61,7 @@ export default function SetsScreenView(props: Props) {
             onClickHandler={() => {
               openModal({
                 initialValues: {
-                  date: item.date,
+                  date: moment(),
                   difficulty: item.difficulty,
                   weight: item.weight,
                   reps: item.reps,
