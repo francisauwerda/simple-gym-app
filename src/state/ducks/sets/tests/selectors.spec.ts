@@ -1,6 +1,6 @@
 /* eslint-disable no-undef */
 import uuid from 'uuidv4';
-import moment from 'moment';
+import moment, { Moment } from 'moment';
 import { mocked } from 'ts-jest/utils';
 
 import { setsSelectors } from '..';
@@ -18,11 +18,12 @@ interface DefaultData {
 
 jest.mock('../../../../wrappers/dateWrapper');
 
-describe('My Test Suite', () => {
+describe('setsSelectors', () => {
   let defaultData: DefaultData;
-  let today;
-  let yesterday;
-  let squatsId;
+  let today: Moment;
+  let yesterday: Moment;
+  let yesterdayMinus10Minutes: Moment;
+  let squatsId: string;
 
   beforeAll(() => {
     mocked(DateWrapper.createDate).mockImplementation(
@@ -37,8 +38,8 @@ describe('My Test Suite', () => {
     const shoulderPressId = uuid();
     today = moment(DateWrapper.createDate());
     yesterday = today.clone().subtract(1, 'day');
+    yesterdayMinus10Minutes = yesterday.clone().subtract(10, 'minutes');
     const lastMonth = today.clone().subtract(1, 'M');
-    const lastYear = today.clone().subtract(1, 'year');
 
     defaultData = {
       workouts: [{
@@ -66,7 +67,7 @@ describe('My Test Suite', () => {
       sets: [{
         id: 's1',
         reps: 10,
-        date: lastYear,
+        date: yesterdayMinus10Minutes,
         difficulty: Difficulty.Easy,
         weight: 100,
         exerciseId: squatsId,
@@ -122,6 +123,13 @@ describe('My Test Suite', () => {
 
     expect(sorted).toEqual({
       lastSession: [{
+        id: 's1',
+        reps: 10,
+        date: yesterdayMinus10Minutes,
+        difficulty: Difficulty.Easy,
+        weight: 100,
+        exerciseId: squatsId,
+      }, {
         id: 's2',
         reps: 10,
         date: yesterday,

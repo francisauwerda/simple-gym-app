@@ -53,7 +53,8 @@ const selectSetsTodayAndLastSession = (
       const isFromLastSession = lastSessionDate.isSame(simplifiedDate, 'date');
 
       return isFromLastSession;
-    });
+    })
+    .sort((a, b) => moment(a.date).valueOf() - moment(b.date).valueOf());
 
   return {
     today: [...todaysSets],
