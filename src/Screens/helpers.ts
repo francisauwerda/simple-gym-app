@@ -2,6 +2,7 @@ import moment from 'moment';
 
 import { FORM_MODES } from './enums';
 import { WorkoutWithLastModified } from '../state/ducks/workouts/types';
+import DateWrapper from '../wrappers/dateWrapper';
 
 interface ModalProps {
   onSubmitHandler: (fields: any) => void;
@@ -38,12 +39,15 @@ export const getModalProps = ({
 
 export const getLastModifiedText = (lastModified: WorkoutWithLastModified['lastModified']): string => {
   if (lastModified) {
-    const daysAgo = moment().diff(lastModified, 'days');
-    if (daysAgo) {
-      return `${daysAgo} day${daysAgo !== 1 ? 's' : ''} ago`;
-    }
+    // First check if start of day is same as todays start of day
+    const nowStartOfDay = moment(DateWrapper.createDate()).clone().startOf('day');
+    const lastModifiedStartOfDay = moment(lastModified).clone().startOf('day');
+    const daysAgo = moment(nowStartOfDay).diff(lastModifiedStartOfDay, 'days');
 
-    return 'Today';
+    if (!daysAgo) {
+      return 'Today';
+    }
+    return `${daysAgo} day${daysAgo !== 1 ? 's' : ''} ago`;
   }
 
   return '';
