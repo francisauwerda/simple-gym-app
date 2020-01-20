@@ -23,8 +23,6 @@ export const editExercise = async (
   id: Exercise['id'],
   fields: ExerciseDetails,
 ): Promise<Exercise> => {
-  console.log('Exercise: changing fields:', fields);
-
   const exercise = await asyncStorage.exercises.editExercise(id, fields);
 
   return exercise;

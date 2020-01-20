@@ -24,7 +24,6 @@ export const deleteWorkout = async (id: Workout['id']): Promise<Workout[]> => {
 };
 
 export const editWorkout = async (id: Workout['id'], fields: WorkoutDetails): Promise<Workout> => {
-  console.log('Workout: changing fields:', fields);
   const workout = await asyncStorage.workouts.editWorkout(id, fields);
 
   return workout;

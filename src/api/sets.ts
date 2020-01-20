@@ -20,7 +20,6 @@ export const editSet = async (
   id: Set['id'],
   fields: SetDetails,
 ): Promise<Set> => {
-  console.log('Set: changing fields:', fields);
   const set = await asyncStorage.sets.editSet(id, fields);
 
   return set;
