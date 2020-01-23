@@ -29,7 +29,8 @@
     },
     "android": {
       "package": "com.simplegymapp.simplegymapp",
-      "versionCode": 7
-    }
+      "versionCode": 7,
+      "permissions": []
+    },
   }
 }
