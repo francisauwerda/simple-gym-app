@@ -57,7 +57,7 @@ const WorkoutsScreenView = (props: WorkoutsScreenProps) => {
       <BottomWrapper>
         <View>
           <Button
-            title="Add a Workout"
+            title="Add new Workout"
             onPress={() => openModal({})}
           />
         </View>

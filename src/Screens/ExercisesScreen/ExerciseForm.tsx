@@ -26,7 +26,9 @@ const ExerciseForm = (props: ExerciseFormProps) => {
     onSubmitHandler, workout, dismissModal, initialValues = defaultInitialValues, formMode,
   } = props;
 
-  const buttonText = formMode === FORM_MODES.ADD ? 'Add exercise' : 'Edit exercise';
+  const buttonText = formMode === FORM_MODES.ADD
+    ? `Add ${workout.name} exercise`
+    : `Edit ${workout.name} exercise`;
 
   return (
     <Formik
@@ -46,7 +48,7 @@ const ExerciseForm = (props: ExerciseFormProps) => {
             onChangeText={handleChange('name')}
             onBlur={handleBlur('name')}
             value={values.name}
-            placeholder={`Enter an exercise for ${workout.name}`}
+            placeholder="e.g. Squats, Bench press, Curls"
             autoFocus
           />
           <View style={styles.buttonWrapper}>

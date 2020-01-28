@@ -2,11 +2,10 @@ import React from 'react';
 import {
   TextInput, StyleSheet, View, Text,
 } from 'react-native';
-import { Formik } from 'formik';
+import { Formik, FormikHelpers, FormikProps } from 'formik';
 import moment from 'moment';
 import { SetDetails, Difficulty } from '../../state/ducks/sets/types';
 import { Exercise } from '../../state/ducks/exercises/types';
-import Button from '../../components/Button';
 import { FORM_MODES } from '../enums';
 import RadioButton from '../../components/RadioButton';
 
@@ -29,16 +28,23 @@ const defaultInitialValues: any = {
   exerciseId: null,
 };
 
+const handleRadioButtonPress = (
+  setFieldValue: FormikHelpers<SetDetails>['setFieldValue'],
+  submitForm: FormikProps<SetDetails>['submitForm'],
+  difficulty: Difficulty,
+) => {
+  setFieldValue('difficulty', difficulty);
+  submitForm();
+};
+
 const SetForm = (props: SetFormProps) => {
   const {
     onSubmitHandler,
-    formMode,
     exercise,
     dismissModal,
     initialValues = defaultInitialValues,
   } = props;
 
-  const buttonText = formMode === FORM_MODES.ADD ? 'Add set' : 'Edit set';
 
   return (
     <Formik
@@ -56,8 +62,8 @@ const SetForm = (props: SetFormProps) => {
         handleChange, values, submitForm, setFieldValue,
       }) => (
         <>
-          <View>
-            <Text style={styles.label}>Reps:</Text>
+          <View style={styles.inputWrapper}>
+            <Text style={styles.label}>Reps</Text>
             <TextInput
               style={styles.input}
               onChangeText={handleChange('reps')}
@@ -69,8 +75,8 @@ const SetForm = (props: SetFormProps) => {
             />
           </View>
 
-          <View>
-            <Text style={styles.label}>Weight:</Text>
+          <View style={styles.inputWrapper}>
+            <Text style={styles.label}>Weight</Text>
             <TextInput
               style={styles.input}
               onChangeText={handleChange('weight')}
@@ -85,24 +91,17 @@ const SetForm = (props: SetFormProps) => {
             <RadioButton
               selected={values.difficulty === Difficulty.Easy}
               difficulty={Difficulty.Easy}
-              onPress={() => setFieldValue('difficulty', Difficulty.Easy)}
+              onPress={() => handleRadioButtonPress(setFieldValue, submitForm, Difficulty.Easy)}
             />
             <RadioButton
               selected={values.difficulty === Difficulty.Moderate}
               difficulty={Difficulty.Moderate}
-              onPress={() => setFieldValue('difficulty', Difficulty.Moderate)}
+              onPress={() => handleRadioButtonPress(setFieldValue, submitForm, Difficulty.Moderate)}
             />
             <RadioButton
               selected={values.difficulty === Difficulty.Hard}
               difficulty={Difficulty.Hard}
-              onPress={() => setFieldValue('difficulty', Difficulty.Hard)}
-            />
-          </View>
-
-          <View style={styles.buttonWrapper}>
-            <Button
-              title={buttonText}
-              onPress={submitForm}
+              onPress={() => handleRadioButtonPress(setFieldValue, submitForm, Difficulty.Hard)}
             />
           </View>
         </>
@@ -116,18 +115,19 @@ export default SetForm;
 const styles = StyleSheet.create({
   label: {
     textAlign: 'center',
+    fontSize: 28,
   },
   input: {
     textAlign: 'center',
     fontSize: 24,
     paddingVertical: 10,
   },
-  buttonWrapper: {
-    marginTop: 20,
-    alignSelf: 'stretch',
-    marginHorizontal: 15,
+  inputWrapper: {
+    paddingBottom: 20,
   },
   radioButtons: {
+    marginTop: 40,
+    marginHorizontal: 15,
     flexDirection: 'row',
     paddingVertical: 10,
   },
