@@ -71,11 +71,13 @@ const Card = ({
       <View style={[styles.cardWrapper, difficultyStyles]}>
         <View style={styles.leftSideWrapper}>
           {!!leftAccessory && (
-          <Text style={styles.leftAccessory}>
-            {`Set ${leftAccessory}`}
-          </Text>
+            <View style={styles.leftAccessory}>
+              <Text style={styles.textWrapper}>
+                {`${leftAccessory}`}
+              </Text>
+            </View>
           )}
-          <View style={styles.textWrapper}>
+          <View>
             <Text style={styles.mainText}>{mainText}</Text>
             {!!secondaryText && <Text>{secondaryText}</Text>}
           </View>
@@ -131,14 +133,13 @@ const styles = StyleSheet.create({
     lineHeight: 30,
   },
   textWrapper: {
+    fontSize: 24,
   },
   leftAccessory: {
-    fontSize: 24,
-    lineHeight: 30,
-    textAlignVertical: 'center',
-    borderRightWidth: 1,
-    borderRightColor: 'black',
-    paddingRight: 10,
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: 10,
     marginRight: 10,
   },
 });
