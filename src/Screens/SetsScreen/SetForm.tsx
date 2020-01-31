@@ -128,7 +128,7 @@ const styles = StyleSheet.create({
     paddingBottom: 20,
   },
   radioButtons: {
-    marginTop: 40,
+    marginTop: 10,
     marginHorizontal: 15,
     flexDirection: 'row',
     paddingVertical: 10,
