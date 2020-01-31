@@ -57,7 +57,7 @@ const WorkoutsScreenView = (props: WorkoutsScreenProps) => {
       ) : (
         <View style={styles.flatListContainer}>
           <Card
-            mainText="Workout example: Leg day 💪"
+            mainText="Add a workout! 💪"
             secondaryText="Start by clicking the button below"
             onClickHandler={() => {}}
           />

@@ -59,8 +59,8 @@ export default function ExercisesScreenView(props: Props) {
       ) : (
         <View style={styles.flatListContainer}>
           <Card
-            mainText="Exercise example: Squats! 🏋️‍♀️"
-            secondaryText={`Start creating your ${workout.name} exercises`}
+            mainText="Add an exercise! 🏋️‍♀️"
+            secondaryText={`Click the button below to create your ${workout.name} exercises`}
             onClickHandler={() => {}}
           />
         </View>

@@ -70,7 +70,7 @@ const SetForm = (props: SetFormProps) => {
               style={styles.input}
               onChangeText={handleChange('reps')}
               value={values.reps}
-              placeholder="How many reps?"
+              placeholder="6? 8?"
               keyboardType="numeric"
               autoFocus
               maxLength={5}
@@ -83,7 +83,7 @@ const SetForm = (props: SetFormProps) => {
               style={styles.input}
               onChangeText={handleChange('weight')}
               value={values.weight}
-              placeholder="How much weight?"
+              placeholder="20kg? 60kg?"
               keyboardType="numeric"
               maxLength={5}
             />
