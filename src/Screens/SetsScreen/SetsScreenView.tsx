@@ -46,11 +46,12 @@ export default function SetsScreenView(props: Props) {
 
   return (
     <SafeAreaView style={styles.container}>
-      <SectionList
-        style={styles.sectionListContainer}
-        sections={myData}
-        keyExtractor={(item) => item.id}
-        renderItem={({ item, index }: {
+      {myData.length ? (
+        <SectionList
+          style={styles.sectionListContainer}
+          sections={myData}
+          keyExtractor={(item) => item.id}
+          renderItem={({ item, index }: {
           item: Set, index: number, section: any
         }) => (
           <Card
@@ -87,14 +88,23 @@ export default function SetsScreenView(props: Props) {
               },
             }}
           />
-        )}
-        renderSectionHeader={({ section: { title, subtitle } }) => (
-          <View style={styles.sectionTitles}>
-            <Text style={styles.sectionTitle}>{title}</Text>
-            {!!subtitle && <Text style={styles.sectionSubtitle}>{subtitle}</Text>}
-          </View>
-        )}
-      />
+          )}
+          renderSectionHeader={({ section: { title, subtitle } }) => (
+            <View style={styles.sectionTitles}>
+              <Text style={styles.sectionTitle}>{title}</Text>
+              {!!subtitle && <Text style={styles.sectionSubtitle}>{subtitle}</Text>}
+            </View>
+          )}
+        />
+      ) : (
+        <View style={styles.sectionListContainer}>
+          <Card
+            mainText="Add a set!"
+            secondaryText="Here is where we will keep track of your progress"
+            onClickHandler={() => {}}
+          />
+        </View>
+      )}
 
       <BottomWrapper>
         <Button

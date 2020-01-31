@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-  SafeAreaView, FlatList, StyleSheet,
+  SafeAreaView, FlatList, StyleSheet, View,
 } from 'react-native';
 import {
   NavigationScreenProp, NavigationParams, NavigationState,
@@ -25,35 +25,46 @@ type Props = {
 export default function ExercisesScreenView(props: Props) {
   const {
     exercises, navigation, openModal, deleteExercise,
+    workout,
   } = props;
   return (
     <SafeAreaView style={styles.container}>
-      <FlatList
-        style={styles.flatListContainer}
-        data={exercises}
-        renderItem={({ item }) => (
+      {exercises.length ? (
+        <FlatList
+          style={styles.flatListContainer}
+          data={exercises}
+          renderItem={({ item }) => (
+            <Card
+              mainText={item.name}
+              secondaryText={getLastModifiedText(item.lastModified)}
+              onClickHandler={() => navigation.navigate(ScreenNames.Sets, { exercise: item })}
+              optionsActionSheetProps={{
+                onEditHandler: () => {
+                  openModal({
+                    id: item.id,
+                    initialValues: {
+                      name: item.name,
+                      workoutId: item.workoutId,
+                    },
+                  });
+                },
+                onDeleteHandler: () => {
+                  deleteExercise(item.id);
+                },
+              }}
+            />
+          )}
+          keyExtractor={(item) => item.id}
+        />
+      ) : (
+        <View style={styles.flatListContainer}>
           <Card
-            mainText={item.name}
-            secondaryText={getLastModifiedText(item.lastModified)}
-            onClickHandler={() => navigation.navigate(ScreenNames.Sets, { exercise: item })}
-            optionsActionSheetProps={{
-              onEditHandler: () => {
-                openModal({
-                  id: item.id,
-                  initialValues: {
-                    name: item.name,
-                    workoutId: item.workoutId,
-                  },
-                });
-              },
-              onDeleteHandler: () => {
-                deleteExercise(item.id);
-              },
-            }}
+            mainText="Exercise example: Squats! 🏋️‍♀️"
+            secondaryText={`Start creating your ${workout.name} exercises`}
+            onClickHandler={() => {}}
           />
-        )}
-        keyExtractor={(item) => item.id}
-      />
+        </View>
+      )}
 
       <BottomWrapper>
         <Button

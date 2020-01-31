@@ -45,17 +45,20 @@ const Card = ({
   onClickHandler,
   leftAccessory,
   disabled,
-  optionsActionSheetProps,
+  optionsActionSheetProps = {},
   difficulty,
 }: CardProps) => {
   const { showActionSheetWithOptions } = useActionSheet();
   const { onDeleteHandler, onEditHandler } = optionsActionSheetProps;
 
-  const onLongPressHandler = () => handleOptionsPress({
-    actionSheetHandler: showActionSheetWithOptions,
-    onEditHandler,
-    onDeleteHandler,
-  });
+  let onLongPressHandler: Function;
+  if (onDeleteHandler && onEditHandler) {
+    onLongPressHandler = () => handleOptionsPress({
+      actionSheetHandler: showActionSheetWithOptions,
+      onEditHandler,
+      onDeleteHandler,
+    });
+  }
 
   const difficultyStyles = getDifficultyStyles(difficulty);
 

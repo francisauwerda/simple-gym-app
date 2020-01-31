@@ -28,31 +28,42 @@ const WorkoutsScreenView = (props: WorkoutsScreenProps) => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <FlatList
-        style={styles.flatListContainer}
-        data={workouts}
-        renderItem={({ item }) => (
+      {workouts.length ? (
+        <FlatList
+          style={styles.flatListContainer}
+          data={workouts}
+          renderItem={({ item }) => (
+            <Card
+              mainText={item.name}
+              secondaryText={getLastModifiedText(item.lastModified)}
+              onClickHandler={() => navigateToExercises({ workout: item })}
+              optionsActionSheetProps={{
+                onEditHandler: () => {
+                  openModal({
+                    id: item.id,
+                    initialValues: {
+                      name: item.name,
+                    },
+                  });
+                },
+                onDeleteHandler: () => {
+                  deleteWorkout(item.id);
+                },
+              }}
+            />
+          )}
+          keyExtractor={(item) => item.id}
+        />
+      ) : (
+        <View style={styles.flatListContainer}>
           <Card
-            mainText={item.name}
-            secondaryText={getLastModifiedText(item.lastModified)}
-            onClickHandler={() => navigateToExercises({ workout: item })}
-            optionsActionSheetProps={{
-              onEditHandler: () => {
-                openModal({
-                  id: item.id,
-                  initialValues: {
-                    name: item.name,
-                  },
-                });
-              },
-              onDeleteHandler: () => {
-                deleteWorkout(item.id);
-              },
-            }}
+            mainText="Workout example: Leg day 💪"
+            secondaryText="Start by clicking the button below"
+            onClickHandler={() => {}}
           />
-        )}
-        keyExtractor={(item) => item.id}
-      />
+        </View>
+      )}
+
 
       <BottomWrapper>
         <View>
