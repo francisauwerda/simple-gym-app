@@ -52,6 +52,8 @@ const SetForm = (props: SetFormProps) => {
       onSubmit={(values, { resetForm }) => {
         onSubmitHandler({
           ...values,
+          weight: values.weight ? values.weight : 0,
+          reps: values.reps ? values.reps : 1,
           date: values.date ? values.date : moment(),
         });
         resetForm();
