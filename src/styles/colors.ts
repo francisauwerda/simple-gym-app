@@ -1,4 +1,4 @@
-const colourOpacity = '0.6';
+const colourOpacity = '0.4';
 // const blue = '#2196F3';
 const blue = `rgba(33, 150, 243, ${colourOpacity})`;
 // const yellow = '#FFEB3B';
