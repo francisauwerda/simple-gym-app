@@ -10,8 +10,8 @@ import colors from '../styles/colors';
 import { Difficulty } from '../state/ducks/sets/types';
 
 interface CardProps {
-  mainText: string,
-  secondaryText?: string,
+  mainText: string | React.ReactNode,
+  secondaryText?: string | React.ReactNode,
   onClickHandler: any,
   leftAccessory?: any,
   disabled?: boolean,
@@ -37,6 +37,22 @@ const getDifficultyStyles = (difficulty: Difficulty) => {
       return {};
     }
   }
+};
+
+const renderMainText = (mainText: CardProps['mainText']) => {
+  if (typeof mainText === 'string') {
+    return <Text style={styles.mainText}>{mainText}</Text>;
+  }
+
+  return mainText;
+};
+
+const renderSecondaryText = (secondaryText: CardProps['secondaryText']) => {
+  if (typeof secondaryText === 'string') {
+    return <Text style={styles.secondaryText}>{secondaryText}</Text>;
+  }
+
+  return secondaryText;
 };
 
 const Card = ({
@@ -77,9 +93,9 @@ const Card = ({
               </Text>
             </View>
           )}
-          <View>
-            <Text style={styles.mainText}>{mainText}</Text>
-            {!!secondaryText && <Text>{secondaryText}</Text>}
+          <View style={styles.textsContainer}>
+            {renderMainText(mainText)}
+            {renderSecondaryText(secondaryText)}
           </View>
         </View>
         {/* Comment out temporarily. Not sure if I want this anymore. */}
@@ -127,10 +143,16 @@ const styles = StyleSheet.create({
     display: 'flex',
     flexDirection: 'row',
   },
+  textsContainer: {
+    justifyContent: 'center',
+  },
   mainText: {
     fontSize: 20,
     fontWeight: '500',
     lineHeight: 30,
+  },
+  secondaryText: {
+    fontSize: 14,
   },
   textWrapper: {
     fontSize: 24,

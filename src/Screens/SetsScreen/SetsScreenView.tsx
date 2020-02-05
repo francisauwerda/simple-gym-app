@@ -19,6 +19,23 @@ type Props = {
   openModal: (props: OpenModalProps) => void;
 } & Partial<DispatchProps>
 
+const renderRepsAndWeight = (weight: Set['weight'], reps: Set['reps']) => (
+  <View style={styles.weightRepsContainer}>
+    <View style={styles.repsContainer}>
+      <Text style={styles.weight}>
+        {reps}
+      </Text>
+      <Text> reps</Text>
+    </View>
+    <View style={styles.weightContainer}>
+      <Text style={styles.weight}>
+        {weight}
+      </Text>
+      <Text> kg</Text>
+    </View>
+  </View>
+);
+
 export default function SetsScreenView(props: Props) {
   const {
     todaysSets,
@@ -57,8 +74,7 @@ export default function SetsScreenView(props: Props) {
           <Card
             difficulty={item.difficulty}
             leftAccessory={index + 1}
-            mainText={`${item.weight} kg`}
-            secondaryText={`Reps: ${item.reps}`}
+            mainText={renderRepsAndWeight(item.weight, item.reps)}
             onClickHandler={() => {
               openModal({
                 initialValues: {
@@ -139,5 +155,27 @@ const styles = StyleSheet.create({
   },
   sectionSubtitle: {
     fontSize: 16,
+  },
+  weightContainer: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  weight: {
+    fontSize: 32,
+    fontWeight: '500',
+  },
+  repsContainer: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingRight: 20,
+  },
+  reps: {
+    fontSize: 24,
+    fontWeight: '500',
+  },
+  weightRepsContainer: {
+    flexDirection: 'row',
   },
 });
