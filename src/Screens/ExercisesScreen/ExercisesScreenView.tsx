@@ -61,7 +61,7 @@ export default function ExercisesScreenView(props: Props) {
           <Card
             mainText="Add an exercise! 🏋️‍♀️"
             secondaryText={`Click the button below to create your ${workout.name} exercises`}
-            onClickHandler={() => {}}
+            onClickHandler={() => openModal({})}
           />
         </View>
       )}

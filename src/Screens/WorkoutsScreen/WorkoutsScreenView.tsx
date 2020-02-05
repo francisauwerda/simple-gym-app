@@ -59,7 +59,7 @@ const WorkoutsScreenView = (props: WorkoutsScreenProps) => {
           <Card
             mainText="Add a workout! 💪"
             secondaryText="Start by clicking the button below"
-            onClickHandler={() => {}}
+            onClickHandler={() => openModal({})}
           />
         </View>
       )}
