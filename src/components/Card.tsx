@@ -40,6 +40,8 @@ const getDifficultyStyles = (difficulty: Difficulty) => {
 };
 
 const renderMainText = (mainText: CardProps['mainText']) => {
+  if (!mainText) return null;
+
   if (typeof mainText === 'string') {
     return <Text style={styles.mainText}>{mainText}</Text>;
   }
@@ -48,6 +50,8 @@ const renderMainText = (mainText: CardProps['mainText']) => {
 };
 
 const renderSecondaryText = (secondaryText: CardProps['secondaryText']) => {
+  if (!secondaryText) return null;
+
   if (typeof secondaryText === 'string') {
     return <Text style={styles.secondaryText}>{secondaryText}</Text>;
   }
