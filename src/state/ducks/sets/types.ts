@@ -7,6 +7,10 @@ export enum Difficulty {
   Hard = 'HARD'
 }
 
+export type SetWithExtras = {
+  showTimer: boolean
+} & Set;
+
 export type Set = {
   id: string
 } & SetDetails

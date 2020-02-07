@@ -1,6 +1,6 @@
 import moment, { Moment } from 'moment';
 import { AppState } from '../../types';
-import { Set } from './types';
+import { Set, SetWithExtras } from './types';
 import DateWrapper from '../../../wrappers/dateWrapper';
 
 
@@ -28,9 +28,31 @@ export interface SetsByDays {
 }
 
 interface SetsTodayAndLastSession {
-  today: Set[];
+  today: SetWithExtras[];
   lastSession: Set[];
 }
+
+const selectSetsToday = (state: AppState, exerciseId: Set['exerciseId']): SetsTodayAndLastSession['today'] => {
+  const TIMER_LENGTH_IN_MINUTES = 5;
+  const sets = [...selectExerciseSets(state, exerciseId)];
+
+  const todaysSets: SetsTodayAndLastSession['today'] = sets
+    .filter((set) => moment(DateWrapper.createDate()).isSame(moment(set.date), 'date'))
+    .sort((a, b) => moment(a.date).valueOf() - moment(b.date).valueOf()) // ASC (oldest first)
+    .map((set, index, array) => {
+      let showTimer = false;
+      if (index === array.length - 1) {
+        const now = moment(DateWrapper.createDate());
+        const differenceInMinutes = moment(set.date).diff(now, 'minutes');
+        if (differenceInMinutes > 0 && differenceInMinutes <= TIMER_LENGTH_IN_MINUTES) {
+          showTimer = true;
+        }
+      }
+      return { ...set, showTimer };
+    });
+
+  return todaysSets;
+};
 
 const selectSetsTodayAndLastSession = (
   state: AppState,
@@ -38,13 +60,13 @@ const selectSetsTodayAndLastSession = (
 ): SetsTodayAndLastSession => {
   const sets = [...selectExerciseSets(state, exerciseId)];
 
-  const todaysSets = sets
-    .filter((set) => moment(DateWrapper.createDate()).isSame(moment(set.date), 'date'));
+  const todaysSets = selectSetsToday(state, exerciseId);
+  const todaysSetsIds = todaysSets.map((set) => set.id);
 
   let lastSessionDate: Moment;
   const lastSessionSets = sets
-    .filter((set) => (!todaysSets.includes(set)))
-    .sort((a, b) => moment(b.date).valueOf() - moment(a.date).valueOf())
+    .filter((set) => !todaysSetsIds.includes(set.id))
+    .sort((a, b) => moment(b.date).valueOf() - moment(a.date).valueOf()) // DESC (newest first)
     .filter((set) => {
       if (!lastSessionDate) {
         lastSessionDate = moment(set.date);
@@ -54,7 +76,7 @@ const selectSetsTodayAndLastSession = (
 
       return isFromLastSession;
     })
-    .sort((a, b) => moment(a.date).valueOf() - moment(b.date).valueOf());
+    .sort((a, b) => moment(a.date).valueOf() - moment(b.date).valueOf()); // ASC (oldest first)
 
   return {
     today: [...todaysSets],
@@ -63,6 +85,7 @@ const selectSetsTodayAndLastSession = (
 };
 
 export default {
+  selectSetsToday,
   selectExerciseSets,
   selectSetsTodayAndLastSession,
   selectExerciseLastModified,
