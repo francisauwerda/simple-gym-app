@@ -154,7 +154,7 @@ describe('setsSelectors', () => {
           date: today,
           difficulty: Difficulty.Easy,
           weight: 90,
-          showTimer: false,
+          showTimer: true,
           exerciseId: squatsId,
         }],
       });
@@ -166,14 +166,16 @@ describe('setsSelectors', () => {
     let state: AppState;
     let set1: Set;
     let set2: Set;
+    let set3: Set;
 
 
     beforeAll(() => {
       mocked(DateWrapper.createDate).mockImplementation(
         () => new Date('2020-01-15 09:30:00.000Z'),
       );
-      const today = moment(DateWrapper.createDate());
-      const todayPlus2Minutes = today.clone().add(2, 'minutes');
+      const todayMinus2Minutes = moment(DateWrapper.createDate()).clone().subtract(2, 'minutes');
+      const todayMinus4Minutes = todayMinus2Minutes.clone().subtract(2, 'minutes');
+      const todayMinus6Minutes = todayMinus4Minutes.clone().subtract(2, 'minutes');
 
       const workout1: Workout = {
         id: 'w1',
@@ -188,17 +190,25 @@ describe('setsSelectors', () => {
         id: 's1',
         difficulty: Difficulty.Easy,
         exerciseId,
-        date: today,
-        reps: 12,
-        weight: 100,
+        date: todayMinus6Minutes,
+        reps: 11,
+        weight: 101,
       };
       set2 = {
         id: 's2',
         difficulty: Difficulty.Easy,
         exerciseId,
-        date: todayPlus2Minutes,
+        date: todayMinus4Minutes,
         reps: 12,
-        weight: 100,
+        weight: 102,
+      };
+      set3 = {
+        id: 's3',
+        difficulty: Difficulty.Easy,
+        exerciseId,
+        date: todayMinus2Minutes,
+        reps: 13,
+        weight: 103,
       };
 
       state = {
@@ -209,7 +219,7 @@ describe('setsSelectors', () => {
           exercises: [exercise1],
         },
         setsReducer: {
-          sets: [set1, set2],
+          sets: [set1, set2, set3],
         },
       };
     });
@@ -220,7 +230,11 @@ describe('setsSelectors', () => {
 
     it('should return showTimer=true for set2', () => {
       const todaysSets = setsSelectors.selectSetsToday(state, exerciseId);
-      expect(todaysSets).toEqual([{ ...set1, showTimer: false }, { ...set2, showTimer: true }]);
+      expect(todaysSets).toEqual([
+        { ...set1, showTimer: false },
+        { ...set2, showTimer: false },
+        { ...set3, showTimer: true },
+      ]);
     });
   });
 });

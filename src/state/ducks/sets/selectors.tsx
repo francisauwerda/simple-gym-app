@@ -43,8 +43,8 @@ const selectSetsToday = (state: AppState, exerciseId: Set['exerciseId']): SetsTo
       let showTimer = false;
       if (index === array.length - 1) {
         const now = moment(DateWrapper.createDate());
-        const differenceInMinutes = moment(set.date).diff(now, 'minutes');
-        if (differenceInMinutes > 0 && differenceInMinutes <= TIMER_LENGTH_IN_MINUTES) {
+        const differenceInMinutes = moment(now).diff(set.date, 'minutes');
+        if (differenceInMinutes >= 0 && differenceInMinutes <= TIMER_LENGTH_IN_MINUTES) {
           showTimer = true;
         }
       }

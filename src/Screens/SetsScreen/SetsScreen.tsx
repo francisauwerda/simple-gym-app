@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { NavigationScreenProp, NavigationParams, NavigationState } from 'react-navigation';
-import { Set, SetDetails } from '../../state/ducks/sets/types';
+import { Set, SetDetails, SetWithExtras } from '../../state/ducks/sets/types';
 import actions from '../../state/ducks/sets/actions';
 import { AppState } from '../../state/types';
 import { Exercise } from '../../state/ducks/exercises/types';
@@ -26,7 +26,7 @@ export interface OpenModalProps {
   initialValues?: SetDetails;
 }
 
-type SetsScreenContainerProps = SetsScreenProps & StateProps & DispatchProps;
+export type SetsScreenContainerProps = SetsScreenProps & StateProps & DispatchProps;
 
 class SetsScreenContainer extends Component<SetsScreenContainerProps> {
   static navigationOptions = ({ navigation }) => {
@@ -80,8 +80,8 @@ class SetsScreenContainer extends Component<SetsScreenContainerProps> {
 }
 
 interface StateProps {
-  todaysSets: Set[],
-  lastSessionSets: Set[],
+  todaysSets: SetWithExtras[],
+  lastSessionSets: SetWithExtras[],
   exercise: Exercise
 }
 
@@ -96,7 +96,7 @@ const mapStateToProps = (state: AppState, ownProps: SetsScreenProps): StateProps
   };
 };
 
-export interface DispatchProps {
+interface DispatchProps {
   fetchSets: () => void;
   addSet: (set: SetDetails) => void;
   deleteSet: (id: Set['id']) => void;

@@ -4,20 +4,16 @@ import {
 } from 'react-native';
 import moment from 'moment';
 
-import { Set } from '../../state/ducks/sets/types';
-import { Exercise } from '../../state/ducks/exercises/types';
+import { Set, SetWithExtras } from '../../state/ducks/sets/types';
 import Card from '../../components/Card';
 import Button from '../../components/Button';
 import BottomWrapper from '../../components/BottomWrapper';
-import { DispatchProps, OpenModalProps } from './SetsScreen';
+import { SetsScreenContainerProps, OpenModalProps } from './SetsScreen';
 import { getLastModifiedText } from '../helpers';
 
 type Props = {
-  todaysSets: Set[],
-  lastSessionSets: Set[],
-  exercise: Exercise;
   openModal: (props: OpenModalProps) => void;
-} & Partial<DispatchProps>
+} & Partial<SetsScreenContainerProps>
 
 const renderRepsAndWeight = (weight: Set['weight'], reps: Set['reps']) => (
   <View style={styles.weightRepsContainer}>
@@ -36,6 +32,12 @@ const renderRepsAndWeight = (weight: Set['weight'], reps: Set['reps']) => (
   </View>
 );
 
+interface Data {
+  title: string,
+  subtitle?: string,
+  data: Props['lastSessionSets'] | Props['todaysSets']
+}
+
 export default function SetsScreenView(props: Props) {
   const {
     todaysSets,
@@ -45,7 +47,7 @@ export default function SetsScreenView(props: Props) {
   } = props;
 
   // TODO: Move this out of the render function
-  const myData: { title: string, subtitle?: string, data: Set[] }[] = [];
+  const myData: Data[] = [];
   if (todaysSets.length) {
     myData.push({
       title: 'Today',
@@ -68,42 +70,41 @@ export default function SetsScreenView(props: Props) {
           style={styles.sectionListContainer}
           sections={myData}
           keyExtractor={(item) => item.id}
-          renderItem={({ item, index }: {
-          item: Set, index: number, section: any
-        }) => (
-          <Card
-            difficulty={item.difficulty}
-            leftAccessory={index + 1}
-            mainText={renderRepsAndWeight(item.weight, item.reps)}
-            onClickHandler={() => {
-              openModal({
-                initialValues: {
-                  date: moment(),
-                  difficulty: item.difficulty,
-                  weight: item.weight,
-                  reps: item.reps,
-                  exerciseId: item.exerciseId,
-                },
-              });
-            }}
-            optionsActionSheetProps={{
-              onEditHandler: () => {
+          renderItem={({ item, index }: { item: SetWithExtras, index: number}) => (
+            <Card
+              difficulty={item.difficulty}
+              leftAccessory={index + 1}
+              mainText={renderRepsAndWeight(item.weight, item.reps)}
+              secondaryText={item.showTimer ? 'Show timer' : 'No timer'}
+              onClickHandler={() => {
                 openModal({
-                  id: item.id,
                   initialValues: {
-                    date: item.date,
+                    date: moment(),
                     difficulty: item.difficulty,
                     weight: item.weight,
                     reps: item.reps,
                     exerciseId: item.exerciseId,
                   },
                 });
-              },
-              onDeleteHandler: () => {
-                deleteSet(item.id);
-              },
-            }}
-          />
+              }}
+              optionsActionSheetProps={{
+                onEditHandler: () => {
+                  openModal({
+                    id: item.id,
+                    initialValues: {
+                      date: item.date,
+                      difficulty: item.difficulty,
+                      weight: item.weight,
+                      reps: item.reps,
+                      exerciseId: item.exerciseId,
+                    },
+                  });
+                },
+                onDeleteHandler: () => {
+                  deleteSet(item.id);
+                },
+              }}
+            />
           )}
           renderSectionHeader={({ section: { title, subtitle } }) => (
             <View style={styles.sectionTitles}>

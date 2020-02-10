@@ -8,7 +8,7 @@ export enum Difficulty {
 }
 
 export type SetWithExtras = {
-  showTimer: boolean
+  showTimer?: boolean
 } & Set;
 
 export type Set = {
