@@ -11,6 +11,8 @@ import BottomWrapper from '../../components/BottomWrapper';
 import { SetsScreenContainerProps, OpenModalProps } from './SetsScreen';
 import { getLastModifiedText } from '../helpers';
 
+// const icon = require('../../assets/multiplication-symbol.png');
+
 type Props = {
   openModal: (props: OpenModalProps) => void;
 } & Partial<SetsScreenContainerProps>
@@ -21,13 +23,14 @@ const renderRepsAndWeight = (weight: Set['weight'], reps: Set['reps']) => (
       <Text style={styles.weight}>
         {reps}
       </Text>
-      <Text> reps</Text>
+      <Text style={styles.unit}>     X</Text>
     </View>
+    {/* <Image source={icon} style={{ width: 32, height: 32 }} /> */}
     <View style={styles.weightContainer}>
       <Text style={styles.weight}>
         {weight}
       </Text>
-      <Text> kg</Text>
+      <Text style={styles.unit}> kg</Text>
     </View>
   </View>
 );
@@ -75,7 +78,7 @@ export default function SetsScreenView(props: Props) {
               difficulty={item.difficulty}
               leftAccessory={index + 1}
               mainText={renderRepsAndWeight(item.weight, item.reps)}
-              secondaryText={item.showTimer ? 'Show timer' : 'No timer'}
+              timerSettings={{ showTimer: item.showTimer, date: item.date }}
               onClickHandler={() => {
                 openModal({
                   initialValues: {
@@ -165,6 +168,9 @@ const styles = StyleSheet.create({
   weight: {
     fontSize: 32,
     fontWeight: '500',
+  },
+  unit: {
+    fontSize: 18,
   },
   repsContainer: {
     display: 'flex',

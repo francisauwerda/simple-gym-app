@@ -6,6 +6,7 @@ import { useActionSheet } from '@expo/react-native-action-sheet';
 
 import { OptionsActionSheetProps, handleOptionsPress } from './OptionsActionSheet';
 import TouchableComponent from '../components/TouchableComponent';
+import Timer, { TimerSettings } from './Timer';
 import colors from '../styles/colors';
 import { Difficulty } from '../state/ducks/sets/types';
 
@@ -17,6 +18,7 @@ interface CardProps {
   disabled?: boolean,
   optionsActionSheetProps?: OptionsActionSheetProps;
   difficulty?: Difficulty,
+  timerSettings?: TimerSettings
 }
 
 const getDifficultyStyles = (difficulty: Difficulty) => {
@@ -67,6 +69,7 @@ const Card = ({
   disabled,
   optionsActionSheetProps = {},
   difficulty,
+  timerSettings,
 }: CardProps) => {
   const { showActionSheetWithOptions } = useActionSheet();
   const { onDeleteHandler, onEditHandler } = optionsActionSheetProps;
@@ -109,6 +112,15 @@ const Card = ({
           onEditHandler={optionsActionSheetProps.onEditHandler}
         />
         )} */}
+        {
+          timerSettings && timerSettings.showTimer
+            && (
+            <Timer
+              date={timerSettings.date}
+              showTimer={timerSettings.showTimer}
+            />
+            )
+        }
       </View>
     </TouchableComponent>
   );
