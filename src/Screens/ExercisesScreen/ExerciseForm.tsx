@@ -27,8 +27,8 @@ const ExerciseForm = (props: ExerciseFormProps) => {
   } = props;
 
   const buttonText = formMode === FORM_MODES.ADD
-    ? `ADD ${workout.name} EXERCISE`
-    : `EDIT ${workout.name} EXERCISE`;
+    ? `ADD ${workout.name.toUpperCase()} EXERCISE`
+    : `EDIT ${workout.name.toUpperCase()} EXERCISE`;
 
   return (
     <Formik
