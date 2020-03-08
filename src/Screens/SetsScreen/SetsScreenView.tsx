@@ -1,15 +1,17 @@
 import React from 'react';
 import {
-  SafeAreaView, StyleSheet, Text, SectionList, View,
+  StyleSheet, Text, SectionList, View,
 } from 'react-native';
 import moment from 'moment';
 
 import { Set, SetWithExtras } from '../../state/ducks/sets/types';
 import Card from '../../components/Card';
-import Button from '../../components/Button';
 import BottomWrapper from '../../components/BottomWrapper';
 import { SetsScreenContainerProps, OpenModalProps } from './SetsScreen';
 import { getLastModifiedText } from '../helpers';
+import ScreenLayout from '../layout/ScreenLayout';
+import colors from '../../styles/colors';
+import AddButton from '../../components/AddButton';
 
 // const icon = require('../../assets/multiplication-symbol.png');
 
@@ -67,90 +69,86 @@ export default function SetsScreenView(props: Props) {
   }
 
   return (
-    <SafeAreaView style={styles.container}>
-      {myData.length ? (
-        <SectionList
-          style={styles.sectionListContainer}
-          sections={myData}
-          keyExtractor={(item) => item.id}
-          renderItem={({ item, index }: { item: SetWithExtras, index: number}) => (
-            <Card
-              difficulty={item.difficulty}
-              leftAccessory={index + 1}
-              mainText={renderRepsAndWeight(item.weight, item.reps)}
-              timerSettings={{ showTimer: item.showTimer, date: item.date }}
-              onClickHandler={() => {
-                openModal({
-                  initialValues: {
-                    date: moment(),
-                    difficulty: item.difficulty,
-                    weight: item.weight,
-                    reps: item.reps,
-                    exerciseId: item.exerciseId,
-                  },
-                });
-              }}
-              optionsActionSheetProps={{
-                onEditHandler: () => {
+    <ScreenLayout>
+      <>
+        {myData.length ? (
+          <SectionList
+            style={styles.sectionListContainer}
+            sections={myData}
+            keyExtractor={(item) => item.id}
+            renderItem={({ item, index }: { item: SetWithExtras, index: number}) => (
+              <Card
+                difficulty={item.difficulty}
+                leftAccessory={index + 1}
+                mainText={renderRepsAndWeight(item.weight, item.reps)}
+                timerSettings={{ showTimer: item.showTimer, date: item.date }}
+                onClickHandler={() => {
                   openModal({
-                    id: item.id,
                     initialValues: {
-                      date: item.date,
+                      date: moment(),
                       difficulty: item.difficulty,
                       weight: item.weight,
                       reps: item.reps,
                       exerciseId: item.exerciseId,
                     },
                   });
-                },
-                onDeleteHandler: () => {
-                  deleteSet(item.id);
-                },
-              }}
-            />
-          )}
-          renderSectionHeader={({ section: { title, subtitle } }) => (
-            <View style={styles.sectionTitles}>
-              <Text style={styles.sectionTitle}>{title}</Text>
-              {!!subtitle && <Text style={styles.sectionSubtitle}>{subtitle}</Text>}
-            </View>
-          )}
-        />
-      ) : (
-        <View style={styles.sectionListContainer}>
-          <Card
-            mainText="Add a set!"
-            secondaryText="Here is where we will keep track of your progress"
-            onClickHandler={() => openModal({})}
+                }}
+                optionsActionSheetProps={{
+                  onEditHandler: () => {
+                    openModal({
+                      id: item.id,
+                      initialValues: {
+                        date: item.date,
+                        difficulty: item.difficulty,
+                        weight: item.weight,
+                        reps: item.reps,
+                        exerciseId: item.exerciseId,
+                      },
+                    });
+                  },
+                  onDeleteHandler: () => {
+                    deleteSet(item.id);
+                  },
+                }}
+              />
+            )}
+            renderSectionHeader={({ section: { title, subtitle } }) => (
+              <View style={styles.sectionTitles}>
+                <Text style={styles.sectionTitle}>{title}</Text>
+                {!!subtitle && <Text style={styles.sectionSubtitle}>{subtitle}</Text>}
+              </View>
+            )}
           />
-        </View>
-      )}
+        ) : (
+          <View style={styles.sectionListContainer}>
+            <Card
+              mainText="Add a set!"
+              secondaryText="Here is where we will keep track of your progress"
+              onClickHandler={() => openModal({})}
+            />
+          </View>
+        )}
 
-      <BottomWrapper>
-        <Button
-          title="Add a set"
-          onPress={() => openModal({})}
-        />
-      </BottomWrapper>
-    </SafeAreaView>
+        <BottomWrapper>
+          <AddButton
+            text="NEW SET"
+            onPressHandler={() => openModal({})}
+          />
+        </BottomWrapper>
+      </>
+    </ScreenLayout>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    justifyContent: 'center',
-    marginBottom: 10,
-  },
   sectionListContainer: {
     flex: 1,
     flexDirection: 'column',
-    marginTop: 8,
-    marginHorizontal: 16,
+    paddingHorizontal: 16,
+    backgroundColor: colors.lightGrey,
   },
   sectionTitles: {
-    backgroundColor: 'white',
+    backgroundColor: colors.lightGrey,
     paddingVertical: 16,
   },
   sectionTitle: {
