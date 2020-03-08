@@ -5,8 +5,8 @@ import {
 } from 'react-native';
 import { ExerciseDetails } from '../../state/ducks/exercises/types';
 import { Workout } from '../../state/ducks/workouts/types';
-import Button from '../../components/Button';
 import { FORM_MODES } from '../enums';
+import AddButton from '../../components/AddButton';
 
 interface ExerciseFormProps {
   onSubmitHandler: (fields: ExerciseDetails) => void;
@@ -27,8 +27,8 @@ const ExerciseForm = (props: ExerciseFormProps) => {
   } = props;
 
   const buttonText = formMode === FORM_MODES.ADD
-    ? `Add ${workout.name} exercise`
-    : `Edit ${workout.name} exercise`;
+    ? `ADD ${workout.name} EXERCISE`
+    : `EDIT ${workout.name} EXERCISE`;
 
   return (
     <Formik
@@ -52,9 +52,9 @@ const ExerciseForm = (props: ExerciseFormProps) => {
             autoFocus
           />
           <View style={styles.buttonWrapper}>
-            <Button
-              title={buttonText}
-              onPress={submitForm}
+            <AddButton
+              text={buttonText}
+              onPressHandler={submitForm}
             />
           </View>
         </>
