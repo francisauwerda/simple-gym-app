@@ -6,10 +6,11 @@ import { NavigationScreenProp, NavigationState, NavigationParams } from 'react-n
 
 import { Workout, WorkoutWithLastModified } from '../../state/ducks/workouts/types';
 import Card from '../../components/Card';
-import Button from '../../components/Button';
 import BottomWrapper from '../../components/BottomWrapper';
 import { DispatchProps, OpenModalProps } from './WorkoutsScreen';
 import { getLastModifiedText } from '../helpers';
+import AddButton from '../../components/AddButton';
+import colors from '../../styles/colors';
 
 type WorkoutsScreenProps = {
   navigation: NavigationScreenProp<NavigationState, NavigationParams>,
@@ -64,16 +65,12 @@ const WorkoutsScreenView = (props: WorkoutsScreenProps) => {
         </View>
       )}
 
-
       <BottomWrapper>
-        <View>
-          <Button
-            title="Add new Workout"
-            onPress={() => openModal({})}
-          />
-        </View>
+        <AddButton text="NEW WORKOUT" onPressHandler={() => openModal({})} />
       </BottomWrapper>
     </SafeAreaView>
+
+
   );
 };
 
@@ -82,17 +79,12 @@ export default WorkoutsScreenView;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'white',
     justifyContent: 'center',
-    marginBottom: 10,
   },
   flatListContainer: {
     flex: 1,
     flexDirection: 'column',
-    paddingTop: 8,
-    marginHorizontal: 16,
-  },
-  buttonsWrapper: {
-    marginVertical: 15,
+    paddingHorizontal: 16,
+    backgroundColor: colors.lightGrey,
   },
 });
