@@ -123,7 +123,7 @@ export default function SetsScreenView(props: Props) {
           <View style={styles.sectionListContainer}>
             <Card
               mainText="Add a set!"
-              secondaryText="Here is where we will keep track of your progress"
+              secondaryText="Here is where you will keep track of your progress"
               onClickHandler={() => openModal({})}
             />
           </View>
