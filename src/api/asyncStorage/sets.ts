@@ -3,6 +3,7 @@ import { AsyncStorage } from 'react-native';
 import { Set, SetDetails } from '../../state/ducks/sets/types';
 import utils from '../utils';
 import { STORAGE_KEYS } from './enums';
+// import { defaults } from './defaults';
 
 export const getSets = async (exerciseId?: Set['exerciseId']): Promise<Set[]> => {
   try {
@@ -14,6 +15,7 @@ export const getSets = async (exerciseId?: Set['exerciseId']): Promise<Set[]> =>
     }
 
     const parsedSets: Set[] = JSON.parse(allSets);
+    // const parsedSets = defaults.sets;
 
     if (exerciseId) {
       return parsedSets.filter((set) => set.exerciseId === exerciseId);

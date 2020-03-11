@@ -5,6 +5,7 @@ import utils from '../utils';
 import { STORAGE_KEYS } from './enums';
 import { Exercise } from '../../state/ducks/exercises/types';
 import { getExercises, deleteExercise } from './exercises';
+// import { defaults } from './defaults';
 
 export const getWorkouts = async (): Promise<Workout[]> => {
   try {
@@ -16,6 +17,7 @@ export const getWorkouts = async (): Promise<Workout[]> => {
     }
 
     return JSON.parse(workouts);
+    // return defaults.workouts;
   } catch (error) {
     console.log('Error getting workouts', error);
     return [];

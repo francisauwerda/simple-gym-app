@@ -5,6 +5,8 @@ import utils from '../utils';
 import { STORAGE_KEYS } from './enums';
 import { Set } from '../../state/ducks/sets/types';
 import { getSets, deleteSet } from './sets';
+// import { defaults } from './defaults';
+
 
 export const getExercises = async (workoutId?: Exercise['workoutId']): Promise<Exercise[]> => {
   try {
@@ -16,6 +18,7 @@ export const getExercises = async (workoutId?: Exercise['workoutId']): Promise<E
     }
 
     const parsedExercises: Exercise[] = JSON.parse(allExercises);
+    // const parsedExercises = defaults.exercises;
 
     if (workoutId) {
       return parsedExercises.filter((exercise) => exercise.workoutId === workoutId);
