@@ -30,6 +30,7 @@ const Timer = (props: TimerSettings) => {
   return (
     <View style={styles.timerContainer}>
       <Text style={styles.timer}>{`${minutes}:${(`0${remainingSeconds}`).slice(-2)}`}</Text>
+      <Text style={styles.unit}> s</Text>
     </View>
   );
 };
@@ -43,5 +44,10 @@ const styles = StyleSheet.create({
   },
   timerContainer: {
     padding: 10,
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  unit: {
+    fontSize: 18,
   },
 });
