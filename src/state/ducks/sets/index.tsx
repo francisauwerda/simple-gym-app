@@ -1,6 +1,6 @@
-import reducer from './reducers';
+import reducer, { initialState } from './reducers';
 import setsSelectors from './selectors';
 
-export { setsSelectors };
+export { setsSelectors, initialState as setsInitialState };
 
 export default reducer;

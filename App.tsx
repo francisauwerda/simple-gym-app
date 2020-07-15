@@ -5,18 +5,9 @@ import { ActionSheetProvider } from '@expo/react-native-action-sheet'; // TODO: 
 import { createAppContainer } from 'react-navigation';
 import RootStack from './src/Screens';
 import configureStore from './src/state/store';
-import { AppState } from './src/state/types';
-
-const initialState: AppState = {
-  exercisesReducer: { exercises: [] },
-  setsReducer: { sets: [] },
-  workoutsReducer: {
-    workouts: [],
-  },
-};
 
 const AppContainer = createAppContainer(RootStack);
-const reduxStore = configureStore(initialState);
+const reduxStore = configureStore();
 
 export default function App() {
   return (
