@@ -1,6 +1,14 @@
-import types, { Workout } from './types';
+import types, { Workout, GlobalWorkoutSettings } from './types';
 
-export const initialState: { workouts: Workout[] } = { workouts: [] };
+export const initialState: {
+  workouts: Workout[]
+  globalWorkoutSettings: GlobalWorkoutSettings
+} = {
+  workouts: [],
+  globalWorkoutSettings: {
+    sorting: 'name',
+  },
+};
 
 interface ActionType {
   type: string,

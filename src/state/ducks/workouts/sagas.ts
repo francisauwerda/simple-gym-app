@@ -42,6 +42,15 @@ function* editWorkout({ payload }: ReturnType<typeof WorkoutActions.editWorkout>
   }
 }
 
+function* fetchGlobalWorkoutSettings() {
+  const globalWorkoutSettings = yield api.workouts.getGlobalWorkoutSettings();
+
+  yield put({
+    type: types.FETCH_GLOBAL_WORKOUT_SETTINGS_SUCCESS,
+    payload: { globalWorkoutSettings },
+  });
+}
+
 export function* watchFetchWorkouts() {
   yield takeEvery(types.FETCH, fetchWorkouts);
 }
@@ -58,9 +67,14 @@ export function* watchEditWorkout() {
   yield takeEvery(types.EDIT, editWorkout);
 }
 
+export function* watchFetchGloablWorkoutSettings() {
+  yield takeEvery(types.FETCH_GLOBAL_WORKOUT_SETTINGS, fetchGlobalWorkoutSettings);
+}
+
 export const watcherSagas = [
   watchFetchWorkouts(),
   watchAddWorkout(),
   watchDeleteWorkout(),
   watchEditWorkout(),
+  watchFetchGloablWorkoutSettings(),
 ];
