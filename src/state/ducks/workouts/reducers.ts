@@ -7,6 +7,7 @@ export const initialState: {
   workouts: [],
   globalWorkoutSettings: {
     sorting: 'name',
+    direction: 'DESC',
   },
 };
 

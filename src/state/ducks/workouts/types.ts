@@ -16,6 +16,7 @@ type Sorting = 'lastModified' | 'name';
 
 export interface GlobalWorkoutSettings {
   sorting?: Sorting;
+  direction?: 'ASC' | 'DESC'
 }
 
 const FETCH = 'workouts/FETCH';
