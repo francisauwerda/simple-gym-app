@@ -2,8 +2,9 @@ import moment from 'moment';
 import { Set } from '../sets/types';
 import { exercisesSelectors } from '../exercises';
 import { setsSelectors } from '../sets';
-import { Workout, WorkoutWithLastModified } from './types';
+import { Workout, WorkoutWithLastModified, GlobalWorkoutSettings } from './types';
 import { AppState } from '../../types';
+import { sortWorkoutsWithLastModified } from './utils';
 
 const selectWorkouts = (state: AppState) => state.workoutsReducer.workouts;
 
@@ -25,10 +26,12 @@ const getLastModifiedWorkout = (state: AppState, workout: Workout): Set['date'] 
   return lastModified;
 };
 
+
 const selectWorkoutsWithLastModified = (state: AppState): WorkoutWithLastModified[] => {
   const workouts = selectWorkouts(state);
+  const globalWorkoutSettings = selectGlobalWorkoutSettings(state);
 
-  const result = workouts.map((workout) => {
+  const workoutsWithLastModified = workouts.map((workout) => {
     const lastModified = getLastModifiedWorkout(state, workout);
     return {
       ...workout,
@@ -36,10 +39,18 @@ const selectWorkoutsWithLastModified = (state: AppState): WorkoutWithLastModifie
     };
   });
 
-  return result;
+  const sorted = sortWorkoutsWithLastModified(workoutsWithLastModified, globalWorkoutSettings);
+
+  return sorted;
 };
+
+const selectGlobalWorkoutSettings = (
+  state: AppState,
+): GlobalWorkoutSettings => state.workoutsReducer.globalWorkoutSettings;
+
 
 export default {
   selectWorkouts,
   selectWorkoutsWithLastModified,
+  selectGlobalWorkoutSettings,
 };

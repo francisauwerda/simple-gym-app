@@ -3,7 +3,9 @@ import { connect } from 'react-redux';
 import { NavigationScreenProp, NavigationState, NavigationParams } from 'react-navigation';
 import WorkoutsScreenView from './WorkoutsScreenView';
 import { AppState } from '../../state/types';
-import { Workout, WorkoutDetails, WorkoutWithLastModified } from '../../state/ducks/workouts/types';
+import {
+  Workout, WorkoutDetails, WorkoutWithLastModified, GlobalWorkoutSettings,
+} from '../../state/ducks/workouts/types';
 import workoutActions from '../../state/ducks/workouts/actions';
 import exerciseActions from '../../state/ducks/exercises/actions';
 import setActions from '../../state/ducks/sets/actions';
@@ -81,13 +83,17 @@ class WorkoutsScreenContainer extends React.Component<WorkoutsScreenContainerPro
 
 interface StateProps {
   workoutsWithLastModified: WorkoutWithLastModified[];
+  settings: GlobalWorkoutSettings;
 }
 
 const mapStateToProps = (state: AppState): StateProps => {
   const workoutsWithLastModified = workoutsSelectors.selectWorkoutsWithLastModified(state);
+  const settings = workoutsSelectors.selectGlobalWorkoutSettings(state);
+  // TODO: use settings when selecting in the first place
 
   return {
     workoutsWithLastModified,
+    settings,
   };
 };
 
