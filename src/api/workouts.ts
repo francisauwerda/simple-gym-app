@@ -1,4 +1,6 @@
-import { Workout, WorkoutDetails, GlobalWorkoutSettings } from '../state/ducks/workouts/types';
+import {
+  Workout, WorkoutDetails, GlobalWorkoutSettings, Sorting,
+} from '../state/ducks/workouts/types';
 import asyncStorage from './asyncStorage';
 
 export const getWorkouts = async (): Promise<Workout[]> => {
@@ -30,5 +32,5 @@ export const editWorkout = async (id: Workout['id'], fields: WorkoutDetails): Pr
 };
 
 export const getGlobalWorkoutSettings = async (): Promise<GlobalWorkoutSettings> => ({
-  sorting: 'name',
+  sorting: Sorting.name,
 });

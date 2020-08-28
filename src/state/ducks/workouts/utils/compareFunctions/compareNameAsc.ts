@@ -1,4 +1,4 @@
-import { WorkoutWithLastModified } from '../types';
+import { WorkoutWithLastModified } from '../../types';
 
 const compareNameAsc = (a: WorkoutWithLastModified, b: WorkoutWithLastModified) => {
   if (a.name < b.name) {

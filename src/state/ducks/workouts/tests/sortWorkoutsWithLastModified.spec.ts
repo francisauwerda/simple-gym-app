@@ -1,10 +1,11 @@
 /* eslint-disable no-undef */
-// TODO: Write tests for lastModified asc and dsc
 
 import moment from 'moment';
 
 import { sortWorkoutsWithLastModified } from '../utils';
-import { WorkoutWithLastModified, GlobalWorkoutSettings } from '../types';
+import {
+  WorkoutWithLastModified, GlobalWorkoutSettings, Sorting, Direction,
+} from '../types';
 
 describe('sortWorkoutsWithLastModified()', () => {
   describe('when sorting by asc order', () => {
@@ -23,8 +24,8 @@ describe('sortWorkoutsWithLastModified()', () => {
         lastModified: moment('2020-10-02'),
       }];
       const globalWorkoutSettings: GlobalWorkoutSettings = {
-        direction: 'ASC',
-        sorting: 'lastModified',
+        direction: Direction.ASC,
+        sorting: Sorting.lastModified,
       };
 
       const sortedWorkouts = sortWorkoutsWithLastModified(
@@ -62,8 +63,8 @@ describe('sortWorkoutsWithLastModified()', () => {
         lastModified: moment('2020-10-02'),
       }];
       const globalWorkoutSettings: GlobalWorkoutSettings = {
-        direction: 'DESC',
-        sorting: 'lastModified',
+        direction: Direction.DESC,
+        sorting: Sorting.lastModified,
       };
 
       const sortedWorkouts = sortWorkoutsWithLastModified(

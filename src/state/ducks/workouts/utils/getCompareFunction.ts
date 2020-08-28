@@ -1,17 +1,17 @@
-import { GlobalWorkoutSettings } from '../types';
+import { GlobalWorkoutSettings, Sorting, Direction } from '../types';
 import {
-  compareNameDesc, compareNameAsc, compareLastModifiedDesc, compareLastModifiedAsc,
-} from '.';
+  compareLastModifiedAsc, compareLastModifiedDesc, compareNameAsc, compareNameDesc,
+} from './compareFunctions';
 
 const getCompareFunction = (globalWorkoutSettings: GlobalWorkoutSettings) => {
   const { sorting, direction } = globalWorkoutSettings;
 
-  if (sorting === 'name') {
-    return direction === 'DESC' ? compareNameDesc : compareNameAsc;
+  if (sorting === Sorting.name) {
+    return direction === Direction.DESC ? compareNameDesc : compareNameAsc;
   }
 
   // default is lastModified
-  return direction === 'DESC' ? compareLastModifiedDesc : compareLastModifiedAsc;
+  return direction === Direction.DESC ? compareLastModifiedDesc : compareLastModifiedAsc;
 };
 
 export default getCompareFunction;

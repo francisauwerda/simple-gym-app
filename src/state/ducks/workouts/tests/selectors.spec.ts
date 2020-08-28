@@ -3,6 +3,7 @@ import uuidv4 from 'uuidv4';
 
 import { workoutsSelectors } from '..';
 import { AppState } from '../../../types';
+import { Sorting, Direction } from '../types';
 
 const getState = (state: Partial<AppState>): AppState => ({
   workoutsReducer: {
@@ -41,8 +42,8 @@ describe('workouts selectors', () => {
           name: 'b-workout2',
         }],
         globalWorkoutSettings: {
-          sorting: 'name',
-          direction: 'ASC',
+          sorting: Sorting.name,
+          direction: Direction.ASC,
         },
       },
       exercisesReducer: {
@@ -73,8 +74,8 @@ describe('workouts selectors', () => {
           name: 'b-workout2',
         }],
         globalWorkoutSettings: {
-          sorting: 'name',
-          direction: 'DESC',
+          sorting: Sorting.name,
+          direction: Direction.DESC,
         },
       },
       exercisesReducer: {

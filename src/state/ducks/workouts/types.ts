@@ -12,11 +12,19 @@ export type WorkoutWithLastModified = {
   lastModified: Set['date']
 } & Workout;
 
-type Sorting = 'lastModified' | 'name';
+export enum Sorting {
+  lastModified = 'lastModified',
+  name = 'name'
+}
+
+export enum Direction {
+  ASC = 'ASC',
+  DESC = 'DESC'
+}
 
 export interface GlobalWorkoutSettings {
   sorting?: Sorting;
-  direction?: 'ASC' | 'DESC'
+  direction?: Direction
 }
 
 const FETCH = 'workouts/FETCH';

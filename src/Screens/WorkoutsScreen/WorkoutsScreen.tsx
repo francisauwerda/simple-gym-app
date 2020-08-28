@@ -65,7 +65,7 @@ class WorkoutsScreenContainer extends React.Component<WorkoutsScreenContainerPro
 
   render() {
     const {
-      workoutsWithLastModified, navigation, deleteWorkout, editWorkout,
+      workoutsWithLastModified, navigation, deleteWorkout, editWorkout, settings,
     } = this.props;
 
     return (
@@ -76,6 +76,7 @@ class WorkoutsScreenContainer extends React.Component<WorkoutsScreenContainerPro
         openModal={this.openModal}
         deleteWorkout={deleteWorkout}
         editWorkout={editWorkout}
+        settings={settings}
       />
     );
   }
@@ -89,7 +90,6 @@ interface StateProps {
 const mapStateToProps = (state: AppState): StateProps => {
   const workoutsWithLastModified = workoutsSelectors.selectWorkoutsWithLastModified(state);
   const settings = workoutsSelectors.selectGlobalWorkoutSettings(state);
-  // TODO: use settings when selecting in the first place
 
   return {
     workoutsWithLastModified,

@@ -1,11 +1,11 @@
-import { WorkoutWithLastModified } from '../types';
+import { WorkoutWithLastModified } from '../../types';
 
 const compareLastModifiedAsc = (a: WorkoutWithLastModified, b: WorkoutWithLastModified) => {
-  if (a.lastModified > b.lastModified) {
+  if (a.lastModified < b.lastModified) {
     return -1;
   }
 
-  if (a.lastModified < b.lastModified) {
+  if (a.lastModified > b.lastModified) {
     return 1;
   }
 

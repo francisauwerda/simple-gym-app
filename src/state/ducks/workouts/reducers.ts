@@ -1,4 +1,6 @@
-import types, { Workout, GlobalWorkoutSettings } from './types';
+import types, {
+  Workout, GlobalWorkoutSettings, Sorting, Direction,
+} from './types';
 
 export const initialState: {
   workouts: Workout[]
@@ -6,8 +8,8 @@ export const initialState: {
 } = {
   workouts: [],
   globalWorkoutSettings: {
-    sorting: 'name',
-    direction: 'DESC',
+    sorting: Sorting.name,
+    direction: Direction.ASC,
   },
 };
 
