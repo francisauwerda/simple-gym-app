@@ -1,6 +1,6 @@
 # Simple Gym App
 
-This is a side project I worked on to improve my knowledge with React Native and Redux. This app helps me track progress in the gym and ensures that every session I'm lifting more than the last.
+This app helps me track progress in the gym and ensures that every session I'm lifting more than the last.
 
 ![alt-text](./assets/all-screenshots.png)
 
@@ -12,9 +12,9 @@ This is a side project I worked on to improve my knowledge with React Native and
 
 ### Code structure
 
-I structured the redux code in a *feature-first* over a more traditional *function-first* manner. I followed an approach online called [re-ducks](https://www.freecodecamp.org/news/scaling-your-redux-app-with-ducks-6115955638be/). 
+I structured the redux code in a *feature-first* over a more traditional *function-first* approach. Inspiration was found in the follow article: [re-ducks](https://www.freecodecamp.org/news/scaling-your-redux-app-with-ducks-6115955638be/). 
 
-In a *function-first* approach you would have one folder named `./reducers` which would contain every reducer from the app. This would be the same for `./selectors`, `./containers`, `./actions`, etc. 
+With the *function-first* approach you have one `./reducers` folder which contains every reducer from the app. This would be the same for `./selectors`, `./containers`, `./actions`, etc. 
 
 The *feature-first* [re-ducks](https://www.freecodecamp.org/news/scaling-your-redux-app-with-ducks-6115955638be/) approach has one folder per feature, which contains all logic related to that feature. This helped keep all related code together.  
 
