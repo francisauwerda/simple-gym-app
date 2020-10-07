@@ -1,4 +1,6 @@
-import types, { Workout, WorkoutDetails } from './types';
+import types, {
+  GlobalWorkoutSettings, Workout, WorkoutDetails,
+} from './types';
 
 const fetchWorkouts = () => ({
   type: types.FETCH,
@@ -19,9 +21,21 @@ const editWorkout = (id: Workout['id'], fields: WorkoutDetails) => ({
   payload: { id, fields },
 });
 
+const fetchGlobalWorkoutSettings = () => ({
+  type: types.FETCH_GLOBAL_WORKOUT_SETTINGS,
+});
+
+const setGlobalWorkoutSettings = (globalWorkoutSettings: GlobalWorkoutSettings) => ({
+  type: types.SET_GLOBAL_WORKOUT_SETTINGS,
+  payload: { globalWorkoutSettings },
+});
+
+
 export default {
   fetchWorkouts,
   addWorkout,
   deleteWorkout,
   editWorkout,
+  fetchGlobalWorkoutSettings,
+  setGlobalWorkoutSettings,
 };

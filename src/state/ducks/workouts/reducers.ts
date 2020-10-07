@@ -18,6 +18,7 @@ interface ActionType {
   payload: {
     workout?: Workout,
     workouts?: Workout[]
+    globalWorkoutSettings?: GlobalWorkoutSettings
   }
 }
 
@@ -52,6 +53,20 @@ const workoutsReducer = (state = initialState, action: ActionType) => {
       return {
         ...state,
         workouts: updatedWorkouts,
+      };
+    }
+
+    case types.FETCH_GLOBAL_WORKOUT_SETTINGS_SUCCESS: {
+      return {
+        ...state,
+        ...action.payload,
+      };
+    }
+
+    case types.SET_GLOBAL_WORKOUT_SETTINGS_SUCCESS: {
+      return {
+        ...state,
+        ...action.payload,
       };
     }
 

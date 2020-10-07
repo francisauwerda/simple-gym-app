@@ -144,8 +144,6 @@ const styles = StyleSheet.create({
   sectionListContainer: {
     flex: 1,
     flexDirection: 'column',
-    paddingHorizontal: 16,
-    backgroundColor: colors.lightGrey,
   },
   sectionTitles: {
     backgroundColor: colors.lightGrey,

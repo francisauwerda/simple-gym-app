@@ -65,7 +65,12 @@ class WorkoutsScreenContainer extends React.Component<WorkoutsScreenContainerPro
 
   render() {
     const {
-      workoutsWithLastModified, navigation, deleteWorkout, editWorkout, settings,
+      workoutsWithLastModified,
+      navigation,
+      deleteWorkout,
+      editWorkout,
+      globalWorkoutSettings,
+      setGlobalWorkoutSettings,
     } = this.props;
 
     return (
@@ -76,7 +81,8 @@ class WorkoutsScreenContainer extends React.Component<WorkoutsScreenContainerPro
         openModal={this.openModal}
         deleteWorkout={deleteWorkout}
         editWorkout={editWorkout}
-        settings={settings}
+        globalWorkoutSettings={globalWorkoutSettings}
+        setGlobalWorkoutSettings={setGlobalWorkoutSettings}
       />
     );
   }
@@ -84,16 +90,16 @@ class WorkoutsScreenContainer extends React.Component<WorkoutsScreenContainerPro
 
 interface StateProps {
   workoutsWithLastModified: WorkoutWithLastModified[];
-  settings: GlobalWorkoutSettings;
+  globalWorkoutSettings: GlobalWorkoutSettings;
 }
 
 const mapStateToProps = (state: AppState): StateProps => {
   const workoutsWithLastModified = workoutsSelectors.selectWorkoutsWithLastModified(state);
-  const settings = workoutsSelectors.selectGlobalWorkoutSettings(state);
+  const globalWorkoutSettings = workoutsSelectors.selectGlobalWorkoutSettings(state);
 
   return {
     workoutsWithLastModified,
-    settings,
+    globalWorkoutSettings,
   };
 };
 
@@ -104,6 +110,7 @@ export interface DispatchProps {
   addWorkout: (workout: WorkoutDetails) => void;
   deleteWorkout: (id: Workout['id']) => void;
   editWorkout: (id: Workout['id'], fields: WorkoutDetails) => void;
+  setGlobalWorkoutSettings: (globalWorkoutSettings: GlobalWorkoutSettings) => void;
 }
 
 const mapDispatchToProps = (dispatch): DispatchProps => ({
@@ -124,6 +131,9 @@ const mapDispatchToProps = (dispatch): DispatchProps => ({
   },
   editWorkout: (id: Workout['id'], fields: WorkoutDetails) => {
     dispatch(workoutActions.editWorkout(id, fields));
+  },
+  setGlobalWorkoutSettings: (globalWorkoutSettings: GlobalWorkoutSettings) => {
+    dispatch(workoutActions.setGlobalWorkoutSettings(globalWorkoutSettings));
   },
 });
 
