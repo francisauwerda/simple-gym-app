@@ -1,12 +1,24 @@
-import types, { Workout } from './types';
+import types, {
+  Workout, GlobalWorkoutSettings, Sorting, Direction,
+} from './types';
 
-export const initialState: { workouts: Workout[] } = { workouts: [] };
+export const initialState: {
+  workouts: Workout[]
+  globalWorkoutSettings: GlobalWorkoutSettings
+} = {
+  workouts: [],
+  globalWorkoutSettings: {
+    sorting: Sorting.name,
+    direction: Direction.ASC,
+  },
+};
 
 interface ActionType {
   type: string,
   payload: {
     workout?: Workout,
     workouts?: Workout[]
+    globalWorkoutSettings?: GlobalWorkoutSettings
   }
 }
 
@@ -41,6 +53,20 @@ const workoutsReducer = (state = initialState, action: ActionType) => {
       return {
         ...state,
         workouts: updatedWorkouts,
+      };
+    }
+
+    case types.FETCH_GLOBAL_WORKOUT_SETTINGS_SUCCESS: {
+      return {
+        ...state,
+        ...action.payload,
+      };
+    }
+
+    case types.SET_GLOBAL_WORKOUT_SETTINGS_SUCCESS: {
+      return {
+        ...state,
+        ...action.payload,
       };
     }
 

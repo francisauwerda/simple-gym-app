@@ -42,25 +42,57 @@ function* editWorkout({ payload }: ReturnType<typeof WorkoutActions.editWorkout>
   }
 }
 
-export function* watchFetchWorkouts() {
+function* fetchGlobalWorkoutSettings() {
+  const globalWorkoutSettings = yield api.workouts.getGlobalWorkoutSettings();
+
+  yield put({
+    type: types.FETCH_GLOBAL_WORKOUT_SETTINGS_SUCCESS,
+    payload: { globalWorkoutSettings },
+  });
+}
+
+function* setGlobalWorkoutSettings({
+  payload,
+}: ReturnType<typeof WorkoutActions.setGlobalWorkoutSettings>) {
+  const globalWorkoutSettings = yield api
+    .workouts.setGlobalWorkoutSettings(payload.globalWorkoutSettings);
+
+  yield put({
+    type: types.SET_GLOBAL_WORKOUT_SETTINGS_SUCCESS,
+    payload: { globalWorkoutSettings },
+  });
+}
+
+function* watchFetchWorkouts() {
   yield takeEvery(types.FETCH, fetchWorkouts);
 }
 
-export function* watchAddWorkout() {
+function* watchAddWorkout() {
   yield takeEvery(types.ADD, addWorkout);
 }
 
-export function* watchDeleteWorkout() {
+function* watchDeleteWorkout() {
   yield takeEvery(types.DELETE, deleteWorkout);
 }
 
-export function* watchEditWorkout() {
+function* watchEditWorkout() {
   yield takeEvery(types.EDIT, editWorkout);
 }
 
+function* watchFetchGloablWorkoutSettings() {
+  yield takeEvery(types.FETCH_GLOBAL_WORKOUT_SETTINGS, fetchGlobalWorkoutSettings);
+}
+
+function* watchSetGloablWorkoutSettings() {
+  yield takeEvery(types.SET_GLOBAL_WORKOUT_SETTINGS, setGlobalWorkoutSettings);
+}
+
+// eslint-disable-next-line import/prefer-default-export
 export const watcherSagas = [
   watchFetchWorkouts(),
   watchAddWorkout(),
   watchDeleteWorkout(),
   watchEditWorkout(),
+  watchFetchGloablWorkoutSettings(),
+  watchSetGloablWorkoutSettings(),
 ];

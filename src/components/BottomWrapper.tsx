@@ -16,8 +16,8 @@ export default BottomWrapper;
 const styles = StyleSheet.create({
   bottomWrapper: {
     paddingVertical: 10,
-    borderStyle: 'solid',
-    borderTopWidth: 0.5,
-    borderTopColor: '#d6d7da',
+    borderWidth: 0.5,
+    backgroundColor: 'white',
+    borderRadius: 8,
   },
 });

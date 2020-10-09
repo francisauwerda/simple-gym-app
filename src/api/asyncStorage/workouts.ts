@@ -1,6 +1,8 @@
 import { AsyncStorage } from 'react-native';
 
-import { Workout, WorkoutDetails } from '../../state/ducks/workouts/types';
+import {
+  Direction, GlobalWorkoutSettings, Sorting, Workout, WorkoutDetails,
+} from '../../state/ducks/workouts/types';
 import utils from '../utils';
 import { STORAGE_KEYS } from './enums';
 import { Exercise } from '../../state/ducks/exercises/types';
@@ -94,5 +96,35 @@ export const editWorkout = async (id: Workout['id'], fields: WorkoutDetails): Pr
   } catch (error) {
     console.log(`Error editing workout: ${id}`, error);
     return workout;
+  }
+};
+
+export const getGlobalWorkoutSettings = async (): Promise<GlobalWorkoutSettings> => {
+  console.log('Getting Global Workout Settings');
+  const settings = await AsyncStorage.getItem(STORAGE_KEYS.WorkoutSettings);
+
+  if (!settings) {
+    const defaultSettings: GlobalWorkoutSettings = {
+      sorting: Sorting.lastModified,
+      direction: Direction.ASC,
+    };
+
+    await AsyncStorage.setItem(STORAGE_KEYS.WorkoutSettings, JSON.stringify(defaultSettings));
+    return defaultSettings;
+  }
+
+  return JSON.parse(settings);
+};
+
+export const setGlobalWorkoutSettings = async (globalWorkoutSettings: GlobalWorkoutSettings) => {
+  const { sorting, direction } = globalWorkoutSettings;
+
+  try {
+    // TODO: Make sure I keep previous workout settings when setting new ones.
+    await AsyncStorage.setItem(STORAGE_KEYS.WorkoutSettings, JSON.stringify(globalWorkoutSettings));
+    return globalWorkoutSettings;
+  } catch (error) {
+    console.log(`Error setting global workout settings: ${sorting} ${direction}`, error);
+    return { sorting, direction };
   }
 };

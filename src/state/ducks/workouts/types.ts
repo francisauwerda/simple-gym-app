@@ -1,16 +1,31 @@
 import { Set } from '../sets/types';
 
-export type Workout = {
-  id: string
-} & WorkoutDetails
-
 export interface WorkoutDetails {
   name: string
 }
 
+export type Workout = {
+  id: string
+} & WorkoutDetails
+
 export type WorkoutWithLastModified = {
   lastModified: Set['date']
 } & Workout;
+
+export enum Sorting {
+  lastModified = 'lastModified',
+  name = 'name'
+}
+
+export enum Direction {
+  ASC = 'ASC',
+  DESC = 'DESC'
+}
+
+export interface GlobalWorkoutSettings {
+  sorting?: Sorting;
+  direction?: Direction
+}
 
 const FETCH = 'workouts/FETCH';
 const FETCH_SUCCESS = 'workouts/FETCH_SUCCESS';
@@ -27,6 +42,12 @@ const EDIT = 'workouts/EDIT';
 const EDIT_SUCCESS = 'workouts/EDIT_SUCCESS';
 const EDIT_FAILURE = 'workouts/EDIT_FAILURE';
 
+const FETCH_GLOBAL_WORKOUT_SETTINGS = 'workouts_settings/FETCH';
+const FETCH_GLOBAL_WORKOUT_SETTINGS_SUCCESS = 'workouts_settings/FETCH_SUCCESS';
+
+const SET_GLOBAL_WORKOUT_SETTINGS = 'workouts_settings/SET';
+const SET_GLOBAL_WORKOUT_SETTINGS_SUCCESS = 'workouts_settings/SET_SUCCESS';
+
 export default {
   FETCH,
   FETCH_SUCCESS,
@@ -39,4 +60,8 @@ export default {
   EDIT,
   EDIT_SUCCESS,
   EDIT_FAILURE,
+  FETCH_GLOBAL_WORKOUT_SETTINGS,
+  FETCH_GLOBAL_WORKOUT_SETTINGS_SUCCESS,
+  SET_GLOBAL_WORKOUT_SETTINGS,
+  SET_GLOBAL_WORKOUT_SETTINGS_SUCCESS,
 };

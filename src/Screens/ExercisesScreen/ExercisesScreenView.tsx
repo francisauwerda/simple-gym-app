@@ -14,7 +14,6 @@ import AddButton from '../../components/AddButton';
 import BottomWrapper from '../../components/BottomWrapper';
 import { DispatchProps, OpenModalProps } from './ExercisesScreen';
 import { getLastModifiedText } from '../helpers';
-import colors from '../../styles/colors';
 import ScreenLayout from '../layout/ScreenLayout';
 
 type Props = {
@@ -81,7 +80,5 @@ const styles = StyleSheet.create({
   flatListContainer: {
     flex: 1,
     flexDirection: 'column',
-    paddingHorizontal: 16,
-    backgroundColor: colors.lightGrey,
   },
 });

@@ -1,4 +1,6 @@
-import { Workout, WorkoutDetails } from '../state/ducks/workouts/types';
+import {
+  Workout, WorkoutDetails, GlobalWorkoutSettings,
+} from '../state/ducks/workouts/types';
 import asyncStorage from './asyncStorage';
 
 export const getWorkouts = async (): Promise<Workout[]> => {
@@ -27,4 +29,19 @@ export const editWorkout = async (id: Workout['id'], fields: WorkoutDetails): Pr
   const workout = await asyncStorage.workouts.editWorkout(id, fields);
 
   return workout;
+};
+
+export const getGlobalWorkoutSettings = async (): Promise<GlobalWorkoutSettings> => {
+  const settings = await asyncStorage.workouts.getGlobalWorkoutSettings();
+
+  return settings;
+};
+
+export const setGlobalWorkoutSettings = async (
+  globalWorkoutSettings: GlobalWorkoutSettings,
+): Promise<GlobalWorkoutSettings> => {
+  const updatedSettings = await asyncStorage
+    .workouts.setGlobalWorkoutSettings(globalWorkoutSettings);
+
+  return updatedSettings;
 };
