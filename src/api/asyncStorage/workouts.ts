@@ -1,12 +1,13 @@
 import { AsyncStorage } from 'react-native';
 
 import {
-  Direction, GlobalWorkoutSettings, Sorting, Workout, WorkoutDetails,
+  GlobalWorkoutSettings, Workout, WorkoutDetails,
 } from '../../state/ducks/workouts/types';
 import utils from '../utils';
 import { STORAGE_KEYS } from './enums';
 import { Exercise } from '../../state/ducks/exercises/types';
 import { getExercises, deleteExercise } from './exercises';
+import { Direction, Sorting } from '../../state/types';
 // import { defaults } from './defaults';
 
 export const getWorkouts = async (): Promise<Workout[]> => {
@@ -75,7 +76,7 @@ export const editWorkout = async (id: Workout['id'], fields: WorkoutDetails): Pr
   console.log(`Editing workout: ${id}`);
   const workouts = await getWorkouts();
 
-  const workout = workouts.filter((w) => w.id === id)[0];
+  const workout = workouts.find((w) => w.id === id);
 
   if (!workout) {
     console.log('No workout found');

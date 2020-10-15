@@ -5,7 +5,7 @@ import {
 import { NavigationScreenProp, NavigationState, NavigationParams } from 'react-navigation';
 
 import {
-  Workout, WorkoutWithLastModified, GlobalWorkoutSettings, Direction, Sorting,
+  Workout, WorkoutWithLastModified, GlobalWorkoutSettings,
 } from '../../state/ducks/workouts/types';
 import Card from '../../components/Card';
 import BottomWrapper from '../../components/BottomWrapper';
@@ -15,6 +15,7 @@ import AddButton from '../../components/AddButton';
 import colors from '../../styles/colors';
 import ScreenLayout from '../layout/ScreenLayout';
 import TouchableComponent from '../../components/TouchableComponent';
+import { Direction, Sorting } from '../../state/types';
 
 type WorkoutsScreenProps = {
   navigation: NavigationScreenProp<NavigationState, NavigationParams>,

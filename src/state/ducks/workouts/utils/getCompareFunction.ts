@@ -1,4 +1,5 @@
-import { GlobalWorkoutSettings, Sorting, Direction } from '../types';
+import { Direction, Sorting } from '../../../types';
+import { GlobalWorkoutSettings } from '../types';
 import {
   compareLastModifiedAsc, compareLastModifiedDesc, compareNameAsc, compareNameDesc,
 } from './compareFunctions';

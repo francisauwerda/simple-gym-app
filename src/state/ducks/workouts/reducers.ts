@@ -1,5 +1,6 @@
+import { Direction, Sorting } from '../../types';
 import types, {
-  Workout, GlobalWorkoutSettings, Sorting, Direction,
+  Workout, GlobalWorkoutSettings,
 } from './types';
 
 export const initialState: {

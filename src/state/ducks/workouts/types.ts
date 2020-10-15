@@ -1,7 +1,12 @@
+import { Direction, Sorting } from '../../types';
 import { Set } from '../sets/types';
 
 export interface WorkoutDetails {
   name: string
+  exerciseSettings?: {
+    sorting: Sorting;
+    direction: Direction;
+  }
 }
 
 export type Workout = {
@@ -12,19 +17,10 @@ export type WorkoutWithLastModified = {
   lastModified: Set['date']
 } & Workout;
 
-export enum Sorting {
-  lastModified = 'lastModified',
-  name = 'name'
-}
-
-export enum Direction {
-  ASC = 'ASC',
-  DESC = 'DESC'
-}
 
 export interface GlobalWorkoutSettings {
-  sorting?: Sorting;
-  direction?: Direction
+  sorting: Sorting;
+  direction: Direction;
 }
 
 const FETCH = 'workouts/FETCH';

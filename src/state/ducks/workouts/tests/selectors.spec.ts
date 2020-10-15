@@ -2,8 +2,7 @@
 import uuidv4 from 'uuidv4';
 
 import { workoutsSelectors } from '..';
-import { AppState } from '../../../types';
-import { Sorting, Direction } from '../types';
+import { AppState, Direction, Sorting } from '../../../types';
 
 const getState = (state: Partial<AppState>): AppState => ({
   workoutsReducer: {

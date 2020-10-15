@@ -4,8 +4,9 @@ import moment from 'moment';
 
 import { sortWorkoutsWithLastModified } from '../utils';
 import {
-  WorkoutWithLastModified, GlobalWorkoutSettings, Sorting, Direction,
+  WorkoutWithLastModified, GlobalWorkoutSettings,
 } from '../types';
+import { Direction, Sorting } from '../../../types';
 
 describe('sortWorkoutsWithLastModified()', () => {
   describe('when sorting by asc order', () => {

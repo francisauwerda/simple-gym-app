@@ -7,7 +7,6 @@ import { Set } from '../../state/ducks/sets/types';
 import { getSets, deleteSet } from './sets';
 // import { defaults } from './defaults';
 
-
 export const getExercises = async (workoutId?: Exercise['workoutId']): Promise<Exercise[]> => {
   try {
     const allExercises: string = await AsyncStorage.getItem(STORAGE_KEYS.Exercises);
