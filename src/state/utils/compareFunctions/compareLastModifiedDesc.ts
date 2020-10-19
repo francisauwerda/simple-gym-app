@@ -1,6 +1,6 @@
-import { WorkoutWithLastModified } from '../../types';
+import { SortableItem } from '../../types';
 
-const compareLastModifiedAsc = (a: WorkoutWithLastModified, b: WorkoutWithLastModified) => {
+const compareLastModifiedAsc = (a: SortableItem, b: SortableItem) => {
   if (a.lastModified > b.lastModified) {
     return -1;
   }

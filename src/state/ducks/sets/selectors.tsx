@@ -3,7 +3,6 @@ import { AppState } from '../../types';
 import { Set, SetWithExtras } from './types';
 import DateWrapper from '../../../wrappers/dateWrapper';
 
-
 const selectSets = (state: AppState) => state.setsReducer.sets;
 
 const selectExerciseSets = (state: AppState, exerciseId: Set['exerciseId']): Set[] => {

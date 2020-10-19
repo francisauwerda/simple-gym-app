@@ -1,14 +1,13 @@
 /* eslint-disable no-undef */
-
 import moment from 'moment';
 
-import { sortWorkoutsWithLastModified } from '../utils';
+import { sortItems } from '..';
 import {
   WorkoutWithLastModified, GlobalWorkoutSettings,
-} from '../types';
-import { Direction, Sorting } from '../../../types';
+} from '../../ducks/workouts/types';
+import { Direction, Sorting } from '../../types';
 
-describe('sortWorkoutsWithLastModified()', () => {
+describe('sortItems()', () => {
   describe('when sorting by asc order', () => {
     it('should return workouts by lastmodified in asc order', () => {
       const workoutsWithLastModified: WorkoutWithLastModified[] = [{
@@ -29,7 +28,7 @@ describe('sortWorkoutsWithLastModified()', () => {
         sorting: Sorting.lastModified,
       };
 
-      const sortedWorkouts = sortWorkoutsWithLastModified(
+      const sortedWorkouts = sortItems(
         workoutsWithLastModified,
         globalWorkoutSettings,
       );
@@ -68,7 +67,7 @@ describe('sortWorkoutsWithLastModified()', () => {
         sorting: Sorting.lastModified,
       };
 
-      const sortedWorkouts = sortWorkoutsWithLastModified(
+      const sortedWorkouts = sortItems(
         workoutsWithLastModified,
         globalWorkoutSettings,
       );

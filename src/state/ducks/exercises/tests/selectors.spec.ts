@@ -4,6 +4,8 @@ import moment from 'moment';
 import { Exercise } from '../types';
 import { exercisesSelectors } from '..';
 import { getDefaultState } from '../../testHelpers';
+import { Direction, Sorting } from '../../../types';
+import { Workout } from '../../workouts/types';
 
 describe('workout selectors', () => {
   describe('selectExercises()', () => {
@@ -63,7 +65,7 @@ describe('workout selectors', () => {
       expect(
         exercisesSelectors.selectExercisesWithLastModified(
           state,
-          'w1',
+          ({ id: 'w1' } as Workout),
         ),
       ).toEqual([{
         id: 'e1',
@@ -71,6 +73,49 @@ describe('workout selectors', () => {
         workoutId: 'w1',
         lastModified: todaysDate,
       }]);
+    });
+
+    it('should return exercises sorted by name in asc order', () => {
+      const workout1 = {
+        id: 'w1',
+        name: 'a-workout1',
+        exerciseSettings: {
+          sorting: Sorting.name,
+          direction: Direction.ASC,
+        },
+      };
+
+      const state = getDefaultState({
+        workoutsReducer: {
+          workouts: [workout1],
+          globalWorkoutSettings: {
+            sorting: Sorting.lastModified,
+            direction: Direction.ASC,
+          },
+        },
+        exercisesReducer: {
+          exercises: [{
+            id: 'a',
+            name: 'a',
+            workoutId: 'w1',
+          }, {
+            id: 'c',
+            name: 'c',
+            workoutId: 'w1',
+          }, {
+            id: 'b',
+            name: 'b',
+            workoutId: 'w1',
+          }],
+        },
+        setsReducer: {
+          sets: [],
+        },
+      });
+
+      const sortedExercises = exercisesSelectors.selectExercisesWithLastModified(state, workout1);
+      const exerciseNames = sortedExercises.map((e) => e.name);
+      expect(exerciseNames).toEqual(['a', 'b', 'c']);
     });
   });
 });

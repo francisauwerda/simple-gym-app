@@ -91,7 +91,7 @@ interface StateProps {
 
 const mapStateToProps = (state: AppState, ownProps: ExercisesScreenProps): StateProps => {
   const workout: Workout = ownProps.navigation.getParam('workout');
-  const exercises = exercisesSelectors.selectExercisesWithLastModified(state, workout.id);
+  const exercises = exercisesSelectors.selectExercisesWithLastModified(state, workout);
 
   return {
     exercises,

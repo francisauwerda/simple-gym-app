@@ -4,7 +4,7 @@ import { exercisesSelectors } from '../exercises';
 import { setsSelectors } from '../sets';
 import { Workout, WorkoutWithLastModified, GlobalWorkoutSettings } from './types';
 import { AppState } from '../../types';
-import { sortWorkoutsWithLastModified } from './utils';
+import { sortItems } from '../../utils';
 
 const selectWorkouts = (state: AppState) => state.workoutsReducer.workouts;
 
@@ -26,7 +26,6 @@ const getLastModifiedWorkout = (state: AppState, workout: Workout): Set['date'] 
   return lastModified;
 };
 
-
 const selectWorkoutsWithLastModified = (state: AppState): WorkoutWithLastModified[] => {
   const workouts = selectWorkouts(state);
   const globalWorkoutSettings = selectGlobalWorkoutSettings(state);
@@ -39,7 +38,7 @@ const selectWorkoutsWithLastModified = (state: AppState): WorkoutWithLastModifie
     };
   });
 
-  const sorted = sortWorkoutsWithLastModified(workoutsWithLastModified, globalWorkoutSettings);
+  const sorted = sortItems(workoutsWithLastModified, globalWorkoutSettings);
 
   return sorted;
 };

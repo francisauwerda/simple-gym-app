@@ -1,12 +1,9 @@
-import { Direction, Sorting } from '../../types';
+import { Settings } from '../../types';
 import { Set } from '../sets/types';
 
 export interface WorkoutDetails {
   name: string
-  exerciseSettings?: {
-    sorting: Sorting;
-    direction: Direction;
-  }
+  exerciseSettings?: Settings
 }
 
 export type Workout = {
@@ -17,11 +14,7 @@ export type WorkoutWithLastModified = {
   lastModified: Set['date']
 } & Workout;
 
-
-export interface GlobalWorkoutSettings {
-  sorting: Sorting;
-  direction: Direction;
-}
+export type GlobalWorkoutSettings = Settings
 
 const FETCH = 'workouts/FETCH';
 const FETCH_SUCCESS = 'workouts/FETCH_SUCCESS';

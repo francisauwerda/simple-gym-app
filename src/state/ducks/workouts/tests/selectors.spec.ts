@@ -32,8 +32,7 @@ describe('workouts selectors', () => {
         workouts: [{
           id: uuidv4(),
           name: 'a-workout1',
-        },
-        {
+        }, {
           id: uuidv4(),
           name: 'c-workout3',
         }, {
