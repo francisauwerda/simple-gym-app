@@ -1,3 +1,4 @@
+import moment from 'moment';
 import { AsyncStorage } from 'react-native';
 
 import { Set, SetDetails } from '../../state/ducks/sets/types';
@@ -14,7 +15,10 @@ export const getSets = async (exerciseId?: Set['exerciseId']): Promise<Set[]> =>
       return [];
     }
 
-    const parsedSets: Set[] = JSON.parse(allSets);
+    const parsedSets: Set[] = JSON.parse(allSets).map((s) => ({
+      ...s,
+      date: moment(s.date),
+    }));
     // const parsedSets = defaults.sets;
 
     if (exerciseId) {

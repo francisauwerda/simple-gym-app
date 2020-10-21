@@ -1,11 +1,12 @@
+import moment from 'moment';
 import { SortableItem } from '../../types';
 
 const compareLastModifiedAsc = (a: SortableItem, b: SortableItem) => {
-  if (a.lastModified < b.lastModified) {
+  if (moment(a.lastModified) < moment(b.lastModified)) {
     return -1;
   }
 
-  if (a.lastModified > b.lastModified) {
+  if (moment(a.lastModified) > moment(b.lastModified)) {
     return 1;
   }
 

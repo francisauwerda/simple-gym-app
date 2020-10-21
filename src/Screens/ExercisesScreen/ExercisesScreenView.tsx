@@ -15,6 +15,8 @@ import BottomWrapper from '../../components/BottomWrapper';
 import { DispatchProps, OpenModalProps } from './ExercisesScreen';
 import { getLastModifiedText } from '../helpers';
 import ScreenLayout from '../layout/ScreenLayout';
+import Sort from '../../components/Sort';
+import { Settings } from '../../state/types';
 
 type Props = {
   navigation: NavigationScreenProp<NavigationState, NavigationParams>;
@@ -25,12 +27,23 @@ type Props = {
 
 export default function ExercisesScreenView(props: Props) {
   const {
-    exercises, navigation, openModal, deleteExercise,
-    workout,
+    exercises, navigation, openModal, deleteExercise, workout, editWorkout,
   } = props;
+
   return (
     <ScreenLayout>
       <>
+        <Sort
+          setSettings={(settings: Settings) => {
+            // TODO: Figure out why the exercises don't re-render
+            editWorkout(workout.id, {
+              exerciseSettings: {
+                ...settings,
+              },
+            });
+          }}
+          settings={workout.exerciseSettings}
+        />
         {exercises.length ? (
           <FlatList
             style={styles.flatListContainer}

@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-  FlatList, StyleSheet, View, Text,
+  FlatList, StyleSheet, View,
 } from 'react-native';
 import { NavigationScreenProp, NavigationState, NavigationParams } from 'react-navigation';
 
@@ -14,8 +14,7 @@ import { getLastModifiedText } from '../helpers';
 import AddButton from '../../components/AddButton';
 import colors from '../../styles/colors';
 import ScreenLayout from '../layout/ScreenLayout';
-import TouchableComponent from '../../components/TouchableComponent';
-import { Direction, Sorting } from '../../state/types';
+import Sort from '../../components/Sort';
 
 type WorkoutsScreenProps = {
   navigation: NavigationScreenProp<NavigationState, NavigationParams>,
@@ -35,34 +34,13 @@ const WorkoutsScreenView = (props: WorkoutsScreenProps) => {
     setGlobalWorkoutSettings,
   } = props;
 
-  const { direction, sorting } = globalWorkoutSettings;
-
   return (
     <ScreenLayout>
       <>
-        <TouchableComponent
-          onPress={() => {
-            setGlobalWorkoutSettings({
-              ...globalWorkoutSettings,
-              direction: direction === Direction.ASC ? Direction.DESC : Direction.ASC,
-            });
-          }}
-          onLongPress={() => {
-            setGlobalWorkoutSettings({
-              ...globalWorkoutSettings,
-              sorting: sorting === Sorting.name ? Sorting.lastModified : Sorting.name,
-            });
-          }}
-        >
-          <View style={styles.sortContainer}>
-            <Text style={styles.sortText}>
-              {sorting === Sorting.name ? 'Sort by name' : 'Sort by date'}
-            </Text>
-            <Text style={styles.sortText}>
-              {direction === Direction.ASC ? '☝️' : '👇'}
-            </Text>
-          </View>
-        </TouchableComponent>
+        <Sort
+          setSettings={setGlobalWorkoutSettings}
+          settings={globalWorkoutSettings}
+        />
         {workouts.length ? (
           <FlatList
             style={styles.flatListContainer}
@@ -114,14 +92,5 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'column',
     backgroundColor: colors.lightGrey,
-  },
-  sortContainer: {
-    flexDirection: 'row',
-    padding: 20,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  sortText: {
-    fontSize: 26,
   },
 });

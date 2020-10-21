@@ -8,11 +8,13 @@ import ExercisesScreenView from './ExercisesScreenView';
 import { Exercise, ExerciseDetails, ExerciseWithLastModified } from '../../state/ducks/exercises/types';
 import { exercisesSelectors } from '../../state/ducks/exercises';
 import actions from '../../state/ducks/exercises/actions';
-import { Workout } from '../../state/ducks/workouts/types';
+import workoutActions from '../../state/ducks/workouts/actions';
+import { Workout, WorkoutDetails } from '../../state/ducks/workouts/types';
 import { ScreenNames } from '../enums';
 import { NavigationParams as ExerciseModalNavigationParams } from './ExerciseModal';
 import { getModalProps } from '../helpers';
 import { AppState } from '../../state/types';
+import { workoutsSelectors } from '../../state/ducks/workouts';
 
 interface ExercisesNavigationState extends NavigationState {
   params: {
@@ -69,7 +71,7 @@ class ExercisesScreenContainer extends React.Component<ExercisesScreenContainerP
 
   render() {
     const {
-      navigation, exercises, workout, deleteExercise,
+      navigation, exercises, workout, deleteExercise, editWorkout, fetchExercises,
     } = this.props;
 
     return (
@@ -79,6 +81,8 @@ class ExercisesScreenContainer extends React.Component<ExercisesScreenContainerP
         workout={workout}
         openModal={this.openModal}
         deleteExercise={deleteExercise}
+        editWorkout={editWorkout}
+        fetchExercises={fetchExercises}
       />
     );
   }
@@ -90,7 +94,9 @@ interface StateProps {
 }
 
 const mapStateToProps = (state: AppState, ownProps: ExercisesScreenProps): StateProps => {
-  const workout: Workout = ownProps.navigation.getParam('workout');
+  const passedWorkout: Workout = ownProps.navigation.getParam('workout');
+  const workout = workoutsSelectors.selectWorkouts(state)
+    .find((w) => w.id === passedWorkout.id);
   const exercises = exercisesSelectors.selectExercisesWithLastModified(state, workout);
 
   return {
@@ -104,6 +110,7 @@ export interface DispatchProps {
   addExercise: (exercise: ExerciseDetails) => void;
   deleteExercise: (id: Exercise['id']) => void;
   editExercise: (id: Exercise['id'], fields: ExerciseDetails) => void;
+  editWorkout: (id: Exercise['workoutId'], fields: Partial<WorkoutDetails>) => void;
 }
 
 const mapDispatchToProps = (dispatch): DispatchProps => ({
@@ -118,6 +125,9 @@ const mapDispatchToProps = (dispatch): DispatchProps => ({
   },
   editExercise: (id: Exercise['id'], fields: ExerciseDetails) => {
     dispatch(actions.editExercise(id, fields));
+  },
+  editWorkout: (id: Exercise['workoutId'], fields: Partial<WorkoutDetails>) => {
+    dispatch(workoutActions.editWorkout(id, fields));
   },
 });
 

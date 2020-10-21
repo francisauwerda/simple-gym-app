@@ -6,7 +6,8 @@ const sortItems = (
   settings?: Settings,
 ) => {
   const compareFunction = getCompareFunction(settings);
-  const sorted = items.sort(compareFunction);
+  const cloned = [...items];
+  const sorted = cloned.sort(compareFunction);
 
   return sorted;
 };
