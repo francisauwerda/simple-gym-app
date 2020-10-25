@@ -33,10 +33,10 @@ const Sort = ({
     >
       <View style={styles.sortContainer}>
         <Text style={styles.sortText}>
-          {sorting === Sorting.name ? 'Sort by name' : 'Sort by date'}
+          {direction === Direction.ASC ? '☝️' : '👇'}
         </Text>
         <Text style={styles.sortText}>
-          {direction === Direction.ASC ? '☝️' : '👇'}
+          {sorting === Sorting.name ? 'Name' : 'Recent'}
         </Text>
       </View>
     </TouchableComponent>
@@ -48,11 +48,13 @@ export default Sort;
 const styles = StyleSheet.create({
   sortContainer: {
     flexDirection: 'row',
-    padding: 20,
-    justifyContent: 'center',
+    paddingVertical: 15,
+    paddingRight: 5,
+    justifyContent: 'flex-end',
     alignItems: 'center',
+    marginTop: 10,
   },
   sortText: {
-    fontSize: 26,
+    fontSize: 16,
   },
 });
