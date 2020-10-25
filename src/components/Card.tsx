@@ -165,7 +165,7 @@ const styles = StyleSheet.create({
   },
   mainText: {
     fontSize: 20,
-    fontWeight: '500',
+    fontWeight: '700',
     lineHeight: 30,
   },
   secondaryText: {

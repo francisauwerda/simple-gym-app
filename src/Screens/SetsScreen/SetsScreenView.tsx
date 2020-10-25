@@ -151,7 +151,7 @@ const styles = StyleSheet.create({
   },
   sectionTitle: {
     fontSize: 28,
-    fontWeight: '500',
+    fontWeight: '700',
   },
   sectionSubtitle: {
     fontSize: 16,
@@ -163,7 +163,7 @@ const styles = StyleSheet.create({
   },
   weight: {
     fontSize: 32,
-    fontWeight: '500',
+    fontWeight: '700',
   },
   unit: {
     fontSize: 18,
@@ -176,7 +176,7 @@ const styles = StyleSheet.create({
   },
   reps: {
     fontSize: 24,
-    fontWeight: '500',
+    fontWeight: '700',
   },
   weightRepsContainer: {
     flexDirection: 'row',

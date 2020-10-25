@@ -43,7 +43,7 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     fontSize: 18,
-    fontWeight: '500',
+    fontWeight: '700',
     paddingLeft: 10,
   },
 });

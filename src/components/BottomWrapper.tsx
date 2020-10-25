@@ -6,17 +6,23 @@ interface Props {
 }
 
 const BottomWrapper = ({ children }: Props) => (
-  <View style={styles.bottomWrapper}>
-    {children}
+  <View style={styles.outerWrapper}>
+    <View style={styles.bottomWrapper}>
+      {children}
+    </View>
   </View>
 );
 
 export default BottomWrapper;
 
 const styles = StyleSheet.create({
+  outerWrapper: {
+    display: 'flex',
+    alignItems: 'center',
+  },
   bottomWrapper: {
-    paddingVertical: 10,
-    borderWidth: 0.5,
+    marginBottom: 10,
+    borderWidth: 0.1,
     backgroundColor: 'white',
     borderRadius: 8,
   },
