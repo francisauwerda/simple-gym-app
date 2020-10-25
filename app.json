@@ -3,7 +3,6 @@
     "name": "Simple gym app",
     "slug": "simple-gym-app",
     "privacy": "public",
-    "sdkVersion": "35.0.0",
     "platforms": [
       "ios",
       "android",
