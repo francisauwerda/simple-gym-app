@@ -33,6 +33,7 @@ export default function ExercisesScreenView(props: Props) {
   return (
     <ScreenLayout>
       <>
+        {exercises.length > 1 && (
         <Sort
           setSettings={(settings: Settings) => {
             // TODO: Figure out why the exercises don't re-render
@@ -44,6 +45,8 @@ export default function ExercisesScreenView(props: Props) {
           }}
           settings={workout.exerciseSettings}
         />
+        )}
+
         {exercises.length ? (
           <FlatList
             style={styles.flatListContainer}

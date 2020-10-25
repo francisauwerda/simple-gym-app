@@ -37,10 +37,13 @@ const WorkoutsScreenView = (props: WorkoutsScreenProps) => {
   return (
     <ScreenLayout>
       <>
+        {workouts.length > 1 && (
         <Sort
           setSettings={setGlobalWorkoutSettings}
           settings={globalWorkoutSettings}
         />
+        )}
+
         {workouts.length ? (
           <FlatList
             style={styles.flatListContainer}
