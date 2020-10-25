@@ -1,6 +1,11 @@
 # Simple Gym App
 
-This app helps me track progress in the gym and ensures that every session I'm lifting more than the last.
+This app is used to track progress in the gym and ensures that every session you are lifting more.
+
+[![download-play-store](./google-play-badge.png)](https://play.google.com/store/apps/details?id=com.simplegymapp.simplegymapp)
+[![download-app-store](./app-store-badge.png)](https://apps.apple.com/us/app/simple-gym-app/id1496298387)
+
+
 
 ![alt-text](./assets/all-screenshots.png)
 
@@ -12,11 +17,11 @@ This app helps me track progress in the gym and ensures that every session I'm l
 
 ### Code structure
 
-I structured the redux code in a *feature-first* over a more traditional *function-first* approach. Inspiration was found in the follow article: [re-ducks](https://www.freecodecamp.org/news/scaling-your-redux-app-with-ducks-6115955638be/). 
+*Feature-first* over a *function-first* approach. Inspired by: [re-ducks](https://www.freecodecamp.org/news/scaling-your-redux-app-with-ducks-6115955638be/). 
 
-With the *function-first* approach you have one `./reducers` folder which contains every reducer from the app. This would be the same for `./selectors`, `./containers`, `./actions`, etc. 
+*Function-first* gives you one `./reducers` folder which contains every reducer from the app. This would be the same for `./selectors`, `./containers`, `./actions`, etc. 
 
-The *feature-first* [re-ducks](https://www.freecodecamp.org/news/scaling-your-redux-app-with-ducks-6115955638be/) approach has one folder per feature, which contains all logic related to that feature. This helped keep all related code together.  
+The *feature-first* approach groups all logic related to that feature into one folder.
 
 ![alt-text](./assets/half_folder-structure.png)
 
