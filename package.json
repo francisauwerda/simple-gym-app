@@ -13,7 +13,7 @@
     "expo": "^36.0.0",
     "formik": "^2.0.3",
     "lodash": "^4.17.20",
-    "moment": "^2.24.0",
+    "moment": "^2.29.2",
     "react": "16.9.0",
     "react-dom": "16.9.0",
     "react-native": "https://github.com/expo/react-native/archive/sdk-36.0.1.tar.gz",
